@@ -162,7 +162,11 @@ class UserHeader extends Component {
                 <div className="flex-between padd15 shadow-bottom margin20-bottom">
                     <div>
                         <div className="">
-                            <img src="../../images/logo1.png" style={{ width: 45 }} />
+                            <Link to="/dashboard">
+                                <img
+                                    src="../../images/logo1.png"
+                                    style={{ width: 45 }} />
+                            </Link>
                         </div>
                     </div>
                     <div>

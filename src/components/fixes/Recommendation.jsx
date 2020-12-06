@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
+import { commafy } from '../../helperFunctions/commafy'
 
 const Recommendation = ({ fix }) => {
 
@@ -39,7 +40,7 @@ const Recommendation = ({ fix }) => {
                     <span className="font12"> {fix.username}</span>
                 </div>
                 <div className="font17 bold text-green">
-                    ₦<span className="text-green bold"> {fix.price}</span>
+                    ₦<span className="text-green bold"> {commafy(fix.price)}</span>
                 </div>
 
 

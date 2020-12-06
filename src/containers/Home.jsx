@@ -139,7 +139,7 @@ class Home extends Component {
                                 <div
                                     className="padd10"
                                     style={{ marginBottom: -7 }}>
-                                    <span>Find</span>
+                                    <span>Find </span>
                                     <span
                                         className="bold text-orange">
                                         Services

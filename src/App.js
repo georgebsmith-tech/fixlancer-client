@@ -41,7 +41,6 @@ function App() {
 
   return (
     <div>
-
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
@@ -73,10 +72,7 @@ function App() {
         <Route path="/search-fix" component={SearchFix} />
         <Route path="/section/:slug" component={Section} />
 
-
-
         {/* Admin Routes */}
-
         <Route path="/admin/all-users" component={AllUsers} />
         <Route path="/admin/all-orders" component={AllOrders} />
         <Route path="/admin/all-messages" component={AllMessages} />

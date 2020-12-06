@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-
+import { commafy } from '../../helperFunctions/commafy'
 const FeaturedFix = ({ fix, handleSlugChange }) => {
     console.log(handleSlugChange)
     const styles = {
@@ -42,7 +42,7 @@ const FeaturedFix = ({ fix, handleSlugChange }) => {
                     <span> 2.4</span> <span>(4)</span>
                 </div>
                 <div className='text-green bold'>
-                    ₦{fix.price}
+                    ₦{commafy(fix.price)}
                 </div>
 
             </div>
