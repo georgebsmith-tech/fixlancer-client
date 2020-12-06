@@ -1,0 +1,45 @@
+.form-group{
+    padding:15px;
+    background-color:white;
+    margin-bottom: 25px;
+    box-shadow: 0px 0.15rem 1.75rem 0px rgba(58, 59, 69, 0.15);
+    border-radius: 5px;
+    
+   
+}
+
+.create-fix-subcategory{
+    margin-top: -12px;
+}
+
+.grid-2{
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    column-gap: 12px;
+}
+
+.section-head{
+    background:#f8f9fc ;
+    padding: 15px 25px;
+    border: 1px solid #fff;
+    box-shadow: 0px 0.15rem 1.75rem 0px rgba(58, 59, 69, 0.15);
+    border-radius: 5px;
+    i{
+       margin-right: 6px;
+    }
+
+}
+
+.important,.warning{
+    font-size: 1.3rem;
+}
+
+.form-group.the-first{
+    margin-top: 15px;
+}
+
+.section-head span,.section-head i{
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: black;
+}

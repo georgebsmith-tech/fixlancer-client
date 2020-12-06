@@ -1,0 +1,220 @@
+import React, { Component } from 'react'
+import { Link, withRouter, } from 'react-router-dom'
+import axios from 'axios'
+import { domain } from '../helperFunctions/domain'
+
+
+class UserHeader extends Component {
+    state = {
+        searchTerm: "",
+        user: { summary: [[1, 0], [1, 0], [1, 0], [3, 0]] },
+        showProfile: false,
+        showRequests: false,
+        showNav: false,
+        searchError: false
+    }
+
+    handleInput = (e) => {
+        this.setState({ searchTerm: e.target.value.trim() })
+        console.log(this.state)
+    }
+    handleSearch = () => {
+        if (!this.state.searchTerm) {
+            this.setState({ searchError: true })
+            return
+
+        }
+
+        this.setState({ searchError: false })
+        console.log(this.props.history)
+        this.props.history.push(`/search-fix?term=${this.state.searchTerm}&pg=1`)
+
+    }
+
+    componentDidMount = async () => {
+        console.log("here in cdm")
+        const response = await axios.get(`${domain}/api/users/${localStorage.getItem("username")}`)
+        this.setState({ user: response.data.data })
+        console.log(response.data.data)
+
+
+    }
+
+    toggleProfile = () => {
+        this.setState((prevState) => ({ showProfile: !prevState.showProfile }))
+
+    }
+    toggleRequest = () => {
+        this.setState((prevState) => ({ showRequests: !prevState.showRequests }))
+
+    }
+    closeAllToggle = () => {
+        //  this.setState((prevState)=>{
+        //      if(prevState.showProfile){
+        //          return {showProfile:false}
+        //      }
+        //  })
+    }
+
+    handleShowNav = () => {
+        this.setState((prevState) => ({ showNav: !prevState.showNav }))
+    }
+    render() {
+        const style = {
+            chopbarIMG: {
+                width: 30,
+                height: "100%",
+                borderRadius: 10,
+                marginRight: 7,
+
+
+            }
+        }
+        return (
+            <header onClick={this.closeAllToggle}>
+                <nav className={`padd15 ${!this.state.showNav && 'hide'}`}>
+                    <div
+                        className="flex-between"
+                        style={{ borderBottom: "1px solid #ddd" }}>
+                        <div className="flex align-center padd10-bottom">
+                            <img src="https://www.fixlancer.com/wp-content/themes/fixFIX/cb.png" alt="Buy chopbarh Image"
+                                style={style.chopbarIMG} />
+                            <span className="font16">Buy Chopbarh
+                            Vouchers
+                        </span>
+                        </div>
+                        <div>
+                            <i
+                                onClick={this.handleShowNav}
+                                className="fa fa-close modal-close font18"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <div className="logo-maxi-container">
+
+                            <img src="../../images/logo.png" alt="" />
+                        </div>
+                        <div className="mobile-finance mobile">
+                            <a className="block button header-top-btn" href="/dashboard/finance">
+                                <i className="fa fa-money font16 text-orange margin3-right"></i>
+                                <span className="font16 text-orange">Balance:</span>
+                                <span className="font16 text-orange">{this.state.user.summary[1][1].toFixed(2)}</span>
+                            </a>
+                            <div>
+                                <button className="button header-top-btn font16">Deposit Funds</button>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <ul className="mobile-nav-container">
+                        <li>
+                            <Link to="/dashboard">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="#" class="drop-down-profile" onClick={this.toggleProfile}>Profiie <i class="fa fa-caret-down"></i>
+                            </Link>
+                            {this.state.showProfile && <ul className={"drop-down-container drop-profile "}>
+                                <li><Link to={`/u/${this.state.user.username}`} className="drop">View Profile</Link></li>
+                                <li><Link to="/dashboard/edit" className="drop">Edit Profile</Link></li>
+                            </ul>
+
+                            }
+
+                        </li>
+                        <li>
+                            <a href="#" className="drop-down-requests" onClick={this.toggleRequest}>Job Request <i className="fa fa-caret-down"></i></a>
+                            {
+                                this.state.showRequests && <ul className="drop-down-container drop-requests">
+                                    <li><a href="/dashboard/post-job-request" className="drop">Post a Request</a></li>
+                                    <li><a href="/dashboard/my-requests" className="drop">My Requests</a></li>
+                                    {this.state.user.seller &&
+                                        <li><a href="/dashboard/job-requests" className="drop">All Requests</a></li>
+
+                                    }
+
+                                </ul>
+                            }
+                        </li>
+                        <li>
+                            <Link to="/dashboard/my-sales">Sales ({this.state.user.summary[2][1]})<span className="header-ongoing-sales"></span></Link>
+                        </li>
+                        <li>
+                            <a href="/dashboard/my-orders">Orders ({this.state.user.summary[3][1]}) <span className="header-ongoing-orders"></span></a>
+                        </li>
+                        <li>
+                            <a href="/dashboard/create-a-fix">Start Selling </a>
+                        </li>
+                        <li>
+                            <a href="/dashboard/affiliate">Affiliate </a>
+                        </li>
+                        <li>
+                            <a href="/" className="mobile-log-out">Log Out </a>
+                        </li>
+
+
+
+                    </ul>
+
+
+                </nav>
+
+                <div className="flex-between padd15 shadow-bottom margin20-bottom">
+                    <div>
+                        <div className="">
+                            <img src="../../images/logo1.png" style={{ width: 45 }} />
+                        </div>
+                    </div>
+                    <div>
+                        <ul className="flex align-center">
+                            <li className="margin20-right relative">
+                                <input type="text" placeholder="Search" className={`no-outline border-smooth padd10-sides padd5-top-bottom font14 ${this.state.searchError && 'border-red'}`} onChange={this.handleInput} />
+                                {
+                                    this.state.searchError && <div className="font12 absolute"
+                                        style={{ bottom: -14 }}>
+                                        <i className="fa fa-exclamation text-red margin3-right"></i>
+                                        <span className="text-red">search field can not be empty</span>
+
+                                    </div>
+                                }
+
+                                <i
+                                    className="fa fa-search absolute font14 padd10 pointer"
+                                    style={{ right: 0, top: -2 }}
+                                    onClick={this.handleSearch}>
+
+                                </i>
+                            </li>
+                            <li className="margin20-right">
+                                <Link to="/dashboard/inbox">
+
+
+                                    <i className="fa fa-envelope font18"></i>
+                                </Link>
+                            </li>
+                            <li className="margin20-right">
+                                <Link to="/dashboard/finance/notices">
+
+
+                                    <i className="fa fa-bell font18"></i>
+                                </Link>
+                            </li>
+                            <li>
+                                <div
+                                    className={`toggle-nav ${this.state.showNav ? "invisible" : "visible"}`}
+                                    style={{ position: "relative", top: 0 }}
+                                    onClick={this.handleShowNav}>
+                                    <div></div>
+                                    <div></div>
+                                    <div></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+        );
+    }
+}
+
+export default withRouter(UserHeader);

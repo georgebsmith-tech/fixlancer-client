@@ -1,0 +1,43 @@
+.message-received,.message-sent{
+    // display: grid;
+    // grid-template-columns: 30px auto;
+    // column-gap: 5px;
+    width: fit-content;
+    
+}
+
+.message-sent{
+    background: #f2f2f2;
+    border-radius: 15px 20px 0 15px;
+
+}
+.message-received{
+    border:1px solid #ddd;
+     border-radius: 15px 20px 15px 0;
+     max-width: 72%;
+}
+.main{
+    min-height: 77vh;
+}
+.message-container{
+    height: 50vh;
+    overflow-y:auto;
+    textarea{
+        margin-bottom: 5px;
+    }
+}
+
+.fill-width{
+    width: 100%;
+}
+.padd8{
+    padding: 8px;
+}
+.outline-none{
+    outline: none;
+}
+.send-chat-button{
+ margin-top: 5px;
+ width: fit-content;
+ padding: 6px 12px;
+}

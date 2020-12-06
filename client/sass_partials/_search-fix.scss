@@ -1,0 +1,104 @@
+
+.fix-categories{
+    position: relative;
+    background: transparent;
+    cursor: pointer;
+    padding:6px 12px ;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 3px;
+    .option{
+        white-space: nowrap;
+        padding-bottom:10px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+    .options{
+        display: none;
+        position: absolute;
+        background: white;
+        z-index: 2;
+        padding: 10px 25px;
+        top: 32px;
+        left: 0px;
+        
+    }
+    &:hover .options{
+        display: block;
+    }
+}
+
+
+.search-by-cat-container{
+    position: relative;
+
+    i{
+        position:absolute;
+        right: 0px;
+        top: 4px;
+        cursor: pointer;
+        padding: 8px 15px;
+    }
+}
+.search-by-cat{
+    margin-top: 4px;
+    padding: 7px 12px;
+    width: 100%;
+    outline: none;
+}
+
+.search-pagination{
+    
+}
+
+.page-nav-holder{
+    .fa{
+        margin: 0px 7px;
+        background: white;
+        padding: 5px 8px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    }
+    span{
+        padding: 5px 8px;
+        color: white;
+        background: #5a5c69;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+    };
+}
+
+.cat-scroll-container{
+    flex-wrap: nowrap;
+    // justify-content: space-between;
+    &>div{
+        padding: 5px 15px;
+        border: 1px solid #ddd;
+        white-space: nowrap;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+}
+
+
+.filterBtn{
+    width: 90%; padding: 6px; cursor: pointer;
+    outline: none;
+    &:hover{
+       background: lightgray;
+    }
+    &:hover span{
+        color: white;
+    }
+    &:hover i{
+        color: white;
+    }
+
+
+}
+
+// .fix-categories-container{
+//     transform: translateX(-100vw);
+//     transition: 1s;
+// }

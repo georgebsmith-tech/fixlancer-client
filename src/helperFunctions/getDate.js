@@ -1,0 +1,25 @@
+export const getDate = (date) => {
+    if (!date)
+        return "N/A"
+    date = new Date(date)
+    let months = ["Jan", "Feb", "Mar", "Apr", "MAy", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    let newDate = `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`
+    return newDate
+}
+
+
+
+export const getDateAndTime = (date) => {
+    date = new Date(date)
+    let hr;
+    if (date.getHours() === 0)
+        hr = 12
+    else if (date.getHours() >= 13)
+        hr = date.getHours() - 12
+    else
+        hr = date.getHours()
+
+    // let hr = date.getHours() >= 13 ? date.getHours() - 12 : date.getHours()
+    let period = date.getHours() >= 12 ? "pm" : "am"
+    return getDate(date) + ` ${hr}:${date.getMinutes()} ${period}`
+}

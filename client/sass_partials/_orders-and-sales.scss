@@ -1,0 +1,46 @@
+.sales-and-orders-headings{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+   
+    background-color: #f8f9fc;
+
+    a{
+        display: block;
+        color: #2F9CDD;
+        text-align: center;
+        // background: red;
+        padding: 10px;
+        border-left: 2px solid #ddd;
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        &:hover{
+            text-decoration: underline;
+            
+        }
+        &.active,&.active span{
+            background: #5aba79;
+            color: white;
+        }
+        span{
+            color: #2F9CDD;
+        }
+    }
+}
+
+.d-order-and-sale{
+
+}
+
+
+
+img{
+    width: 100%;
+    border-radius: 6px;
+    object-fit: cover;
+    display: block;
+    // height: 100%;
+}
+
+.fa-circle,.fa-clock{
+    font-size: 0.7rem;
+}
