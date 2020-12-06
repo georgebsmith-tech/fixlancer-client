@@ -22,6 +22,14 @@ import PostJobRequest from './containers/requests/PostJobRequest'
 import AllRequests from './containers/requests/AllRequests'
 import MyRequests from './containers/requests/MyRequests'
 import RequestOffers from './containers/requestOffers/RequestOffers'
+import SearchFix from './containers/search/SearchFix'
+import Section from './containers/FixSection/Section'
+import Affiliate from './containers/affiliate/Affiliate'
+import PayForExtra from './containers/payForExtra/PayForExtra'
+import Featured from './containers/featured/Featured'
+import Finance from './containers/finance/Finance'
+import Withdraw from './containers/finance/Withdraw'
+import HowItWorks from './containers/howItWorks/HowItWorks'
 
 import AllUsers from './containers/admin/allUsers/AllUsers'
 import AllOrders from './containers/admin/allOrders/AllOrders'
@@ -38,7 +46,9 @@ function App() {
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Registration} />
+        <Route path="/how-it-works/" component={HowItWorks} />
         <Route path="/reset-password" component={Reset} />
+        <Route path="/dashboard/finance/withdraw" component={Withdraw} />
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/dashboard/create-a-fix" component={CreateFix} />
         <Route path="/dashboard/edit" component={EditProfile} />
@@ -46,6 +56,9 @@ function App() {
         <Route path="/dashboard/finance/notices" component={Notices} />
         <Route path="/dashboard/inbox" component={Inbox} />
         <Route path="/dashboard/finance/transactions" component={TransactionHistory} />
+        <Route path="/dashboard/finance" exact component={Finance} />
+        <Route path="/dashboard/pay-for-extra" component={PayForExtra} />
+        <Route path="/featured" component={Featured} />
         <Route path="/fix/:subCatSlug/:titleSlug" component={DetailedFix} />
         <Route path="/order-fix/:slug" component={OrderFix} />
         <Route path="/dashboard/order-chat" component={OrderChat} />
@@ -55,7 +68,10 @@ function App() {
         <Route path="/dashboard/my-requests" component={MyRequests} />
         <Route path="/dashboard/post-job-request" component={PostJobRequest} />
         <Route path="/dashboard/job-requests" component={AllRequests} />
+        <Route path="/dashboard/affiliate" component={Affiliate} />
         <Route path="/dashboard/:slug" component={RequestOffers} />
+        <Route path="/search-fix" component={SearchFix} />
+        <Route path="/section/:slug" component={Section} />
 
 
 

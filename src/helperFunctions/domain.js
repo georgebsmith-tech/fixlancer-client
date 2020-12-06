@@ -1,4 +1,8 @@
-// export const domain = "http://localhost:4000"
 
 
-export const domain = "https://fixlancer-api.herokuapp.com"
+
+// 
+
+export const domain = process.env.NODE_ENV === "development" ? "http://localhost:4000" : "https://fixlancer-api.herokuapp.com"
+
+

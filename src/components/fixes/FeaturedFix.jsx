@@ -31,7 +31,7 @@ const FeaturedFix = ({ fix, handleSlugChange }) => {
                     }
                     onClick={handleSlugChange}
                     className="font16">
-                    {fix.title}
+                    {fix.title.substr(0, 45)}...
                 </Link>
 
 

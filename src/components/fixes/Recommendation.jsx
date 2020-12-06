@@ -15,7 +15,7 @@ const Recommendation = ({ fix }) => {
                     <h3 className="font15">
                         <Link to={`/fix/${fix.subcatSlug}/${fix.titleSlug}`
                         }>
-                            {fix.title}
+                            {fix.title.substr(0, 45)}...
                         </Link>
 
                     </h3>

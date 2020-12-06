@@ -85,7 +85,7 @@ class Login extends Component {
 
                             <form>
                                 <div className="padd20 margin30-top margin30-bottom">
-                                    <Input text={"Username or Emai"}
+                                    <Input text={"Username or Email"}
                                         handleChange={this.handleUsername}
                                     />
                                     <Input type={"password"} text={"Password"}
