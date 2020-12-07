@@ -1,79 +1,4 @@
 @import-normalize;
-.honourable-mention {
-  display: block;
-  width: 130px;
-}
-.honourable-mention:first-child {
-  margin-right: 10px;
-}
-
-.honourable-mention-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-template-columns: repeat(2, 1fr);
-  width: 100%;
-  flex-wrap: wrap;
-}
-
-.index-footer {
-  background: #04081d;
-}
-
-.index-footer-nav {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.index-footer-nav a:hover {
-  color: white !important;
-}
-
-.index-copy {
-  margin-top: -20px;
-  padding-bottom: 20px;
-}
-
-.featured-card-large {
-  width: 240px;
-  border: 1px solid #ddd;
-  margin-right: 15px;
-}
-.featured-card-large img {
-  border-radius: 0px !important;
-  object-fit: cover;
-  height: 100%;
-}
-.featured-card-large .title-featured {
-  height: 50px;
-}
-.featured-card-large .title-featured a:hover {
-  color: #2F9CDD;
-}
-
-.login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-}
-.login-wrapper > div {
-  width: 100vw;
-  max-width: 400px;
-}
-
-.logo-wrapper-login {
-  display: flex;
-  padding: 30px;
-  justify-content: center;
-}
-.logo-wrapper-login img {
-  width: 140px;
-}
-.logo-wrapper-login button {
-  cursor: pointer;
-}
-
 @font-face {
   font-family: "Nunito";
   font-style: italic;
@@ -2030,6 +1955,81 @@ a.header-top-btn {
   animation-duration: 9s;
 }
 
+.honourable-mention {
+  display: block;
+  width: 130px;
+}
+.honourable-mention:first-child {
+  margin-right: 10px;
+}
+
+.honourable-mention-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.index-footer {
+  background: #04081d;
+}
+
+.index-footer-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.index-footer-nav a:hover {
+  color: white !important;
+}
+
+.index-copy {
+  margin-top: -20px;
+  padding-bottom: 20px;
+}
+
+.featured-card-large {
+  width: 240px;
+  border: 1px solid #ddd;
+  margin-right: 15px;
+}
+.featured-card-large img {
+  border-radius: 0px !important;
+  object-fit: cover;
+  height: 100%;
+}
+.featured-card-large .title-featured {
+  height: 50px;
+}
+.featured-card-large .title-featured a:hover {
+  color: #2F9CDD;
+}
+
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.login-wrapper > div {
+  width: 100vw;
+  max-width: 400px;
+}
+
+.logo-wrapper-login {
+  display: flex;
+  padding: 30px;
+  justify-content: center;
+}
+.logo-wrapper-login img {
+  width: 140px;
+}
+.logo-wrapper-login button {
+  cursor: pointer;
+}
+
 .finance-summary {
   background: white;
   padding: 18px 25px;
@@ -3288,16 +3288,12 @@ a.control-btn {
   cursor: pointer;
 }
 .fix-categories .options {
-  display: none;
   position: absolute;
   background: white;
   z-index: 2;
   padding: 10px 25px;
   top: 32px;
   left: 0px;
-}
-.fix-categories:hover .options {
-  display: block;
 }
 
 .search-by-cat-container {

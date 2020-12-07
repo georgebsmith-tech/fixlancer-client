@@ -149,7 +149,7 @@ class UserHeader extends Component {
                             <a href="/dashboard/affiliate">Affiliate </a>
                         </li>
                         <li>
-                            <a href="/" className="mobile-log-out">Log Out </a>
+                            <Link to="/" className="mobile-log-out">Log Out </Link>
                         </li>
 
 
@@ -172,7 +172,10 @@ class UserHeader extends Component {
                     <div>
                         <ul className="flex align-center">
                             <li className="margin20-right relative">
-                                <input type="text" placeholder="Search" className={`no-outline border-smooth padd10-sides padd5-top-bottom font14 ${this.state.searchError && 'border-red'}`} onChange={this.handleInput} />
+
+                                <input
+
+                                    type="text" placeholder="Search" className={`no-outline border-smooth padd10-sides padd5-top-bottom font14 ${this.state.searchError && 'border-red'}`} onChange={this.handleInput} />
                                 {
                                     this.state.searchError && <div className="font12 absolute"
                                         style={{ bottom: -14 }}>

@@ -15,7 +15,6 @@
         }
     }
     .options{
-        display: none;
         position: absolute;
         background: white;
         z-index: 2;
@@ -23,9 +22,6 @@
         top: 32px;
         left: 0px;
         
-    }
-    &:hover .options{
-        display: block;
     }
 }
 

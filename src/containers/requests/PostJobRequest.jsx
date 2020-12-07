@@ -51,7 +51,7 @@ const PostJobRequest = ({ history }) => {
 
         }
         function sendPost(body) {
-            fetch("/api/requests",
+            fetch(`${domain}/api/requests`,
                 {
                     method: "post",
                     body: JSON.stringify(body),
@@ -96,7 +96,7 @@ const PostJobRequest = ({ history }) => {
                                     placeholder="Title"
                                     name="post-title" id="post-title"
                                     value={title}
-                                    onChange={(e) => setTitle(e.target.value.trim())}
+                                    onChange={(e) => setTitle(e.target.value)}
 
                                 />
                                 </fieldset>
@@ -109,7 +109,7 @@ const PostJobRequest = ({ history }) => {
                                         cols="30"
                                         rows="6"
                                         value={description}
-                                        onChange={(e) => setDescription(e.target.value.trim())}>
+                                        onChange={(e) => setDescription(e.target.value)}>
 
                                     </textarea>
                                 </fieldset>
