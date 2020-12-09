@@ -26,6 +26,11 @@ const CreateFix = ({ history }) => {
     const [extra2Amount, setExtra2Amount] = useState("")
     const [extra1Amount, setExtra1Amount] = useState("")
     const [video, setVideo] = useState({})
+    const [workSample1, setWorkSample1] = useState("")
+    const [workSample2, setWorkSample2] = useState("")
+    const [workSample3, setWorkSample3] = useState("")
+    const [workSample4, setWorkSample4] = useState("")
+    const [workSample5, setWorkSample5] = useState("")
     const [isLoading, setIsloading] = useState(true)
     useEffect(() => {
         async function fetchData() {
@@ -83,6 +88,14 @@ const CreateFix = ({ history }) => {
         formData.append("extra2_desc", extra2Desc)
         formData.append("extra2_amount", extra2Amount)
         formData.append("video", video)
+        formData.append("workSamples", [
+            workSample1,
+            workSample2,
+            workSample3,
+            workSample4,
+            workSample5
+        ]
+        )
         try {
             const response = await axios.post(`${domain}/api/fixes`, body, {
                 headers: {
@@ -438,32 +451,91 @@ const CreateFix = ({ history }) => {
                                 </section>
                             </div>
                             <div>
-                                <div
-                                    className="section-head">
-                                    <i
-                                        className="fa fa-camera-retro">
+                                <div>
+                                    <div
+                                        className="section-head">
+                                        <i
+                                            className="fa fa-camera-retro">
 
-                                    </i>
-                                    <span>
-                                        Video Upload
+                                        </i>
+                                        <span>
+                                            Video Upload
                                     </span>
-                                </div>
-
-                                <section className="form-group">
-
-                                    <div>
-                                        <fieldset>
-                                            <input
-                                                type="file"
-                                                name="video"
-                                                id="video"
-                                                onChange={handleVideoChange}
-
-                                            />
-                                        </fieldset>
-
                                     </div>
-                                </section>
+
+                                    <section className="form-group">
+
+                                        <div>
+                                            <fieldset>
+                                                <input
+                                                    type="file"
+                                                    name="video"
+                                                    id="video"
+                                                    onChange={handleVideoChange}
+
+                                                />
+                                            </fieldset>
+
+                                        </div>
+                                    </section>
+                                </div>
+                                <div>
+                                    <div
+                                        className="section-head">
+                                        <i
+                                            className="fa fa-briefcase">
+
+                                        </i>
+                                        <span>
+                                            Work Samples
+                                    </span>
+                                    </div>
+
+                                    <section className="form-group">
+
+                                        <div>
+                                            <fieldset>
+                                                <input
+                                                    type="text"
+                                                    onChange={(e) => setWorkSample1(e.target.vale)}
+                                                    placeholder="Url 1(Link to work)"
+                                                    value={workSample1}
+
+
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={workSample2}
+                                                    placeholder="Url 2(Link to work)"
+                                                    onChange={(e) => setWorkSample2(e.target.vale)}
+
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={workSample3}
+                                                    placeholder="Url 3(Link to work)"
+                                                    onChange={(e) => setWorkSample3(e.target.vale)}
+
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={workSample4}
+                                                    onChange={(e) => setWorkSample4(e.target.vale)}
+                                                    placeholder="Url 4(Link to work)"
+
+                                                />
+                                                <input
+                                                    type="text"
+                                                    value={workSample5}
+                                                    placeholder="Url 5(Link to work)"
+                                                    onChange={(e) => setWorkSample5(e.target.vale)}
+
+                                                />
+                                            </fieldset>
+
+                                        </div>
+                                    </section>
+                                </div>
                             </div>
                         </section>
                         <div>

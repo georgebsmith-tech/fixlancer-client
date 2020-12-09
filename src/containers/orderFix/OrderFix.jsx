@@ -5,7 +5,7 @@ import { domain } from '../../helperFunctions/domain'
 import { Link } from 'react-router-dom'
 import PageHeader from '../../components/PageHeader'
 
-
+import { FaClock } from 'react-icons/fa'
 function Modal() {
     return (
         <div class="modal-wrapper">
@@ -181,8 +181,11 @@ const OrderFix = ({ match, location, history }) => {
                                         </Link>
                                     </div>
                                     <div>
-                                        <i className="fas fa-clock"></i>
-                                        <span>{fix.delivery_days} day(s)</span>
+                                        <FaClock
+                                            size="1.3rem"
+                                            className="margin3-right"
+                                        />
+                                        <span className="font15">{fix.delivery_days} day(s)</span>
                                     </div>
 
 
@@ -203,7 +206,7 @@ const OrderFix = ({ match, location, history }) => {
                                 <div>₦{balance.toFixed(2)}</div>
                             </div>
                             <div
-                                className="flex-between font15"
+                                className="flex-between font15 margin10-top"
                                 style={{ marginBottom: 25 }}>
                                 <div>
                                     Fix Price

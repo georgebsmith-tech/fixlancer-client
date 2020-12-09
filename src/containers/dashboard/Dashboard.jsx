@@ -15,6 +15,8 @@ import DashBoardProfile from './DashBoardProfile'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
+import { FaSortAmountUp } from 'react-icons/fa'
+
 
 
 class Dahsboard extends Component {
@@ -59,7 +61,7 @@ class Dahsboard extends Component {
                         <main
                             className="main">
                             <div
-                                className="margin10-top cat-pictures">
+                                className="cat-pictures">
                                 <Link
                                     to="/section/writing"
                                     className="margin20-right">
@@ -82,8 +84,7 @@ class Dahsboard extends Component {
                                     />
                                 </Link>
                             </div>
-                            <div
-                                className="margin40-top ">
+                            <div className="margin30-top">
                                 <h2
                                     className="bold font20 margin20-bottom">
                                     Categories
@@ -143,11 +144,8 @@ class Dahsboard extends Component {
                                     <Link
                                         to="/dashboard/my-orders" className="flex-between">
                                         <div>
-                                            <i
-                                                className="fas fa-sort-amount-up" aria-hidden="true"
-                                                style={{ color: "#dddfeb" }}>
-
-                                            </i>
+                                            <FaSortAmountUp
+                                                style={{ color: "red" }} />
                                             <span> Ongoing Orders</span>
 
                                         </div>

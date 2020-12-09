@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import { commafy } from '../../helperFunctions/commafy'
+import { FaClock } from 'react-icons/fa';
 
 const Recommendation = ({ fix }) => {
     let userRate = 12
@@ -54,8 +55,7 @@ const Recommendation = ({ fix }) => {
                     </h3>
                     <div className="flex line-height margin10-top">
                         <div className="  margin20-right ">
-                            <i className="fas fa-clock font12
-                          margin5-right"></i>
+                            <FaClock size="0.9rem" />
                             <span className="font12"> {fix.delivery_days} days</span>
                         </div>
                         {
@@ -72,7 +72,7 @@ const Recommendation = ({ fix }) => {
                     <span className="font12"> {fix.username}</span>
                 </div>
                 <div className="font17 bold text-green">
-                    ₦<span className="text-green bold"> {commafy(fix.price)}</span>
+                    ₦<span className="text-green bold">{commafy(fix.price)}</span>
                 </div>
 
 
