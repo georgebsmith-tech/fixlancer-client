@@ -30,6 +30,7 @@ import Featured from './containers/featured/Featured'
 import Finance from './containers/finance/Finance'
 import Withdraw from './containers/finance/Withdraw'
 import HowItWorks from './containers/howItWorks/HowItWorks'
+import EditFix from './containers/EditFix'
 
 import AllUsers from './containers/admin/allUsers/AllUsers'
 import AllOrders from './containers/admin/allOrders/AllOrders'
@@ -50,6 +51,7 @@ function App() {
         <Route path="/dashboard/finance/withdraw" component={Withdraw} />
         <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/dashboard/create-a-fix" component={CreateFix} />
+        <Route path="/dashboard/edit-fix" component={EditFix} />
         <Route path="/dashboard/edit" component={EditProfile} />
         <Route path="/u/:username" component={ViewProfile} />
         <Route path="/dashboard/finance/notices" component={Notices} />

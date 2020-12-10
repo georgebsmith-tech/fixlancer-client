@@ -96,7 +96,7 @@ class UserHeader extends Component {
                         </div>
                         <div className="mobile-finance mobile">
                             <a className="block button header-top-btn" href="/dashboard/finance">
-                                <i className="fa fa-money font16 text-orange margin3-right"></i>
+
                                 <span className="font16 text-orange">Balance:</span>
                                 <span className="font16 text-orange">{this.state.user.summary[1][1].toFixed(2)}</span>
                             </a>

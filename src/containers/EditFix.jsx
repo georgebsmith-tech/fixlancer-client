@@ -7,7 +7,8 @@ import UserHeader from '../components/UserHeader'
 import { Loading } from '../components/helperComponents/Loading'
 
 
-const CreateFix = ({ history }) => {
+const EditFix = ({ history, location, match }) => {
+    console.log(location)
     const [title, setTitle] = useState("")
     const [price, setPrice] = useState("")
     const [photo1, setPhoto1] = useState("")
@@ -37,8 +38,16 @@ const CreateFix = ({ history }) => {
             const url = `${domain}/api/categories`
             const response1 = await axios.get(url)
             const data = response1.data.data
+            const fixUrl = `${domain}/api/fixes/fix/${location.search.substr(5)}`
             // console.log(data)
+            const response = await axios.get(fixUrl)
+            console.log(response.data)
             setcategories(data)
+            setTitle(response.data.title)
+            setDescription(response.data.description)
+            setRequirements(response.data.requirements)
+            setPrice(response.data.price)
+            setcategory(response.data.category)
             setIsloading(false)
         }
         fetchData()
@@ -191,7 +200,7 @@ const CreateFix = ({ history }) => {
 
                 <main class="main">
 
-                    <h1>Create a Fix to start Selling</h1>
+                    <h1>Edit Fix-{title}</h1>
                     <form
                         id="fix-form"
                         name="fix-form">
@@ -598,11 +607,15 @@ const CreateFix = ({ history }) => {
                                 </div>
                             </section>
                             <section></section>
+
+                        </div>
+                        <div>
                             <fieldset>
                                 <button
-                                    className="create-fix-btn"
+                                    style={{ border: "none" }}
+                                    className="no-outline full-width bg-green bd-green"
                                     onClick={handleSubmit}>
-                                    Create Fix
+                                    Upfate Fix
                         </button>
                             </fieldset>
                         </div>
@@ -617,4 +630,4 @@ const CreateFix = ({ history }) => {
     )
 }
 
-export default CreateFix
+export default EditFix

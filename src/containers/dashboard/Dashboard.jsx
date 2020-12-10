@@ -56,7 +56,10 @@ class Dahsboard extends Component {
             <>
                 <UserHeader />
                 {
-                    this.state.isLoading ? <Loading height="80vh" /> :
+                    this.state.isLoading ? <Loading
+                        height="80vh"
+                        message="Preparing Dashboard"
+                    /> :
 
                         <main
                             className="main">

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Input } from '../components/form/Input'
 import { domain } from '../helperFunctions/domain'
 import axios from 'axios'
+import { Loading } from '../components/helperComponents/Loading'
 
 
 class Login extends Component {
@@ -84,21 +85,29 @@ class Login extends Component {
 
 
                             <form>
-                                <div className="padd20 margin30-top margin30-bottom">
-                                    <Input text={"Username or Email"}
+                                <div
+                                    className="padd20 margin30-top margin30-bottom">
+                                    <Input
+                                        text={"Username or Email"}
                                         handleChange={this.handleUsername}
                                     />
-                                    <Input type={"password"} text={"Password"}
+                                    <Input
+                                        type={"password"}
+                                        text={"Password"}
                                         handleChange={this.handlePassword} />
 
 
-                                    <div className="margin10-top">
+                                    <div
+                                        className="margin10-top">
                                         <button
                                             disabled={this.state.isLoading ? true : false}
-                                            className="btn full-width font16 text-white bg-dark-blue border-dark-blue"
+                                            className="btn full-width font16 text-white  bg-dark-blue border-dark-blue"
                                             onClick={this.handleSubmit}>{!this.state.isLoading ?
                                                 "Login" :
-                                                "Loading..."
+                                                <Loading
+                                                    height="20px"
+                                                    size="20px"
+                                                    fill="white" />
                                             }
                                         </button>
                                     </div>

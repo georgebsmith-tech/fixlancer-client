@@ -926,6 +926,9 @@ h6 {
 .no-break {
   white-space: nowrap;
 }
+.bg-fade{
+  background-color:rgb(245, 245, 245,0.3);
+}
 
 .grid3-221 {
   display: grid;
@@ -980,6 +983,10 @@ h6 {
   row-gap: 0px;
   column-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.bg-red{
+  background-color:rgb(248, 9, 9);
 }
 
 .flex-between {
@@ -2065,6 +2072,9 @@ a.header-top-btn {
 
 .lds-ring div:nth-child(1) {
   animation-delay: -0.45s;
+}
+.no-bd{
+  border:none;
 }
 
 .lds-ring div:nth-child(2) {

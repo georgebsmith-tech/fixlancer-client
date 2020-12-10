@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { domain } from '../helperFunctions/domain'
 import { Link } from 'react-router-dom'
+import { Loading } from '../components/helperComponents/Loading'
 
 
 class CategoriesList extends Component {
@@ -28,16 +29,13 @@ class CategoriesList extends Component {
             cursor: "pointer"
 
         }
-        let loading = <div
-            style={{ width: "100%", height: 50 }} className="bg-white font20 flex-center">
-            Loading...
-        </div>
-        return (this.state.isLoading ? loading :
+
+        return (this.state.isLoading ? <Loading message="Loading categories" height="60px" /> :
             <ul
                 className="flex ">
                 {this.state.categories.map(category =>
                     <li
-                        className="bg-white circle font14"
+                        className="bg-white circle font13 padd10"
                         style={style} key={category._id}>
                         <Link
                             to={`/section/${category.catSlug}`}>
