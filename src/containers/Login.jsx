@@ -105,9 +105,9 @@ class Login extends Component {
                                             onClick={this.handleSubmit}>{!this.state.isLoading ?
                                                 "Login" :
                                                 <Loading
-                                                    height="20px"
-                                                    size="20px"
-                                                    fill="white" />
+
+                                                    bg="transparent"
+                                                    height="20px" />
                                             }
                                         </button>
                                     </div>

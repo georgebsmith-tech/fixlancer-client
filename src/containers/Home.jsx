@@ -294,7 +294,7 @@ class Home extends Component {
 
                         </div>
                         {
-                            this.state.isLoading ? <Loading message="Loading Recommended Fixes" /> :
+                            this.state.isLoading ? <Loading height="600px" /> :
 
                                 <RecommendationList
                                     fixes={this.state.recommendedFixes} />

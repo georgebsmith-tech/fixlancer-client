@@ -45,6 +45,7 @@ const DetailedFix = ({ match, location, history }) => {
             setUserFixes(data.userFixes)
             setRecommendations(data.recommendations)
             setIsActive(data.fix.active)
+            window.scrollTo(0, 0)
             setIsLoading(false)
 
 

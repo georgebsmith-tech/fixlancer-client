@@ -40,6 +40,7 @@ const CreateFix = ({ history }) => {
             // console.log(data)
             setcategories(data)
             setIsloading(false)
+            window.scrollTo(0, 0)
         }
         fetchData()
 

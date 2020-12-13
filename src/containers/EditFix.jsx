@@ -6,21 +6,24 @@ import { domain } from '../helperFunctions/domain'
 import UserHeader from '../components/UserHeader'
 import { Loading } from '../components/helperComponents/Loading'
 
-
+import { Link } from 'react-router-dom'
 const EditFix = ({ history, location, match }) => {
-    console.log(location)
+    const [fix, setFix] = useState({})
+    const [isUpdating, setIsupdating] = useState(false)
+    const [isUpdated, setIsupdated] = useState(false)
     const [title, setTitle] = useState("")
     const [price, setPrice] = useState("")
     const [photo1, setPhoto1] = useState("")
     const [photo2, setPhoto2] = useState("")
     const [photo3, setPhoto3] = useState("")
+    const [imagesURL, setImagesURL] = useState([])
     const [deliveryDays, setDeliveryDays] = useState("")
     const [tags, setTags] = useState("")
     const [category, setcategory] = useState("")
     const [description, setDescription] = useState("")
     const [requirements, setRequirements] = useState("")
     const [categories, setcategories] = useState([])
-    const [subCategory, setSubCategory] = useState([])
+    const [subCategory, setSubCategory] = useState("")
     const [subCategories, setSubCategories] = useState([])
     const [extra2Desc, setExtra2Desc] = useState("")
     const [extra1Desc, setExtra1Desc] = useState("")
@@ -39,7 +42,7 @@ const EditFix = ({ history, location, match }) => {
             const response1 = await axios.get(url)
             const data = response1.data.data
             const fixUrl = `${domain}/api/fixes/fix/${location.search.substr(5)}`
-            // console.log(data)
+            console.log(data)
             const response = await axios.get(fixUrl)
             console.log(response.data)
             setcategories(data)
@@ -48,7 +51,30 @@ const EditFix = ({ history, location, match }) => {
             setRequirements(response.data.requirements)
             setPrice(response.data.price)
             setcategory(response.data.category)
+            setFix(response.data)
+            setSubCategory(response.data.subcategory)
+            setDeliveryDays(response.data.delivery_days)
+            setImagesURL(response.data.images_url)
+            setSubCategories(data.filter(category => category.name === response.data.category)[0].subcat)
+            setTags(response.data.tags.join(","))
+            setWorkSample1(response.data.workSamples[0])
+            setWorkSample2(response.data.workSamples[1])
+            setWorkSample3(response.data.workSamples[2])
+            setWorkSample4(response.data.workSamples[3])
+            setWorkSample5(response.data.workSamples[4])
+            if (response.data.extras[0]) {
+                setExtra1Amount(response.data.extras[0].price)
+                setExtra1Desc(response.data.extras[0].description)
+            }
+            if (response.data.extras[1]) {
+                setExtra2Amount(response.data.extras[1].price)
+
+                setExtra2Desc(response.data.extras[1].description)
+            }
+
+
             setIsloading(false)
+            window.scrollTo(0, 0)
         }
         fetchData()
 
@@ -61,9 +87,11 @@ const EditFix = ({ history, location, match }) => {
 
     }
     const handleSubmit = async (e) => {
+        setIsupdating(true)
         const tagsList = tags.split(",").map(tag => tag.trim())
         e.preventDefault()
         const body = {
+            _id: fix._id,
             title,
             description,
             requirements,
@@ -87,40 +115,21 @@ const EditFix = ({ history, location, match }) => {
             ]
 
         }
-        const formData = new FormData()
-        formData.append("title", title)
-        formData.append("description", description)
-        formData.append("requirements", requirements)
-        formData.append("price", price)
-        formData.append("category", category)
-        formData.append("delivery_days", deliveryDays)
-        formData.append("tags", tags)
-        formData.append("subcategory", subCategory)
-        formData.append("photo", photo1)
-        formData.append("photo", photo2)
-        formData.append("photo", photo3)
-        formData.append("extra1_desc", extra1Desc)
-        formData.append("extra1_amount", extra1Amount)
-        formData.append("extra2_desc", extra2Desc)
-        formData.append("extra2_amount", extra2Amount)
-        formData.append("video", video)
-        formData.append("workSamples", [
-            workSample1,
-            workSample2,
-            workSample3,
-            workSample4,
-            workSample5
-        ]
-        )
+        console.log(body)
+
+
         try {
-            const response = await axios.post(`${domain}/api/fixes`, body, {
+            const response = await axios.put(`${domain}/api/fixes`, body, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem("auth-token")
                 }
             })
             console.log(response.data)
             // return
-            history.push("/dashboard")
+            setIsupdated(true)
+            setIsupdating(false)
+            window.scrollTo(0, 0)
+            // history.push("/dashboard")
         } catch (err) {
             console.log("error")
         }
@@ -193,6 +202,21 @@ const EditFix = ({ history, location, match }) => {
             }
         }
     }
+
+    const style = {
+        grid3: {
+            display: "grid",
+            gridTemplateColumns: "repeat(3,1fr)",
+            columnGap: 20
+        },
+        flexCenter: {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+
+        }
+
+    }
     return (<>
         <UserHeader />
         {
@@ -201,6 +225,23 @@ const EditFix = ({ history, location, match }) => {
                 <main class="main">
 
                     <h1>Edit Fix-{title}</h1>
+                    {isUpdated &&
+                        <div
+                            className="font14 padd10"
+                            style={{
+
+                                marginTop: 20,
+                                background: "#1cc88a",
+                                borderRadius: 5
+                            }}>
+                            <span
+                                className="text-white">Your fix has been updated.
+                                </span>
+                            <Link
+                                to={`/fix/${fix.subcatSlug}/${fix.titleSlug}`} className="text-link-with-hover"> Click here to view Fix.
+                            </Link>
+                        </div>
+                    }
                     <form
                         id="fix-form"
                         name="fix-form">
@@ -343,34 +384,33 @@ const EditFix = ({ history, location, match }) => {
                                         </select>
                                     </fieldset>
                                 </div>
-                                {subCategories.length !== 0 &&
 
-                                    <div
-                                        className="create-fix-subcategory">
+                                <div
+                                    className="create-fix-subcategory">
 
 
-                                        <fieldset>
-                                            <select
-                                                value={subCategory}
-                                                onChange={(e) => setSubCategory(e.target.value)}
-                                                name="fix-subcategory"
-                                                data-placeholder="Please select a subcategory..">
-                                                <option
-                                                    value="">
-                                                    Select Subcategory...
+                                    <fieldset>
+                                        <select
+                                            value={subCategory}
+                                            onChange={(e) => setSubCategory(e.target.value)}
+                                            name="fix-subcategory"
+                                        >
+                                            <option
+                                                value="">
+                                                Select Subcategory...
                                         </option>
-                                                {
-                                                    subCategories.map(sub =>
-                                                        <option
-                                                            value={sub.name}
-                                                            key={sub._id}>{sub.name}
-                                                        </option>
-                                                    )
-                                                }
-                                            </select>
-                                        </fieldset>
-                                    </div>
-                                }
+                                            {
+                                                subCategories.map(sub =>
+                                                    <option
+                                                        value={sub.name}
+                                                        key={sub._id}>{sub.name}
+                                                    </option>
+                                                )
+                                            }
+                                        </select>
+                                    </fieldset>
+                                </div>
+
                             </div>
 
 
@@ -389,7 +429,7 @@ const EditFix = ({ history, location, match }) => {
                                             value="1">1 day
                                     </option>
                                         <option value="2">2 days</option>
-                                        <option value="3">2 days</option>
+                                        <option value="3">3 days</option>
                                     </select>
                                 </fieldset>
                             </div>
@@ -425,6 +465,7 @@ const EditFix = ({ history, location, match }) => {
 
                                 <section
                                     className="form-group">
+
                                     <div>
 
                                         <fieldset>
@@ -464,6 +505,39 @@ const EditFix = ({ history, location, match }) => {
                                         </fieldset>
 
                                     </div>
+                                    <div className="font14">
+                                        * Select the image(s) you want to remove *
+                                    </div>
+                                    <div className="" style={{ ...style.grid3, height: 130 }}>
+
+                                        {imagesURL.map(img =>
+
+                                            <div className="flex-center">
+
+                                                {/* img && */}
+                                                <div style={style.flexCenter}>
+                                                    <div
+                                                        className="flex margin10-right" style={
+                                                            {
+                                                                height: "100%"
+                                                            }
+                                                        }>
+                                                        <img
+                                                            src={img}
+                                                            className="object-fit" />
+                                                    </div>
+
+                                                    <input type="checkbox" />
+                                                </div>
+
+
+
+
+                                            </div>
+                                        )}
+
+
+                                    </div>
                                 </section>
                             </div>
                             <div>
@@ -480,6 +554,10 @@ const EditFix = ({ history, location, match }) => {
                                     </div>
 
                                     <section className="form-group">
+                                        <div className="font13 margin10-bottom">
+                                            New video will overwrite the current one
+
+                                    </div>
 
                                         <div>
                                             <fieldset>
@@ -493,6 +571,7 @@ const EditFix = ({ history, location, match }) => {
                                             </fieldset>
 
                                         </div>
+
                                     </section>
                                 </div>
                                 <div>
@@ -569,7 +648,7 @@ const EditFix = ({ history, location, match }) => {
                                     <div>
                                         <fieldset>
                                             <input
-                                                onChange={(e) => setExtra1Desc(e.target.value.trim())}
+                                                onChange={(e) => setExtra1Desc(e.target.value)}
                                                 value={extra1Desc}
                                                 type="text" placeholder="Extra description" name="extra-descr"
                                                 id="extra-descr" />
@@ -579,7 +658,7 @@ const EditFix = ({ history, location, match }) => {
                                     <div>
                                         <fieldset>
                                             <input
-                                                onChange={(e) => setExtra1Amount(e.target.value.trim())}
+                                                onChange={(e) => setExtra1Amount(e.target.value)}
                                                 value={extra1Amount}
                                                 type="number" placeholder="Amount" name="extra-amount" id="extra-amount" />
                                         </fieldset>
@@ -589,7 +668,7 @@ const EditFix = ({ history, location, match }) => {
                                     <div>
                                         <fieldset>
                                             <input
-                                                onChange={(e) => setExtra2Desc(e.target.value.trim())}
+                                                onChange={(e) => setExtra2Desc(e.target.value)}
                                                 value={extra2Desc}
                                                 type="text" placeholder="Extra description" name="extra-descr"
                                                 id="extra-descr" />
@@ -598,7 +677,7 @@ const EditFix = ({ history, location, match }) => {
                                     <div>
                                         <fieldset>
                                             <input
-                                                onChange={(e) => setExtra2Amount(e.target.value.trim())}
+                                                onChange={(e) => setExtra2Amount(e.target.value)}
                                                 value={extra2Amount}
                                                 type="number"
                                                 placeholder="Amount" name="extra-amount" id="extra-amount" />
@@ -615,8 +694,15 @@ const EditFix = ({ history, location, match }) => {
                                     style={{ border: "none" }}
                                     className="no-outline full-width bg-green bd-green"
                                     onClick={handleSubmit}>
-                                    Upfate Fix
-                        </button>
+                                    {!isUpdating ?
+                                        "Upfate Fix" :
+                                        <Loading
+
+                                            bg="transparent"
+                                            height="20px" />
+                                    }
+
+                                </button>
                             </fieldset>
                         </div>
                     </form>

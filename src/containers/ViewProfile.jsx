@@ -46,7 +46,7 @@ const ViewProfile = (props) => {
 
                 {isLoading ?
                     <Loading
-                        message="Loading user's Details"
+                        height="90vh"
 
                     /> :
                     <UserProfile user={user} />}

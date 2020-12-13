@@ -1,16 +1,14 @@
 import React from 'react';
 import Loader from 'react-loading-components';
 
-export const Loading = ({ height, message, fill, size }) => <div className="flex-center" style={{ height }}>
-    <Loader type='circles' width={"100vw"} height={size} fill={fill} />
-    {
-        message && <div className="font20 margin20-top">{message}...</div>
-    }
+export const Loading = ({ height, bg }) => <div className="flex-center full-width" style={{ height, backgroundColor: !bg && "rgba(0,0,0,0.6)" }}>
+    <Loader type='circles' width={"100vw"} height={22} fill={"#fff"} />
+
 
 </div>
 
 Loading.defaultProps = {
     height: "100vh",
-    fill: "47739e",
-    height: 50
+    fill: "#fff",
+    height: 10
 }
