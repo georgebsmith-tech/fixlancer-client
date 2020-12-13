@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom'
 import { Input } from '../components/form/Input'
 import { domain } from '../helperFunctions/domain'
 import axios from 'axios'
-import { Loading } from '../components/helperComponents/Loading'
+
+import { ButtonLoader } from '../components/helperComponents/ButtonLoader'
 
 
 class Login extends Component {
@@ -104,7 +105,7 @@ class Login extends Component {
                                             className="btn full-width font16 text-white  bg-dark-blue border-dark-blue"
                                             onClick={this.handleSubmit}>{!this.state.isLoading ?
                                                 "Login" :
-                                                <Loading
+                                                <ButtonLoader
 
                                                     bg="transparent"
                                                     height="20px" />

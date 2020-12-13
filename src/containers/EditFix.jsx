@@ -4,6 +4,7 @@ import UserFooter from '../components/UserFooter'
 import axios from 'axios'
 import { domain } from '../helperFunctions/domain'
 import UserHeader from '../components/UserHeader'
+import { ButtonLoader } from '../components/helperComponents/ButtonLoader'
 import { Loading } from '../components/helperComponents/Loading'
 
 import { Link } from 'react-router-dom'
@@ -692,11 +693,11 @@ const EditFix = ({ history, location, match }) => {
                             <fieldset>
                                 <button
                                     style={{ border: "none" }}
-                                    className="no-outline full-width bg-green bd-green"
+                                    className="no-outline bg-green bd-green full-width"
                                     onClick={handleSubmit}>
                                     {!isUpdating ?
                                         "Upfate Fix" :
-                                        <Loading
+                                        <ButtonLoader
 
                                             bg="transparent"
                                             height="20px" />
