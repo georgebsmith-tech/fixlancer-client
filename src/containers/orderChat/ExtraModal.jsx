@@ -1,6 +1,9 @@
 
 import React, { useState } from 'react'
 import { OrderChatsContext } from './OrderChat'
+import { domain } from '../../helperFunctions/domain'
+import { ButtonLoader } from '../../components/helperComponents/ButtonLoader'
+
 
 const ExtraModal = () => {
     const orderChatsContext = React.useContext(OrderChatsContext)
@@ -8,6 +11,7 @@ const ExtraModal = () => {
     const [extrasPrice, setExtrasPrice] = useState("")
     const [extrasDays, setExtrasDays] = useState("")
     const [isValid, setIsvalid] = useState(true)
+    const [isSending, setIsSending] = useState(false)
 
     function getExtrasBody() {
         const body = JSON.stringify({
@@ -24,7 +28,7 @@ const ExtraModal = () => {
 
     }
     async function sendextra(body) {
-        const response = await fetch(`/api/orderchats`, {
+        const response = await fetch(`${domain}/api/orderchats`, {
             method: "post",
             body,
             headers: {
@@ -38,8 +42,10 @@ const ExtraModal = () => {
     }
     // msgMainContainer.scrollTop = msgMainContainer.scrollHeight
     const handleSubmit = () => {
+        setIsSending(true)
         if (!extraHeading || !extrasPrice || extrasDays === "-1") {
             setIsvalid(false)
+            setIsSending(false)
             return
 
         }
@@ -48,7 +54,9 @@ const ExtraModal = () => {
             .then(data => {
                 orderChatsContext.setChats([...orderChatsContext.chats, data.chat])
                 console.log(data)
+                setIsSending(false)
                 orderChatsContext.setExtraModalIsOpen(false)
+
 
             })
 
@@ -145,8 +153,12 @@ const ExtraModal = () => {
                         <button
                             onClick={handleSubmit}
                             className=" font14 button-green full-width">
-                            Send
-                    </button>
+                            {
+                                !isSending ? "Send" : <ButtonLoader />
+                            }
+
+
+                        </button>
                     </div>
                     <div class="text-red font12 margin20-top margin20-bottom">
                         * Enter price without any comma or naira sign

@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Link } from 'react-router-dom'
 const AboutFix = ({ fix, user, loggedUser }) => {
+    const [showCarNav, setShowCarNav] = useState(false)
+
+    const handleNextImage = () => {
+        console.log("next")
+
+    }
+    const handlePrevImage = () => {
+        console.log("prev")
+
+    }
     return (
         <section class="about-fix-section">
             <h1>
@@ -24,8 +34,12 @@ const AboutFix = ({ fix, user, loggedUser }) => {
                 </div>
 
             </div>
-            <div class="corousel-container">
-                <div class="image-carousel-wrapper">
+            <div
+                onMouseEnter={() => setShowCarNav(true)}
+                onMouseLeave={() => setShowCarNav(false)}
+                className="corousel-container">
+                <div
+                    className="image-carousel-wrapper">
                     {fix.images_url.map((image) =>
                         <div >
                             <img
@@ -37,19 +51,26 @@ const AboutFix = ({ fix, user, loggedUser }) => {
                     )}
 
                 </div>
-                <div class="carousel-nav">
-                    {fix.images_url.length !== 1 && <>
-                        <i
-                            className="fa fa-angle-left">
+                {showCarNav &&
+                    <div
+                        className="carousel-nav">
+                        {fix.images_url.length !== 1 && <>
+                            <i
+                                onClick={handlePrevImage}
+                                className="fa fa-angle-left">
 
-                        </i>
-                        <i
-                            className="fa fa-angle-right">
+                            </i>
+                            <i
+                                onClick={handleNextImage}
+                                className="fa fa-angle-right">
 
-                        </i>
-                    </>
-                    }
-                </div>
+                            </i>
+                        </>
+                        }
+                    </div>
+
+                }
+
 
             </div>
             {(fix.images_url.length !== 1) &&
@@ -57,7 +78,8 @@ const AboutFix = ({ fix, user, loggedUser }) => {
                 <div
                     className="carousel-tombnail">
                     {fix.images_url.map((image, id) =>
-                        <div>
+                        <div
+                            className="pointer">
                             <img
                                 src={image}
                                 alt={`image for the fix: ${fix.title}`}
@@ -76,18 +98,23 @@ const AboutFix = ({ fix, user, loggedUser }) => {
             </div>
             <div className="tags">
                 {fix.tags.map(tag =>
-                    <Link to="" className="tag anchor-hover-blue-underline">{tag}</Link>
+                    <Link
+                        to=""
+                        className="tag anchor-hover-blue-underline">
+                        {tag}
+                    </Link>
                 )}
             </div>
             <div
                 className="category-and-subcategory">
                 This fix is posted in
                              <Link
-                    to="">{fix.subcategory}
+                    to={`/section/${fix.catSlug}?sub=${fix.subcatSlug}`} > {fix.subcategory}
                 </Link>,
 
-                            <Link
-                    to="">
+                <Link
+
+                    to={`/section/${fix.catSlug}`}>
                     {fix.category}
                 </Link>
             </div>

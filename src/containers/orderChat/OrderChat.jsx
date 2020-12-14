@@ -99,7 +99,9 @@ const OrderChat = ({ location }) => {
         </div>
     </div>
     useEffect(() => {
+        window.scrollTo(0, 0)
         async function fetchData() {
+
             const url = `${domain}/api/orderchats/complete?user=${localStorage.getItem("username")}&${search}`
             const response = await axios.get(url)
             const data = response.data
@@ -120,6 +122,22 @@ const OrderChat = ({ location }) => {
 
     const handleCloseRequestModal = () => {
         setRequestCancellationModalIsOpen(false)
+    }
+    const handleSkipRequirements = () => {
+        fetch(`${domain}/api/requirements?skip=true`, {
+            method: "post",
+            body: JSON.stringify({ order_id: order.order_id }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                console.log(data)
+                setOrder(data.sale)
+            })
+
     }
     var countDownDate = new Date(order.delivery_date).getTime();
 
@@ -177,7 +195,7 @@ const OrderChat = ({ location }) => {
                 }} >
                 <UserHeader />
                 {
-                    isLoading ? <Loading /> :
+                    isLoading ? <Loading height="80vh" /> :
 
                         <main
                             className="main"
@@ -192,14 +210,21 @@ const OrderChat = ({ location }) => {
                                 height="30px"
 
                             /> : orderPlaced)}
-                            {requiremnetsContainer}
+                            {(order.hasStarted && requirements) &&
+                                requiremnetsContainer
+                            }
                             {!order.hasStarted &&
                                 <div
                                     className="font16 bg-white padd10 margin10-bottom border-smooth margin10-top">
                                     <div>
                                         Waiting for buyer's requirements.
-                     </div>
+                                     </div>
                                 </div>
+                            }
+                            {
+                                !order.hasStarted && <button
+                                    onClick={handleSkipRequirements}
+                                    className="margin10-bottom padd10 padd5-top-bottom border5-radius no-outline bg-green text-white border-green">Skip requirements</button>
                             }
                             {
                                 order.hasStarted &&
@@ -232,7 +257,11 @@ const OrderChat = ({ location }) => {
                                             chats={chats}
                                         />
                                     </div>
-                                    <ChatEntryContainer show={loggedUser === order.seller} />
+                                    <ChatEntryContainer
+                                        show={
+                                            loggedUser === order.seller
+                                        }
+                                    />
                                 </>
                             }
 
@@ -270,25 +299,31 @@ const OrderChat = ({ location }) => {
 
 const ChatStatus = ({ recipient }) => {
     return (
-        <div class="flex-between border-bottom  bg-white border-smooth padd10-top-bottom">
-            <div style={{ display: "flex", alignItems: "center" }}>
+        <div className="flex-between border-bottom  bg-white border-smooth padd10-top-bottom">
+            <div
+                style={
+                    {
+                        display: "flex",
+                        alignItems: "center"
+                    }
+                }>
                 <span
                     style={{ width: 20, height: 20 }}
                     className="font13 flex-center circle text-white user-icon bold margin5-right">{recipient[0]}
                 </span>
-                <a
-                    href="/u/<%=recipient%>"
-                    class="bold font13 margin5-right text-link-with-hover">{recipient}
-                </a>
+                <Link
+                    to={`/u/${recipient}`}
+                    className="bold font13 margin5-right text-link-with-hover">{recipient}
+                </Link>
                 <i
                     className="fa fa-circle user-online margin5-right online-status-icon font13"
                 ></i>
                 <span
-                    class="font13  margin5-right online-status-text">
+                    className="font13  margin5-right online-status-text">
                     Active now
                 </span>
                 <em
-                    className="typing-status font13">
+                    className="typing-status font13 invisible">
                     is typing
 
                 </em>

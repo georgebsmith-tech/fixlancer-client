@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { OrderChatsContext } from './OrderChat'
+import { domain } from '../../helperFunctions/domain'
 
 const ConfirmCancellationModal = ({ order, closeModal }) => {
     const orderChatsContext = React.useContext(OrderChatsContext)
@@ -23,7 +24,7 @@ const ConfirmCancellationModal = ({ order, closeModal }) => {
             to: order.seller === loggedUser ? order.buyer : order.seller
         })
 
-        const response = await fetch(`/api/sales/cancellation`, {
+        const response = await fetch(`${domain}/api/sales/cancellation`, {
             method: "post",
             body,
             headers: {

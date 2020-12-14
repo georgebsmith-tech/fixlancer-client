@@ -4,6 +4,7 @@ import PageHeader from '../../components/PageHeader'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
+import { Link } from 'react-router-dom'
 
 const PayForExtra = ({ location, history }) => {
     const [availableBalance, setAvailableBalance] = useState(0)
@@ -13,7 +14,7 @@ const PayForExtra = ({ location, history }) => {
     const [isLoading, setIsloading] = useState(true)
     const [orderID, setOrderID] = useState("")
     async function handleMakePayment() {
-        const response = await fetch("/api/orderchats", {
+        const response = await fetch(domain + "/api/orderchats", {
             method: "put",
             body: JSON.stringify({
                 order_id: orderID,
@@ -76,10 +77,11 @@ const PayForExtra = ({ location, history }) => {
                                     <div>
                                         <div>
 
-                                            <a href="/dashboard/order-chat?oid=<%=order_id%>" className="block back-btn center-text ">
+                                            <Link
+                                                to={`/dashboard/order-chat?oid=${orderID}`} className="block back-btn center-text ">
                                                 <i className="fa fa-angle-double-left text-link"></i>
                                                 <span className="text-link">Back</span>
-                                            </a>
+                                            </Link>
 
                                         </div>
 

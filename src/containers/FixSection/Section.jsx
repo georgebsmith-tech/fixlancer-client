@@ -46,7 +46,7 @@ const Section = ({ match, history, location }) => {
             <UserHeader />
             {
                 isLoading ? <Loading
-                    message={`Loading Fixes in category`}
+                    height="80vh"
 
                 /> :
 
