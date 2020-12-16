@@ -35,6 +35,7 @@ const Section = ({ match, history, location }) => {
     }, [inSub])
 
     const handleSubCat = (e) => {
+        console.log(e.target.dataset)
         const subSlug = subCats.filter(sub => sub.name === e.target.textContent)[0].slug
         // console.log(e.target)
         setInSub(e.target.textContent)
@@ -64,13 +65,23 @@ const Section = ({ match, history, location }) => {
                         <div
                             style={{ overflow: "auto", paddingBottom: 10 }} className="margin10-top">
                             <div
-                                className="cat-scroll-container" style={{ display: "flex" }}>
+
+                                className="cat-scroll-container"
+                                style={{ display: "flex" }}>
                                 {
-                                    subCats.map(sub => <div className="font15 block circle subcatBtn"
-                                        onClick={handleSubCat}
-                                        data-subcatslug={sub.slug} >
-                                        {sub.name}
-                                    </div>)
+                                    subCats.map((sub, idx) => {
+
+                                        const white = (sub.slug === location.search.substr(5)) && "bg-white"
+                                        const theClass = "font15 block circle subcatBtn " + white
+                                        return <div
+
+                                            key={idx}
+                                            className={theClass}
+                                            onClick={handleSubCat}
+                                            data-subcatslug={sub.slug} >
+                                            {sub.name}
+                                        </div>
+                                    })
                                 }
 
                             </div>

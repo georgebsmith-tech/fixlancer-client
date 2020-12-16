@@ -6,11 +6,14 @@ import axios from 'axios'
 import FeaturedList from '../../components/fixes/RecommendationList'
 import { Link } from 'react-router-dom'
 import { Loading } from '../../components/helperComponents/Loading'
+import queryString from 'query-string'
 
 
 
 
-const SearchFix = ({ location, history }) => {
+const SearchFix = ({ location, history, match }) => {
+    const qs = queryString.parse(location.search)
+
     const [aFix, setAFix] = useState({
         username: "Smith",
         title: "i will do it",
@@ -27,9 +30,10 @@ const SearchFix = ({ location, history }) => {
     const [pages, setPages] = useState(1)
     const [showSubs, setShowSubs] = useState(false)
     const [filterIsOpen, setFilterIsOpen] = useState(false)
+    const [selectedCat, setSelectedCat] = useState("")
+    const [inSub, setInSub] = useState(qs.sub)
 
     const q_strings = location.search.substr(1)
-    // console.log(q_strings)
     useEffect(() => {
 
         async function fetchData() {
@@ -47,8 +51,6 @@ const SearchFix = ({ location, history }) => {
             const categories_response = await axios.get(category_url)
             console.log(categories_response.data)
             setCategories(categories_response.data.data)
-            // setOrders(response.data.orders)
-            // setOrderCounts(response.data.orderCounts)
             setIsloading(false)
         }
         fetchData()
@@ -67,17 +69,15 @@ const SearchFix = ({ location, history }) => {
             setTerm(response.data.q)
             setPages(response.data.pages)
             setPage(response.data.page)
-            const category_url = `${domain}/api/categories`
-            const categories_response = await axios.get(category_url)
-            console.log(categories_response.data)
-            setCategories(categories_response.data.data)
-            // setOrders(response.data.orders)
-            // setOrderCounts(response.data.orderCounts)
+            setInSub(qs.sub.split("-").join(" "))
+            console.log(categories.find(cat => cat._id.toString() === selectedCat))
+            setSelectedCat("")
             setIsloading(false)
         }
         fetchData()
 
     }, [location.search])
+
 
     const handleChange = (e) => {
 
@@ -97,6 +97,12 @@ const SearchFix = ({ location, history }) => {
         setPage(page + 1)
         history.push("/search-fix?term=" + term + "&pg=" + (page + 1))
 
+    }
+
+    const handleShow = (e) => {
+        console.log(e.target)
+        setShowSubs(!showSubs);
+        setSelectedCat(e.target.dataset.id)
     }
     const start = 4 * page - 3
     const end = 4 * page + fixes.length - 4
@@ -120,43 +126,49 @@ const SearchFix = ({ location, history }) => {
                                             <div
                                                 className="fix-categories circle font13">
                                                 <div
-                                                    onClick={(e) => { setShowSubs(!showSubs) }}
+                                                    data-id={category._id}
+                                                    onClick={handleShow}
                                                 >
-                                                    <span>{category.name}</span>
+                                                    <span data-id={category._id}>{category.name}</span>
 
                                                     <i
+                                                        onClick={handleShow}
+                                                        data-id={category._id}
                                                         className="fa fa-caret-down margin5-right">
 
                                                     </i>
                                                 </div>
-                                                {
-                                                    showSubs && <div
-                                                        className="options border-smooth">
+                                                <div
+                                                    className={`border-smooth options ${category._id !== selectedCat ? "hide" : ""}`}>
 
-                                                        <div
-                                                            className="margin10-bottom">
-                                                            <Link
-                                                                to={
-                                                                    `/section/${category.catSlug}`
-                                                                }>
-                                                                (View all)
+                                                    <div
+                                                        className="margin10-bottom">
+                                                        <Link
+                                                            to={
+                                                                `/section/${category.catSlug}`
+                                                            }>
+                                                            (View all)
                                                             </Link>
-                                                        </div>
-                                                        {
-                                                            category.subcat.map(subcat =>
-
-                                                                <div
-                                                                    className="option">
-                                                                    {subcat.name}
-                                                                </div>)
-                                                        }
-                                                        <div
-                                                            className="margin10-bottom">
-                                                            <a href="">Others</a>
-                                                        </div>
                                                     </div>
+                                                    {
+                                                        category.subcat.map(subcat =>
 
-                                                }
+                                                            <div
+                                                                className="option">
+                                                                <Link
+                                                                    to={`/search-fix?pg=${qs.pg}&term=${qs.term}&sub=${subcat.slug}`}>
+                                                                    {subcat.name}
+                                                                </Link>
+
+                                                            </div>)
+                                                    }
+                                                    <div
+                                                        className="margin10-bottom">
+                                                        <a href="">Others</a>
+                                                    </div>
+                                                </div>
+
+
 
 
                                             </div>)
@@ -171,8 +183,8 @@ const SearchFix = ({ location, history }) => {
 
                         {fixes.length !== 0 && <div
                             className="font14 alt-show">
-                            Showing {start === end ? start : `${start}-${end}`} of {count} results for " <span class="bold alt-show-term">{rawTerm} </span>"
-            </div>}
+                            Showing {start === end ? start : `${start}-${end}`} of {count} results for " <span class="bold alt-show-term">{rawTerm} </span>" {inSub && <> in <span className="bold">{inSub}</span></>}
+                        </div>}
                         <div class="search-by-cat-container">
                             <input
                                 typeName="text"
