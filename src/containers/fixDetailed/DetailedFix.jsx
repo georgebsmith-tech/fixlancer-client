@@ -56,7 +56,7 @@ const DetailedFix = ({ match, location, history }) => {
     const handleFixState = () => {
         // setIsLoading(true)
         async function fetchData() {
-            const url = `${domain}/api/fixes`
+            const url = `${domain}/api/fixes/state`
             const response1 = await axios.put(url, { _id: fix._id, active: !isActive }, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem("auth-token")

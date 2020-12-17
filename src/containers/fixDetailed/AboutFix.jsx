@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 
-import { Link } from 'react-router-dom'
-const AboutFix = ({ fix, user, loggedUser }) => {
+import { Link, withRouter } from 'react-router-dom'
+import { commafy } from '../../helperFunctions/commafy'
+const AboutFix = ({ fix, user, loggedUser, history }) => {
     const [showCarNav, setShowCarNav] = useState(false)
+    const [total, setTotal] = useState(fix.price)
+    const [extra1, setExtra1] = useState("")
+    const [extra2, setExtra2] = useState("")
+    const [to, setTo] = useState()
 
     const handleNextImage = () => {
         console.log("next")
@@ -10,6 +15,42 @@ const AboutFix = ({ fix, user, loggedUser }) => {
     }
     const handlePrevImage = () => {
         console.log("prev")
+
+    }
+    const handleExtraChange = (e) => {
+        console.log(e.target.dataset.pos)
+        if (e.target.checked) {
+            setTotal(total + e.target.value * 1)
+            if (e.target.dataset.pos * 1 === 1) {
+                setExtra1("1")
+            } else if (e.target.dataset.pos * 1 === 2) {
+                setExtra2("1")
+            }
+        }
+        else {
+
+
+            setTotal(total - e.target.value * 1)
+            if (e.target.dataset.pos * 1 === 1) {
+                setExtra1("")
+            } else if (e.target.dataset.pos * 1 === 2) {
+                setExtra2("")
+            }
+        }
+    }
+
+    const handleOrderNow = () => {
+        let url = `/order-fix/${fix.titleSlug}`
+        console.log(url)
+        if (extra1 && extra2)
+            url = `${url}?extra=12`
+        else if (extra1)
+            url = `${url}?extra=1`
+        else if (extra2)
+            url = `${url}?extra=2`
+        console.log(url)
+        history.push(url)
+
 
     }
     return (
@@ -118,24 +159,46 @@ const AboutFix = ({ fix, user, loggedUser }) => {
                     {fix.category}
                 </Link>
             </div>
-            {(user.username !== loggedUser)
-                &&
-                <div class="flex-center">
-                    {
-                        fix.active &&
 
+            <div
+                classNAme="flex-center">
+                {(user.username !== loggedUser && fix.active) &&
+
+                    <div
+                        style={{ width: "100%" }}
+                        className="margin10-top">
                         <div
-                            style={{ width: "100%" }}
-                            className="margin10-top">
-                            <Link
-                                to={`/order-fix/${fix.titleSlug}`}
-                                className="control-btn center-text orange-btn full-width"
-                                onclick="location.href='/order-fix/<%= fix.titleSlug %>'">Order Now ₦{fix.price}
-                            </Link>
+                            onClick={handleOrderNow}
+                            className="control-btn center-text orange-btn full-width pointer"
+                        >
+                            Order Now ₦{commafy(total)}
                         </div>
+                    </div>
+                }
+                {
+                    fix.username === loggedUser && <h3 className="margin10-top font16 bold">Extras</h3>
+                }
+                <div className="font14 full-width margin10-top">
+                    {
+                        fix.extras.map((extra, idx) =>
+                            <div
+                                className="padd10 border-bottom"
+                                key={idx}>{fix.username !== loggedUser &&
+                                    <input
+                                        data-pos={idx * 1 + 1}
+                                        value={extra.price}
+                                        type="checkbox"
+                                        onChange={handleExtraChange}
+                                        className="margin5-right"
+                                    />}
+                                {extra.description} for ₦{commafy(extra.price)}
+                            </div>)
+
                     }
+                    <button onClick={() => { console.log(extra1, extra2) }}>show more</button>
                 </div>
-            }
+            </div>
+
             <div>
                 <h2
                     className="border-bottom">
@@ -154,4 +217,4 @@ const AboutFix = ({ fix, user, loggedUser }) => {
     )
 }
 
-export default AboutFix
+export default withRouter(AboutFix)

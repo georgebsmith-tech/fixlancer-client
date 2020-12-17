@@ -34,7 +34,7 @@ function Modal() {
 }
 
 const OrderFix = ({ match, location, history }) => {
-    console.log(location)
+    // console.log(location)
     const [balance, setBalance] = useState(0)
     const [fix, setFix] = useState({ price: 200 })
     const [fee, setFee] = useState(2900)
@@ -43,6 +43,7 @@ const OrderFix = ({ match, location, history }) => {
     const [isLoading, setIsloading] = useState(true)
     const [modalIsClosed, setModalIsClosed] = useState(true)
     const [jobId, setJobId] = useState("")
+    const [extras, setExtras] = useState("")
 
     const loggedUser = localStorage.getItem("username")
     useEffect(() => {
@@ -63,6 +64,7 @@ const OrderFix = ({ match, location, history }) => {
             setIsloading(false)
             setFee(data.fee)
             setTotal(data.total)
+            setExtras(data.extras)
         }
         fetchData()
 
@@ -129,7 +131,7 @@ const OrderFix = ({ match, location, history }) => {
             {
                 isLoading ?
                     <Loading
-                        message="Loading Order Details"
+                        height="100vh"
 
                     /> :
 
@@ -202,18 +204,53 @@ const OrderFix = ({ match, location, history }) => {
                             <div class="flex-between" margin10-bottom style={{ padding: "5px 0px", borderBottom: "1px solid #ddd" }}>
                                 <div>
                                     Available Balance
-                    </div>
+                                </div>
                                 <div>₦{balance.toFixed(2)}</div>
                             </div>
-                            <div
-                                className="flex-between font15 margin10-top"
-                                style={{ marginBottom: 25 }}>
-                                <div>
-                                    Fix Price
-                    </div>
-                                <div>
-                                    ₦{fix.price.toFixed(2)}
+                            <div className="margin40-bottom">
+                                <div
+                                    className="flex-between font15 margin20-top padd5-top-bottom border-bottom"
+                                >
+                                    <div>
+                                        Fix Price
                                 </div>
+                                    <div>
+                                        ₦{fix.price.toFixed(2)}
+                                    </div>
+                                </div>
+                                {
+                                    extras * 1 === 12 && fix.extras.map(extra => <div
+                                        className="flex-between font15 padd5-top-bottom  border-bottom">
+                                        <div>
+                                            {extra.description}
+                                        </div>
+                                        <div>
+                                            ₦{extra.price.toFixed(2)}
+                                        </div>
+                                    </div>)
+                                }
+                                {
+                                    extras * 1 === 1 && <div
+                                        className="flex-between font15 padd5-top-bottom  border-bottom">
+                                        <div>
+                                            {fix.extras[0].description}
+                                        </div>
+                                        <div>
+                                            ₦{fix.extras[0].price.toFixed(2)}
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    extras * 1 === 2 && <div
+                                        className="flex-between font15 padd5-top-bottom  border-bottom">
+                                        <div>
+                                            {fix.extras[1].description}
+                                        </div>
+                                        <div>
+                                            ₦{fix.extras[1].price.toFixed(2)}
+                                        </div>
+                                    </div>
+                                }
                             </div>
                             <div style={{ marginBottom: 25 }}>
                                 <input type="text" placeholder="Enter promo code" className="promo-input" />
