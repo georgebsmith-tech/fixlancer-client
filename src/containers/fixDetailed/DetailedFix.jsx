@@ -18,7 +18,7 @@ const DetailedFix = ({ match, location, history }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [titleSlug, setTitleSlug] = useState(match.params.titleSlug)
     const loggedUser = localStorage.getItem("username")
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({ bi0: "" })
     const [userFixes, setUserFixes] = useState([])
     const [recommendations, setRecommendations] = useState([])
     const activeBtnText = isActive ? "Deactivate" : "Activate"
@@ -41,7 +41,8 @@ const DetailedFix = ({ match, location, history }) => {
             console.log(data)
             // setRequest(data.request)
             setFix(data.fix)
-            setUser(data.user)
+            if (data.user)
+                setUser(data.user)
             setUserFixes(data.userFixes)
             setRecommendations(data.recommendations)
             setIsActive(data.fix.active)
@@ -115,26 +116,35 @@ const DetailedFix = ({ match, location, history }) => {
                                 loggedUser={loggedUser}
                             />
                             <section>
-                                {(user.username === loggedUser)
+                                {(fix.username === loggedUser)
                                     &&
 
 
-                                    <div className="flex-between">
+                                    <div
+                                        className="flex-between">
                                         <button
                                             onClick={() => { history.push("/dashboard/edit-fix?fid=" + fix.fixID) }}
                                             className="no-break full-width no-bd border5-radius padd15 bg-orange padd5-top-bottom text-white center-text font14  border5-radius no-outline margin10-right block">Edit fix ₦{fix.price}
                                         </button>
                                         <button
+                                            style={
+                                                {
+                                                    border: "1px solid #ddd"
+                                                }
+                                            }
                                             onClick={handleFixState}
                                             className={"full-width font14 padd10 padd5-top-bottom border5-radius no-outline no-bd margin10-right block " + (isActive && "bg-fade")}>{activeBtnText}</button>
                                         <button className=" full-width font14 padd10 padd5-top-bottom no-outline border5-radius no-bd bg-fade">Delete Fix</button>
                                     </div>
 
                                 }
-                                <section id="about-seller-section">
+                                <section
+                                    id="about-seller-section">
                                     <h2>About the Seller</h2>
                                     <div>
-                                        <div class="online-status" style={{ padding: "10px 15px 15px 10px" }}>
+                                        <div
+                                            className="online-status"
+                                            style={{ padding: "10px 15px 15px 10px" }}>
                                             <div>
                                                 <i
                                                     className="fa fa-circle user-offline">
@@ -150,6 +160,7 @@ const DetailedFix = ({ match, location, history }) => {
                                             className="center-text flex-center">
                                             <div>
                                                 <div
+                                                    style={{ backgroundColor: user.userColor }}
                                                     className="seller-username-icon">
                                                     {fix.username[0].toUpperCase()}
                                                 </div>
@@ -158,7 +169,8 @@ const DetailedFix = ({ match, location, history }) => {
                                             <div>
                                                 <img src="" alt="" />
                                             </div>
-                                            <div className="fix-seller-username">
+                                            <div
+                                                className="fix-seller-username">
                                                 <Link
                                                     to={`/u/${fix.username}`}>{fix.username}
                                                 </Link>

@@ -69,8 +69,9 @@ const SearchFix = ({ location, history, match }) => {
             setTerm(response.data.q)
             setPages(response.data.pages)
             setPage(response.data.page)
-            setInSub(qs.sub.split("-").join(" "))
-            console.log(categories.find(cat => cat._id.toString() === selectedCat))
+            if (qs.sub)
+                setInSub(qs.sub.split("-").join(" "))
+
             setSelectedCat("")
             setIsloading(false)
         }
@@ -82,7 +83,7 @@ const SearchFix = ({ location, history, match }) => {
     const handleChange = (e) => {
 
         setTerm(e.target.value)
-        console.log(e.target.value)
+
 
     }
     const subMitSearch = () => {
@@ -100,6 +101,7 @@ const SearchFix = ({ location, history, match }) => {
     }
 
     const handleShow = (e) => {
+        e.stopPropagation()
         console.log(e.target)
         setShowSubs(!showSubs);
         setSelectedCat(e.target.dataset.id)
@@ -113,7 +115,10 @@ const SearchFix = ({ location, history, match }) => {
             {
                 isLoading ? <Loading /> :
 
-                    <main className="main" style={{ minHeight: "69vh" }}>
+                    <main
+                        onClick={() => { setSelectedCat("") }}
+                        className="main"
+                        style={{ minHeight: "69vh" }}>
                         {
                             filterIsOpen &&
 
@@ -139,6 +144,7 @@ const SearchFix = ({ location, history, match }) => {
                                                     </i>
                                                 </div>
                                                 <div
+
                                                     className={`border-smooth options ${category._id !== selectedCat ? "hide" : ""}`}>
 
                                                     <div
@@ -181,9 +187,9 @@ const SearchFix = ({ location, history, match }) => {
 
 
 
-                        {fixes.length !== 0 && <div
+                        {<div
                             className="font14 alt-show">
-                            Showing {start === end ? start : `${start}-${end}`} of {count} results for " <span class="bold alt-show-term">{rawTerm} </span>" {inSub && <> in <span className="bold">{inSub}</span></>}
+                            Showing {(start === end || end === 0) ? end : `${start}-${end}`} of {count} results for " <span class="bold alt-show-term">{rawTerm} </span>" {inSub && <> in <span className="bold">{inSub}</span></>}
                         </div>}
                         <div class="search-by-cat-container">
                             <input
@@ -207,12 +213,20 @@ const SearchFix = ({ location, history, match }) => {
                             </div>
                         }
                         {fixes.length === 0 &&
-                            <div class="no-results">
+                            <div
+                                className="no-results">
 
 
-                                <div class="center-text font13 flex-center bold" style={{ flexDirection: "row", marginTop: 40 }}>
+                                <div
+                                    className="center-text font13 flex-center bold" style={
+                                        {
+                                            flexDirection: "row",
+                                            marginTop: 40
+                                        }
+                                    }>
                                     <div>
-                                        <img src="https://www.fixlancer.com/wp-content/themes/fixFIX/images/search_icn.png" alt=""
+                                        <img
+                                            src="https://www.fixlancer.com/wp-content/themes/fixFIX/images/search_icn.png" alt=""
                                             style={{ width: 22, marginBottom: -8, display: "inline" }} />
                 Sorry we could not find any results, try a different search.
             </div>

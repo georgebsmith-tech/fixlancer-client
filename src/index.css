@@ -1179,6 +1179,14 @@ i.fa.fa-star {
   height: 100%;
 }
 
+.translate-left {
+  transform: translateX(-100%);
+}
+
+.translate-right {
+  transform: translateX(100%);
+}
+
 .grid2-1-2 {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -2869,6 +2877,7 @@ a.control-btn {
 .about-fix-section .image-carousel-wrapper {
   display: flex;
   width: 300%;
+  transition: 1s;
 }
 .about-fix-section .image-carousel-wrapper > div {
   width: 33.333333%;

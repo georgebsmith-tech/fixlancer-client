@@ -135,6 +135,7 @@ a.control-btn{
     .image-carousel-wrapper{
         display: flex;
         width: 300%;
+        transition: 1s;
         // transform: translateX(-33.333333%);
         
         &>div{

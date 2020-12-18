@@ -1,19 +1,39 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { Link, withRouter } from 'react-router-dom'
 import { commafy } from '../../helperFunctions/commafy'
+import { getDateAndTime } from '../../helperFunctions/getDate'
 const AboutFix = ({ fix, user, loggedUser, history }) => {
     const [showCarNav, setShowCarNav] = useState(false)
     const [total, setTotal] = useState(fix.price)
     const [extra1, setExtra1] = useState("")
     const [extra2, setExtra2] = useState("")
-    const [to, setTo] = useState()
+    const [ratings, setRatings] = useState([{ rating: 4 }, { rating: 2 }, { rating: 5 }, { rating: 3 }])
+    const carouselRef = useRef()
+    const imageref = useRef()
 
-    const handleNextImage = () => {
+
+
+    const style = {
+        ratingsGrid: {
+            display: "grid",
+            gridTemplateColumns: "40px auto",
+            columnGap: 10
+        }
+    }
+
+    const handleNextImage = (e) => {
         console.log("next")
+        console.log(imageref.current.offsetWidth)
+        carouselRef.current.style.transform = `translateX(-${imageref.current.offsetWidth + 20}px)`
+
+        // e.target.classList.add("translate-left")
+
 
     }
-    const handlePrevImage = () => {
+    const handlePrevImage = (e) => {
+        carouselRef.current.style.transform = `translateX(0)`
+
         console.log("prev")
 
     }
@@ -54,22 +74,27 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
 
     }
     return (
-        <section class="about-fix-section">
+        <section
+            className="about-fix-section">
             <h1>
                 {fix.title}
             </h1>
-            <div class="fix-meta">
+            <div
+                className="fix-meta">
                 <div>
-                    <i class="fas fa-clock"></i>
+                    <i
+                        className="fas fa-clock"></i>
                     <span>{fix.delivery_days} day(s)</span> <span> delivery</span>
                 </div>
                 <div>
-                    <i class="fa fa-star"></i>
+                    <i
+                        className="fa fa-star"></i>
                     <span>122</span>
 
                 </div>
                 <div>
-                    <i class="fa fa-eye"></i>
+                    <i
+                        className="fa fa-eye"></i>
                     <span>{fix.views}</span>
                     <span> Views</span>
                 </div>
@@ -80,10 +105,12 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
                 onMouseLeave={() => setShowCarNav(false)}
                 className="corousel-container">
                 <div
-                    className="image-carousel-wrapper">
+                    className="image-carousel-wrapper"
+                    ref={carouselRef}>
                     {fix.images_url.map((image) =>
                         <div >
                             <img
+                                ref={imageref}
                                 src={`${image}`}
                                 alt={`image for the fix: ${fix.title}`}
                             />
@@ -191,25 +218,101 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
                                         onChange={handleExtraChange}
                                         className="margin5-right"
                                     />}
-                                {extra.description} for ₦{commafy(extra.price)}
+                                {extra.description} for ₦{commafy(extra.price ? extra.price : 0)}
                             </div>)
 
                     }
-                    <button onClick={() => { console.log(extra1, extra2) }}>show more</button>
+
                 </div>
             </div>
 
             <div>
                 <h2
                     className="border-bottom">
-                    Ratings
-                    </h2>
+                    <span className="bold margin20-right">Ratings</span>
+                    {
+                        fix.ratings.length !== 0 && <span className="font14">
+                            <i className="fa fa-star margin3-right"></i>
+                            <span className="bolder font14">{(fix.ratings.reduce((r1, r2) => {
+                                return r1.rating + r2.rating
+                            }) / fix.ratings.length).toFixed(1)}% </span> ({fix.ratings.length} reviews)
+                        </span>
+                    }
+
+                </h2>
                 <div style={{
                     fontSize: "1.6rem",
-                    padding: "40px 10px 30px 10px"
+                    padding: "10px 10px 30px 10px"
                 }}>
-                    No reviews Yet
-                    </div>
+                    {
+                        ratings.length === 0 ?
+
+                            <div> No reviews Yet</div> :
+                            <div>
+                                {
+                                    fix.ratings.map(rating =>
+                                        <div
+                                            className="padd10-top-bottom border-bottom"
+                                            style={style.ratingsGrid}>
+                                            <div>
+                                                <span
+                                                    className="circle flex-center bold"
+                                                    style={
+                                                        {
+                                                            backgroundColor: rating.userColor, color: "white",
+                                                            width: 32,
+                                                            height: 32
+                                                        }
+                                                    }>{rating.username[0].toUpperCase()}</span>
+                                            </div>
+
+
+                                            <div
+                                                classname="font12">
+                                                <div className="flex-between">
+                                                    <Link
+                                                        className="font12 anchor-hover-blue-underline">
+                                                        {rating.username}
+                                                    </Link>
+                                                    <div
+                                                        className="font13">
+                                                        {
+                                                            [1, 2, 3, 4, 5].map(rate => {
+                                                                if (rate <= rating.rating) {
+                                                                    return <i
+                                                                        className="fa fa-star font13">
+
+                                                                    </i>
+                                                                } else {
+                                                                    return <i
+                                                                        className="fa fa-star font13" style={{ color: "lightgrey" }}>
+
+                                                                    </i>
+                                                                }
+                                                            }
+                                                            )
+                                                        }
+
+                                                 ({rating.rating})
+
+                                            </div>
+                                                </div>
+                                                <p
+                                                    style={{ paddingRight: 50 }}
+                                                    className="font13 margin5-top">
+                                                    {rating.review}
+                                                </p>
+                                                <small className="font10"> {getDateAndTime(rating.createdAt)}</small>
+                                            </div>
+
+
+                                        </div>
+                                    )
+                                }
+                            </div>
+                    }
+
+                </div>
             </div>
 
 
