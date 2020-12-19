@@ -13,6 +13,7 @@ const NoticeList = () => {
         async function fetchData() {
             const url = `${domain}/api/notices/${username}`
             const response = await axios.get(url)
+            console.log(response.data)
             setNotices(response.data.notices)
             setIsLoading(false)
             const urlForPatchNotice = `${domain}/api/notices/${username}`

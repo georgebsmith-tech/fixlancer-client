@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaClock } from 'react-icons/fa';
 import { Link } from 'react-router-dom'
 import { commafy } from '../../helperFunctions/commafy'
 const FeaturedFix = ({ fix, handleSlugChange }) => {
@@ -12,6 +13,40 @@ const FeaturedFix = ({ fix, handleSlugChange }) => {
         borderSquare: {
             borderRadius: 0
         }
+    }
+    let userRate;
+    const number_of_ratings = fix.ratings.length
+    if (number_of_ratings !== 0) {
+        let sum = 0;
+        fix.ratings.forEach(rating => {
+            sum += rating.rating
+        })
+        const avg = (sum / number_of_ratings).toFixed(1)
+        userRate = <div className="font12">
+            <i className="fa fa-star margin3-right"></i>
+            <span className="">{avg} ({number_of_ratings})</span>
+        </div>
+    } else if (fix.trusted) {
+
+        userRate = <div className="font12">
+            <i
+                className="fa fa-check margin3-right"
+                style={{ color: "#f27415" }}>
+
+            </i>
+            <span
+                className="" style={{ color: "#f27415" }}>Trusted</span>
+        </div>
+
+    } else {
+        userRate = <div className="font12">
+            <FaClock size="0.9rem" />
+
+            <span
+                className="" > {`${fix.delivery_days} day${fix.delivery_days !== 1 && "s"}`} </span>
+
+        </div>
+
     }
 
     return (
@@ -37,10 +72,7 @@ const FeaturedFix = ({ fix, handleSlugChange }) => {
 
             </div>
             <div className='flex-between padd10-sides padd10-bottom font15'>
-                <div>
-                    <i className="fa fa-star font15"></i>
-                    <span> 2.4</span> <span>(4)</span>
-                </div>
+                {userRate}
                 <div className='text-green bold'>
                     ₦{commafy(fix.price)}
                 </div>

@@ -4,13 +4,13 @@ import { commafy } from '../../helperFunctions/commafy'
 import { FaClock } from 'react-icons/fa';
 
 const Recommendation = ({ fix }) => {
-    let userRate = 12
+    let userRate;
     // console.log(fix.ratings)
     const number_of_ratings = fix.ratings.length
     if (number_of_ratings !== 0) {
         let sum = 0;
-        fix.ratings.forEach(number => {
-            sum += number * 1
+        fix.ratings.forEach(rating => {
+            sum += rating.rating
         })
         const avg = (sum / number_of_ratings).toFixed(1)
         userRate = <div className="font12">

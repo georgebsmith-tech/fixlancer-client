@@ -27,8 +27,8 @@ const Notice = ({ notice }) => {
     </div>
     } else if (notice.type === "milestone") {
         message = <div>
-            ₦{notice.content.amount}  credited for milestone released for the order:
-        <strong class="bold"> {notice.content.order_id}</strong>
+            ₦{notice.content.amount}  credited for milestone released for the order
+        <strong class="bold"> {notice.content.title}</strong>
         </div>
     } else if (notice.type === "new sale") {
         message = <div>

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-
+import { FaClock } from 'react-icons/fa';
 import { Link, withRouter } from 'react-router-dom'
 import { commafy } from '../../helperFunctions/commafy'
 import { getDateAndTime } from '../../helperFunctions/getDate'
@@ -73,6 +73,13 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
 
 
     }
+
+    let sumOFRating = 0
+    const numberOFReviews = fix.ratings.length
+    fix.ratings.forEach(rating => {
+        sumOFRating += rating.rating
+    })
+    const avgRating = (sumOFRating / numberOFReviews).toFixed(1)
     return (
         <section
             className="about-fix-section">
@@ -82,14 +89,25 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
             <div
                 className="fix-meta">
                 <div>
-                    <i
-                        className="fas fa-clock"></i>
-                    <span>{fix.delivery_days} day(s)</span> <span> delivery</span>
+                    <FaClock size="1.1rem" />
+                    <span> {`${fix.delivery_days} day${fix.delivery_days !== 1 && "s"}`}</span> <span> delivery</span>
                 </div>
                 <div>
-                    <i
-                        className="fa fa-star"></i>
-                    <span>122</span>
+
+                    <span
+                        className="font12">
+                        <i
+                            className="fa fa-star margin3-right">
+
+                        </i>
+                        <span
+                            className="bolder font12 margin3-right">
+                            {avgRating}
+
+                        </span>
+
+                        ({fix.ratings.length} reviews)
+                    </span>
 
                 </div>
                 <div>
@@ -231,11 +249,9 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
                     className="border-bottom">
                     <span className="bold margin20-right">Ratings</span>
                     {
-                        fix.ratings.length !== 0 && <span className="font14">
+                        numberOFReviews !== 0 && <span className="font14">
                             <i className="fa fa-star margin3-right"></i>
-                            <span className="bolder font14">{(fix.ratings.reduce((r1, r2) => {
-                                return r1.rating + r2.rating
-                            }) / fix.ratings.length).toFixed(1)}% </span> ({fix.ratings.length} reviews)
+                            <span className="bolder font14 margin3-right">{avgRating}  </span>  ({fix.ratings.length} reviews)
                         </span>
                     }
 
@@ -245,7 +261,7 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
                     padding: "10px 10px 30px 10px"
                 }}>
                     {
-                        ratings.length === 0 ?
+                        fix.ratings.length === 0 ?
 
                             <div> No reviews Yet</div> :
                             <div>
