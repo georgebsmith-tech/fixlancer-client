@@ -88,7 +88,7 @@ const EditProfile = ({ match, history }) => {
         }
         const sendData = async () => {
             try {
-                const response = await axios.put(`/api/users/${loggedUser}`, body)
+                const response = await axios.put(`${domain}/api/users/${loggedUser}`, body)
                 const data = response.data
                 console.log(data)
                 if (data) {
@@ -96,6 +96,7 @@ const EditProfile = ({ match, history }) => {
                     setIsUpdating(false)
 
                 }
+                window.scrollTo(0, 0)
                 if (data.mainChange)
                     setTimeout(() => {
                         localStorage.clear()
@@ -103,6 +104,7 @@ const EditProfile = ({ match, history }) => {
                         history.push("/login")
 
                     }, 2000)
+
 
 
 

@@ -112,7 +112,7 @@ class UserHeader extends Component {
                             <Link to="/dashboard">Home</Link>
                         </li>
                         <li>
-                            <Link to="#" class="drop-down-profile" onClick={this.toggleProfile}>Profiie <i class="fa fa-caret-down"></i>
+                            <Link to="#" className="drop-down-profile" onClick={this.toggleProfile}>Profiie <i className="fa fa-caret-down"></i>
                             </Link>
                             {this.state.showProfile && <ul className={"drop-down-container drop-profile "}>
                                 <li><Link to={`/u/${this.state.user.username}`} className="drop">View Profile</Link></li>

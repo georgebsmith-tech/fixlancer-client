@@ -1605,7 +1605,7 @@ a.header-top-btn {
   margin-left: 6px;
 }
 .mobile-nav-container > li {
-  border-bottom: 0.5px solid #fafafa;
+  border-bottom: 3px solid #fafafa;
   position: relative;
 }
 .mobile-nav-container > li ul {

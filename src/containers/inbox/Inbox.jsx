@@ -6,16 +6,21 @@ import { getDate } from '../../helperFunctions/getDate'
 import { Loading } from '../../components/helperComponents/Loading'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
-
+import ChatEntryContainer from '../../components/helperComponents/ChatEntryContainer'
+import ChatStatus from '../../components/chats/ChatStatus'
+import queryString from 'query-string'
+import Chats from './Chats'
 const Conversation = ({ conversation, loggedUser }) => {
-
+    console.log(loggedUser)
+    console.log(conversation)
     const initial = conversation.from === loggedUser ? conversation.to : conversation.from
+    // console.log(initial)
     const lastMessageby = conversation.from === loggedUser ? "Me" : conversation.from
     return (
 
         <li
             className="font15">
-            <Link to={`/dashboard/inbox?with=${conversation.to}`} className="block inbox-summary border-bottom">
+            <Link to={`/dashboard/inbox?with=${initial}`} className="block inbox-summary border-bottom">
                 <div
                     className="grid">
                     <span
@@ -46,6 +51,7 @@ const Conversation = ({ conversation, loggedUser }) => {
 }
 
 const Conversations = ({ conversations = [], loggedUser }) => {
+    console.log(conversations)
     const theConversations = conversations.map(conversation => <Conversation conversation={conversation} loggedUser={loggedUser} key={conversation._id} />)
     return (
 
@@ -55,17 +61,18 @@ const Conversations = ({ conversations = [], loggedUser }) => {
 
     )
 }
-const Inbox = () => {
-    const [conversations, setConversations] = useState([{ message: "this is what i meant" }])
+const Inbox = ({ location }) => {
+    const [conversations, setConversations] = useState([])
     const [isLoading, setIsloading] = useState(true)
     const loggedUser = localStorage.getItem("username")
-    const [recipient, setRecipient] = useState("")
+    const [with_, setWith_] = useState("")
+    const [chats, setChats] = useState([])
+
 
     useEffect(() => {
 
-        const fetchDate = async () => {
-            const url = `${domain}/api/chats/${loggedUser}?with=${recipient}`
-
+        const fetchData = async () => {
+            const url = `${domain}/api/chats/${loggedUser}`
             const response = await axios.get(url)
             const data = response.data
             console.log(data)
@@ -73,34 +80,75 @@ const Inbox = () => {
             setIsloading(false)
 
         }
+        const fetchDataWith = async (with_) => {
+            setIsloading(true)
+            try {
 
-        fetchDate()
+
+                const url = `${domain}/api/chats/${loggedUser}/${with_}`
+
+                const response = await axios.get(url)
+                const data = response.data
+                console.log(data)
+                setChats(data.chats)
+                setIsloading(false)
+            } catch (err) {
+                console.log(err)
+            }
+
+        }
+        const qs = queryString.parse(location.search)
+        console.log(qs)
 
 
-    }, [recipient])
+
+        if (!qs.with)
+            fetchData()
+        else {
+            console.log("private")
+            setWith_(qs.with)
+            fetchDataWith(qs.with)
+        }
+
+
+    }, [location.search])
+
+
+
     return (
+
         <>
             <UserHeader />
             <main className="main">
-                <section class="font16 bg-white border-smooth">
-                    <h2 className="padd30 border-bottom font16">All conversations</h2>
-                    {
-                        isLoading ?
-                            <Loading height="60vh" message="Loading conversatiions" /> :
-                            <Conversations
-                                conversations={conversations}
-                                loggedUser={loggedUser}
+                {!location.search ?
+                    <section class="font16 bg-white border-smooth">
+                        <h2 className="padd30 border-bottom font16">All conversations</h2>
+                        {
+                            isLoading ?
+                                <Loading height="60vh" message="Loading conversatiions" /> :
+                                <Conversations
+                                    conversations={conversations}
+                                    loggedUser={loggedUser}
 
-                            />
-                    }
+                                />
+                        }
 
 
-                </section>
+                    </section>
+                    : <>
+                        <ChatStatus recipient={with_} />
+                        <div className="message-container">
+                            <Chats chats={chats} />
+
+                        </div>
+                        <ChatEntryContainer />
+                    </>
+                }
 
             </main>
-            <UserFooter />
+
         </>
     )
-}
 
+}
 export default Inbox;
