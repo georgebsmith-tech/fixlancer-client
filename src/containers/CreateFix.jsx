@@ -10,9 +10,9 @@ import { Loading } from '../components/helperComponents/Loading'
 const CreateFix = ({ history }) => {
     const [title, setTitle] = useState("")
     const [price, setPrice] = useState("")
-    const [photo1, setPhoto1] = useState("")
-    const [photo2, setPhoto2] = useState("")
-    const [photo3, setPhoto3] = useState("")
+    const [photo1, setPhoto1] = useState({})
+    const [photo2, setPhoto2] = useState({})
+    const [photo3, setPhoto3] = useState({})
     const [deliveryDays, setDeliveryDays] = useState("")
     const [tags, setTags] = useState("")
     const [category, setcategory] = useState("")
@@ -53,8 +53,10 @@ const CreateFix = ({ history }) => {
 
     }
     const handleSubmit = async (e) => {
-        const tagsList = tags.split(",").map(tag => tag.trim())
         e.preventDefault()
+
+        const tagsList = tags.split(",").map(tag => tag.trim())
+
         const body = {
             title,
             description,
@@ -85,27 +87,25 @@ const CreateFix = ({ history }) => {
         formData.append("requirements", requirements)
         formData.append("price", price)
         formData.append("category", category)
-        formData.append("delivery_days", deliveryDays)
-        formData.append("tags", tags)
-        formData.append("subcategory", subCategory)
-        formData.append("photo", photo1)
-        formData.append("photo", photo2)
-        formData.append("photo", photo3)
-        formData.append("extra1_desc", extra1Desc)
-        formData.append("extra1_amount", extra1Amount)
-        formData.append("extra2_desc", extra2Desc)
-        formData.append("extra2_amount", extra2Amount)
+        formData.append("deliveryDays", deliveryDays)
+        formData.append("tags", tagsList)
+        formData.append("subCategory", subCategory)
+        formData.append("photos", photo1)
+        formData.append("photos", photo2)
+        formData.append("photos", photo3)
+        formData.append("extra1Desc", extra1Desc)
+        formData.append("extra1Amount", extra1Amount)
+        formData.append("extra2Desc", extra2Desc)
+        formData.append("extra2Amount", extra2Amount)
         formData.append("video", video)
-        formData.append("workSamples", [
-            workSample1,
-            workSample2,
-            workSample3,
-            workSample4,
-            workSample5
-        ]
-        )
+        formData.append("workSamples", workSample1)
+        formData.append("workSamples", workSample2)
+        formData.append("workSamples", workSample3)
+        formData.append("workSamples", workSample4)
+        formData.append("workSamples", workSample5)
+
         try {
-            const response = await axios.post(`${domain}/api/fixes`, body, {
+            const response = await axios.post(`${domain}/api/fixes`, formData, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem("auth-token")
                 }
@@ -421,7 +421,7 @@ const CreateFix = ({ history }) => {
 
                                         <fieldset>
                                             <input
-                                                onChange={handleImage1Change}
+                                                onChange={(e) => { setPhoto1(e.target.files[0]) }}
                                                 // value={photo1}
                                                 type="file"
                                                 name="photo"
@@ -434,7 +434,7 @@ const CreateFix = ({ history }) => {
 
                                         <fieldset>
                                             <input
-                                                onChange={handleImage2Change}
+                                                onChange={(e) => { setPhoto2(e.target.files[0]) }}
                                                 // value={photo1}
                                                 // value={photo2}
                                                 type="file"
@@ -446,7 +446,7 @@ const CreateFix = ({ history }) => {
 
                                         <fieldset>
                                             <input
-                                                onChange={handleImage3Change}
+                                                onChange={(e) => { setPhoto3(e.target.files[0]) }}
                                                 // value={photo1}
                                                 // value={photo3}
                                                 type="file"

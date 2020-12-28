@@ -79,7 +79,7 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
     fix.ratings.forEach(rating => {
         sumOFRating += rating.rating
     })
-    const avgRating = (sumOFRating / numberOFReviews).toFixed(1)
+    const avgRating = sumOFRating === 0 ? 0 : (sumOFRating / numberOFReviews).toFixed(1)
     return (
         <section
             className="about-fix-section">

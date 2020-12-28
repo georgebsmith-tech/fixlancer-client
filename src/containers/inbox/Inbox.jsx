@@ -131,6 +131,7 @@ const Inbox = ({ location }) => {
                                     loggedUser={loggedUser}
 
                                 />
+
                         }
 
 
@@ -139,6 +140,7 @@ const Inbox = ({ location }) => {
                         <ChatStatus recipient={with_} />
                         <div className="message-container">
                             <Chats chats={chats} />
+
 
                         </div>
                         <ChatEntryContainer />
