@@ -7,10 +7,13 @@ import { getDate } from '../../helperFunctions/getDate'
 import { Loading } from '../../components/helperComponents/Loading'
 import UserHeader from '../../components/UserHeader'
 import UserFooter from '../../components/UserFooter'
+import queryString from "query-string"
 
 
 
-const RequestOffers = ({ match }) => {
+const RequestOffers = ({ match, location, history }) => {
+    const qs = queryString.parse(location.search)
+    // console.log(qs)
     const loggedUser = localStorage.getItem("username")
     const [request, setRequest] = useState({
         title: "me and me", delivery: 3, offers: [], price: 2000,
@@ -27,12 +30,18 @@ const RequestOffers = ({ match }) => {
     const [fixID, setFixID] = useState("")
     const [description, setDescription] = useState("")
     const [offers, setOffers] = useState([])
+    const [edit, setEdit] = useState(location.search)
+    const [title, setTitle] = useState("")
+    const [offer, setOffer] = useState({})
 
 
 
 
     useEffect(() => {
         async function fetchData() {
+
+
+
             const url = `${domain}/api/requests/single/${match.params.slug}`
             const response1 = await axios.get(url, {
                 headers: {
@@ -45,11 +54,55 @@ const RequestOffers = ({ match }) => {
             setFixes(data.fixes)
             setOffers(data.offers)
 
+
+            if (edit) {
+                const offer = data.offers.find(offer => offer._id == qs.offerid)
+                setDescription(offer.description)
+                setPrice(offer.price)
+                setOffer(offer)
+                setDeliveryDays(offer.deliveryDays)
+                const fix = data.fixes.find(fix => fix.fixID === offer.fixID)
+                setFixID(fix.fixID)
+                setTitle(fix.title)
+
+
+
+            }
             setIsloading(false)
+
         }
         fetchData()
 
-    }, [])
+    }, [location.search, match.url])
+
+    const handleUpdate = () => {
+        const body = {
+            price,
+            offerID: offer._id,
+            jobID: request.job_id,
+            fixID,
+            deliveryDays,
+            description,
+        }
+        async function sendData() {
+            const url = `${domain}/api/offers`
+            const response = await axios.put(url, body, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem("auth-token")
+                }
+            })
+            console.log(response.data)
+            const newOffers = offers.filter(offer => offer._id != response.data._id)
+            console.log(newOffers)
+            setEdit(false)
+            setOffers([...newOffers, response.data])
+
+
+        }
+
+        sendData()
+
+    }
     const handleSumbit = () => {
         const body = {
             price,
@@ -78,10 +131,25 @@ const RequestOffers = ({ match }) => {
     const handleFixChange = (e) => {
         const fix = fixes.find(fix => fix._id === e.target.value)
         setFixID(fix.fixID)
+        setTitle(fix.title)
+        console.log(fix)
+    }
+    const handleEdit = (e) => {
+        e.preventDefault()
+        const offer = offers.find(offer => offer._id === e.target.dataset.offerid)
+        setDescription(offer.description)
+        setPrice(offer.price)
+        setOffer(offer)
+        setDeliveryDays(offer.deliveryDays)
+        const fix = fixes.find(fix => fix.fixID === offer.fixID)
+        setFixID(fix.fixID)
+        setTitle(fix.title)
+        console.log(fix)
+        setEdit(true)
+        history.push(`${match.url}?edit=true&offerid=${e.target.dataset.offerid}`)
+
     }
     let content
-    console.log(loggedUser)
-    console.log(offers.find(offer => offer.username === loggedUser))
     if (offers.length === 0 && loggedUser === request.username) {
         content = <div className="font16 padd10">No offer placed yet.</div>
 
@@ -102,7 +170,8 @@ const RequestOffers = ({ match }) => {
                         <a href="#" className="text-link-with-hover font18"
                             style={{ marginLeft: 4 }}>{offer.username}</a>
                     </div>
-                    <div className="margin25-top font15" >
+                    <div
+                        className="margin25-top font15" >
                         I{offer.description}
                     </div>
                     <div className="margin20-top font25 bold">
@@ -157,7 +226,9 @@ const RequestOffers = ({ match }) => {
 
     } else if (offers.find(offer => offer.username === loggedUser)) {
         content = offers.filter(offer => offer.username === loggedUser).map(myOffer =>
-            <div className="font16 card-grid border-bottom">
+            <div
+
+                className="font16 card-grid border-bottom">
                 <div>
                     <a href="#" class="block">
                         <img src={myOffer.image_url} alt="image of the fix" />
@@ -181,10 +252,10 @@ const RequestOffers = ({ match }) => {
                     <div
                         className="margin25-top"
                         style={{ lineHeight: "1.5" }}>
-                        I{myOffer.description}
+                        {myOffer.description}
                     </div>
                     <div class="margin20-top font25 bold">
-                        ₦{myOffer.price}
+                        ₦{commafy(myOffer.price)}
                     </div>
                     <div className="flex margin10-top">
                         <div className="margin40-right">
@@ -193,14 +264,17 @@ const RequestOffers = ({ match }) => {
                         </div>
                         <div>
                             <i className="fas fa-clock text-green font13"></i>
-                            <span className="font13">{myOffer.delivery} days</span>
+                            <span className="font13">{myOffer.deliveryDays} days</span>
                         </div>
                     </div>
                     <div
                         className="margin20-top">
                         <div>
                             <Link
+                                onClick={handleEdit}
                                 to="#"
+                                data-offerid={myOffer._id}
+
                                 className="font15 button-green block">
                                 Edit Offer
                             </Link>
@@ -309,6 +383,107 @@ const RequestOffers = ({ match }) => {
 
 
     }
+
+    if (edit) {
+        content = <div className="holder">
+            <div className="bg-white " style={{ padding: "20px 10px 10px 10px" }}>
+                <div>
+                    <fieldset>
+                        <select
+
+                            name="title"
+                            id="title"
+                            onChange={handleFixChange}
+                            className="bg-white">
+                            <option value="">{title}</option>
+                            {fixes.map(fix =>
+                                <option
+                                    key={fix._id}
+                                    value={fix._id}
+                                >{fix.title}
+                                </option>
+                            )
+                            }
+
+                        </select>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <textarea
+                            name="description"
+                            id="description"
+                            cols="30"
+                            rows="6"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            placeholder="Enter your proposals with samples and why they should chose you...">
+
+                        </textarea>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <select
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            name="price"
+                            id="price"
+                            className="bg-white">
+                            <option value="">Price</option>
+                            {prices.map((price, idx) =>
+                                <option
+                                    key={idx}
+                                    value={price}>{price}
+                                </option>)
+                            }
+                        </select>
+                    </fieldset>
+                </div>
+                <div>
+                    <fieldset>
+                        <select
+                            name="delivery"
+                            id="delivery"
+                            value={deliveryDays}
+                            onChange={(e) => setDeliveryDays(e.target.value)}
+                            className="bg-white">
+                            <option
+                                value="">
+                                Delivery Days
+                            </option>
+                            {days.map((days, idx) =>
+                                <option
+                                    key={idx}
+                                    value={days}>
+                                    {days} days
+                                </option>)}
+
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="font16">
+
+                    <input type="checkbox" id="accept-terms" className="margin3-right" />
+                    <span>
+                        I accept i've read the project and can complete
+                        </span>
+
+                </div>
+                <div class="margin30-top">
+                    <fieldset>
+                        <button
+                            onClick={handleUpdate}
+                            className="place-offer">Update Offer
+                        </button>
+                    </fieldset>
+                </div>
+            </div>
+
+        </div>
+    }
+
+
     const handleCloseModal = () => {
         setModalIsClosed(true)
     }
