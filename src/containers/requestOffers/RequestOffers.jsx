@@ -38,6 +38,7 @@ const RequestOffers = ({ match, location, history }) => {
 
 
     useEffect(() => {
+
         async function fetchData() {
 
 
@@ -68,6 +69,7 @@ const RequestOffers = ({ match, location, history }) => {
 
 
             }
+            window.scrollTo(0, 0)
             setIsloading(false)
 
         }
@@ -95,6 +97,7 @@ const RequestOffers = ({ match, location, history }) => {
             const newOffers = offers.filter(offer => offer._id != response.data._id)
             console.log(newOffers)
             setEdit(false)
+            history.push(`${match.url}`)
             setOffers([...newOffers, response.data])
 
 
@@ -154,8 +157,10 @@ const RequestOffers = ({ match, location, history }) => {
         content = <div className="font16 padd10">No offer placed yet.</div>
 
     } else if (offers.length !== 0 && loggedUser === request.username) {
-        content = offers.map(offer =>
-            <div class="font16 card-grid border-bottom">
+        content = offers.map(offer => {
+            const sumOfRatings = 0
+            return <div
+                className="font16 card-grid border-bottom">
                 <div>
                     <Link to="#" class="block">
                         <img src={offer.image_url} alt=" image of fix" />
@@ -179,15 +184,15 @@ const RequestOffers = ({ match, location, history }) => {
                     </div>
                     <div className="flex margin10-top">
                         <div className="margin40-right">
-                            <i className="fa fa-star "></i>
-                            <span className="font13 text-yellow">3.4 </span>(4)
+                            <i className="fa fa-star " style={{ color: sumOfRatings === 0 && "#f1f1f1" }}></i>
+                            <span className={"font13" + (sumOfRatings !== 0 && "text-yellow")}> {sumOfRatings.toFixed(1)}</span>{offer.ratings.length != 0 && `(${offer.ratings.length})`}
                         </div>
                         <div>
                             <i className="fas fa-clock text-green font13"></i>
-                            <span className="font13">{offer.delivery} days</span>
+                            <span className="font13">{offer.deliveryDays} day{offer.deliveryDays !== 1 && "s"}</span>
                         </div>
                     </div>
-                    <div class="flex-between margin20-top">
+                    <div className="flex-between margin20-top">
                         <div>
                             <button
                                 className="bg-white message-seller button-white"
@@ -207,6 +212,7 @@ const RequestOffers = ({ match, location, history }) => {
                     </div>
                 </div>
             </div>
+        }
         )
     } else if (request.status === "awarded") {
         content = <div class="font16" style="padding:30px 10px 0px 10px;">
@@ -225,8 +231,15 @@ const RequestOffers = ({ match, location, history }) => {
         </div>
 
     } else if (offers.find(offer => offer.username === loggedUser)) {
-        content = offers.filter(offer => offer.username === loggedUser).map(myOffer =>
-            <div
+        content = offers.filter(offer => offer.username === loggedUser).map(myOffer => {
+            let sumOfRatings = 0
+            const numberOfratings = myOffer.ratings.length
+            myOffer.ratings.forEach(rating => {
+                sumOfRatings += rating.rating
+
+            });
+            const avgRafing = numberOfratings === 0 ? 0 : sumOfRatings / numberOfratings
+            return <div
 
                 className="font16 card-grid border-bottom">
                 <div>
@@ -259,12 +272,12 @@ const RequestOffers = ({ match, location, history }) => {
                     </div>
                     <div className="flex margin10-top">
                         <div className="margin40-right">
-                            <i className="fa fa-star "></i>
-                            <span className="font13 text-yellow">3.4(4)</span>
+                            <i className="fa fa-star " style={{ color: sumOfRatings === 0 && "#f1f1f1" }}></i>
+                            <span className={"font13" + (sumOfRatings !== 0 && "text-yellow")}> {avgRafing.toFixed(1)} </span> {myOffer.ratings.length != 0 && `(${myOffer.ratings.length})`}
                         </div>
                         <div>
                             <i className="fas fa-clock text-green font13"></i>
-                            <span className="font13">{myOffer.deliveryDays} days</span>
+                            <span className="font13">{myOffer.deliveryDays} day{myOffer.deliveryDays !== 1 && "s"}</span>
                         </div>
                     </div>
                     <div
@@ -282,6 +295,7 @@ const RequestOffers = ({ match, location, history }) => {
                     </div>
                 </div>
             </div>
+        }
 
         )
     } else if (request.status === "Open") {
@@ -535,7 +549,7 @@ const RequestOffers = ({ match, location, history }) => {
                                 </div>
                                 <div>
                                     <i class="fa fa-print bold"></i>
-                                    <span class="bold number-of-offers">{offers.length}offers</span>
+                                    <span class="bold number-of-offers">{offers.length} {offers.length === 1 ? "offer" : "offers"} </span>
                                 </div>
                                 <div>
                                     <span class="text-green bold">₦{commafy(request.price)}</span>

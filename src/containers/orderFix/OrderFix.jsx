@@ -67,6 +67,7 @@ const OrderFix = ({ match, location, history }) => {
             setExtras(data.extras)
         }
         fetchData()
+        window.scrollTo(0, 0)
 
     }, [])
     const createOrder = async () => {

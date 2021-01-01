@@ -36,7 +36,35 @@ const EditFix = ({ history, location, match }) => {
     const [workSample3, setWorkSample3] = useState("")
     const [workSample4, setWorkSample4] = useState("")
     const [workSample5, setWorkSample5] = useState("")
+    const [selectedImages, setSelectedImages] = useState({})
     const [isLoading, setIsloading] = useState(true)
+    function updateFixState(fixData) {
+        setTitle(fixData.title)
+        setDescription(fixData.description)
+        setRequirements(fixData.requirements)
+        setPrice(fixData.price)
+        setcategory(fixData.category)
+        setFix(fixData)
+        setSubCategory(fixData.subcategory)
+        setDeliveryDays(fixData.delivery_days)
+        setImagesURL(fixData.images_url)
+        setTags(fixData.tags.join(","))
+        setWorkSample1(fixData.workSamples[0])
+        setWorkSample2(fixData.workSamples[1])
+        setWorkSample3(fixData.workSamples[2])
+        setWorkSample4(fixData.workSamples[3])
+        setWorkSample5(fixData.workSamples[4])
+        if (fixData.extras[0]) {
+            setExtra1Amount(fixData.extras[0].price)
+            setExtra1Desc(fixData.extras[0].description)
+        }
+        if (fixData.extras[1]) {
+            setExtra2Amount(fixData.extras[1].price)
+
+            setExtra2Desc(fixData.extras[1].description)
+        }
+
+    }
     useEffect(() => {
         async function fetchData() {
             const url = `${domain}/api/categories`
@@ -46,34 +74,10 @@ const EditFix = ({ history, location, match }) => {
             console.log(data)
             const response = await axios.get(fixUrl)
             console.log(response.data)
+            const fixData = response.data
             setcategories(data)
-            setTitle(response.data.title)
-            setDescription(response.data.description)
-            setRequirements(response.data.requirements)
-            setPrice(response.data.price)
-            setcategory(response.data.category)
-            setFix(response.data)
-            setSubCategory(response.data.subcategory)
-            setDeliveryDays(response.data.delivery_days)
-            setImagesURL(response.data.images_url)
             setSubCategories(data.filter(category => category.name === response.data.category)[0].subcat)
-            setTags(response.data.tags.join(","))
-            setWorkSample1(response.data.workSamples[0])
-            setWorkSample2(response.data.workSamples[1])
-            setWorkSample3(response.data.workSamples[2])
-            setWorkSample4(response.data.workSamples[3])
-            setWorkSample5(response.data.workSamples[4])
-            if (response.data.extras[0]) {
-                setExtra1Amount(response.data.extras[0].price)
-                setExtra1Desc(response.data.extras[0].description)
-            }
-            if (response.data.extras[1]) {
-                setExtra2Amount(response.data.extras[1].price)
-
-                setExtra2Desc(response.data.extras[1].description)
-            }
-
-
+            updateFixState(fixData)
             setIsloading(false)
             window.scrollTo(0, 0)
         }
@@ -91,36 +95,37 @@ const EditFix = ({ history, location, match }) => {
         setIsupdating(true)
         const tagsList = tags.split(",").map(tag => tag.trim())
         e.preventDefault()
-        const body = {
-            _id: fix._id,
-            title,
-            description,
-            requirements,
-            price,
-            category,
-            subCategory,
-            deliveryDays,
-            tags: tagsList,
-            extra2Amount,
-            extra2Desc,
-            extra1Amount,
-            extra1Desc,
-            photos: [photo1, photo2, photo3],
-            video,
-            workSamples: [
-                workSample1,
-                workSample2,
-                workSample3,
-                workSample4,
-                workSample5
-            ]
 
-        }
-        console.log(body)
+        const formData = new FormData()
+        formData.append("_id", fix._id)
+        formData.append("title", title)
+        formData.append("description", description)
+        formData.append("requirements", requirements)
+        formData.append("price", price)
+        formData.append("category", category)
+        formData.append("deliveryDays", deliveryDays)
+        formData.append("tags", tagsList)
+        formData.append("subCategory", subCategory)
+        formData.append("photos", photo1)
+        formData.append("photos", photo2)
+        formData.append("photos", photo3)
+        formData.append("extra1Desc", extra1Desc)
+        formData.append("extra1Amount", extra1Amount)
+        formData.append("extra2Desc", extra2Desc)
+        formData.append("extra2Amount", extra2Amount)
+        formData.append("video", video)
+        formData.append("workSamples", workSample1)
+        formData.append("workSamples", workSample2)
+        formData.append("workSamples", workSample3)
+        formData.append("workSamples", workSample4)
+        formData.append("workSamples", workSample5)
 
+        Object.values(selectedImages).forEach(img => {
+            formData.append("selected", img)
+        })
 
         try {
-            const response = await axios.put(`${domain}/api/fixes`, body, {
+            const response = await axios.put(`${domain}/api/fixes`, formData, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem("auth-token")
                 }
@@ -129,10 +134,11 @@ const EditFix = ({ history, location, match }) => {
             // return
             setIsupdated(true)
             setIsupdating(false)
+            updateFixState(response.data)
             window.scrollTo(0, 0)
             // history.push("/dashboard")
         } catch (err) {
-            console.log("error")
+            console.log(err)
         }
 
 
@@ -204,6 +210,23 @@ const EditFix = ({ history, location, match }) => {
         }
     }
 
+    const handleImageSelection = (e) => {
+        console.log(e.target.checked)
+        console.log(e.target.id)
+
+        let newSelected
+        if (!e.target.checked) {
+            newSelected = { ...selectedImages }
+            console.log(newSelected)
+            delete newSelected[e.target.dataset.id]
+        } else {
+            newSelected = selectedImages
+            newSelected[e.target.dataset.id] = e.target.value
+
+        }
+        setSelectedImages(newSelected)
+    }
+
     const style = {
         grid3: {
             display: "grid",
@@ -215,6 +238,12 @@ const EditFix = ({ history, location, match }) => {
             justifyContent: "center",
             alignItems: "center"
 
+        },
+        flexWrap: {
+            display: "flex",
+            justifyContent: "center",
+            width: "fit-content",
+            flexWrap: "wrap"
         }
 
     }
@@ -471,7 +500,7 @@ const EditFix = ({ history, location, match }) => {
 
                                         <fieldset>
                                             <input
-                                                onChange={handleImage1Change}
+                                                onChange={(e) => setPhoto1(e.target.files[0])}
                                                 // value={photo1}
                                                 type="file"
                                                 name="photo"
@@ -484,7 +513,7 @@ const EditFix = ({ history, location, match }) => {
 
                                         <fieldset>
                                             <input
-                                                onChange={handleImage2Change}
+                                                onChange={(e) => setPhoto2(e.target.files[0])}
                                                 // value={photo1}
                                                 // value={photo2}
                                                 type="file"
@@ -496,7 +525,7 @@ const EditFix = ({ history, location, match }) => {
 
                                         <fieldset>
                                             <input
-                                                onChange={handleImage3Change}
+                                                onChange={(e) => setPhoto3(e.target.files[0])}
                                                 // value={photo1}
                                                 // value={photo3}
                                                 type="file"
@@ -506,39 +535,50 @@ const EditFix = ({ history, location, match }) => {
                                         </fieldset>
 
                                     </div>
-                                    <div className="font14">
-                                        * Select the image(s) you want to remove *
+                                    {
+                                        imagesURL.length !== 0 &&
+                                        <>
+                                            <div className="font14 margin10-bottom">
+                                                * Select the image(s) you want to remove *
                                     </div>
-                                    <div className="" style={{ ...style.grid3, height: 130 }}>
+                                            <div className="" style={{ ...style.flexWrap, minHeight: 130 }}>
 
-                                        {imagesURL.map(img =>
+                                                {imagesURL.map((img, idx) =>
 
-                                            <div className="flex-center">
+                                                    <div className="flex-center">
 
-                                                {/* img && */}
-                                                <div style={style.flexCenter}>
-                                                    <div
-                                                        className="flex margin10-right" style={
-                                                            {
-                                                                height: "100%"
-                                                            }
-                                                        }>
-                                                        <img
-                                                            src={img}
-                                                            className="object-fit" />
+                                                        {/* img && */}
+                                                        <div style={style.flexCenter} className="margin10-right margin10-bottom">
+                                                            <div
+                                                                className="flex margin10-right" style={
+                                                                    {
+                                                                        height: 100,
+                                                                        width: 100
+                                                                    }
+                                                                }>
+                                                                <img
+                                                                    src={img}
+                                                                    className="object-fit"
+
+                                                                />
+                                                            </div>
+
+                                                            <input type="checkbox"
+                                                                value={img}
+                                                                data-id={idx}
+                                                                onChange={handleImageSelection} />
+                                                        </div>
+
+
+
+
                                                     </div>
-
-                                                    <input type="checkbox" />
-                                                </div>
-
-
+                                                )}
 
 
                                             </div>
-                                        )}
-
-
-                                    </div>
+                                        </>
+                                    }
                                 </section>
                             </div>
                             <div>
