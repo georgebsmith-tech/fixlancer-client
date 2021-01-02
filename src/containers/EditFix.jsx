@@ -727,7 +727,6 @@ const EditFix = ({ history, location, match }) => {
                                 </div>
                             </section>
                             <section></section>
-
                         </div>
                         <div>
                             <fieldset>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { getDate } from '../../../helperFunctions/getDate'
 import { Link } from 'react-router-dom'
+import { FaClock } from 'react-icons/fa'
 
 export const OrderMobile = ({ order }) => {
     const style = {
@@ -27,17 +28,19 @@ export const OrderMobile = ({ order }) => {
                     style={style.grid}
                     className="margin10-bottom">
                     <div style={style.imageWrapper}>
-                        <img src="https://res.cloudinary.com/dfm1c1iri/image/upload/v1605897187/xt2fezpk2xzrllaxkmof.png" alt={"image for the order... "} className="object-fit" />
+                        <img src={order.image_url} alt={`image for the ${order.title.substr(0, 45)}...`} className="object-fit" />
                     </div>
                     <div className="inline">
                         <h3 className="font14 margin10-bottom" style={style.title}>
-                            <Link to={`/dashboard/order-chat?oid=${order.order_id}`}>
+                            <Link
+                                to={`/dashboard/order-chat?oid=${order.order_id}`}
+                                style={{ color: "#cd580a" }}>
                                 {order.title}
                             </Link>
                         </h3>
                         <div>
-                            <i className="fa fa-calender font11"></i>
-                            <span className="font13">{getDate(order.delivery_date)}</span>
+                            <FaClock size="0.9rem" className="margin3-right" />
+                            <span className="font11">{getDate(order.delivery_date)}</span>
                         </div>
                     </div>
                 </div>
@@ -59,8 +62,8 @@ export const OrderMobile = ({ order }) => {
                         </span> |
                     <span
                             className="text-green font15">
-                            Fee: ₦
-                    </span>
+                            Fee: ₦ {order.fee}
+                        </span>
                     </div>
 
                 </div>

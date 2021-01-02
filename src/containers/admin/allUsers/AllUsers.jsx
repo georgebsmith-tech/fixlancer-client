@@ -3,6 +3,7 @@ import UsersList from './UsersList'
 import axios from 'axios'
 import { AdminHeading } from '../../../components/admin/AdminHeading'
 import { domain } from '../../../helperFunctions/domain'
+import Navigation from '../navigation/navigation'
 
 const AllUser = () => {
     const [users, setUsers] = useState([])
@@ -33,6 +34,7 @@ const AllUser = () => {
 
     return (
         <>
+            <Navigation />
             <main
                 className="main">
                 <AdminHeading

@@ -8,7 +8,7 @@ import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
 
 const TransactionHistory = () => {
-    const username = "Betty"
+    const username = localStorage.getItem("username")
 
     const [transactions, setTransactions] = useState([])
     const [isLoading, setIsloading] = useState(true)
@@ -40,7 +40,11 @@ const TransactionHistory = () => {
                                     </i>
                                     <h1 class="inline-block font16 bold">Transactions</h1>
                                 </header>
-                                <TransactionsList transactions={transactions} />
+                                {
+                                    transactions.length === 0 ? <div className="padd20 font14">No transactions yet.</div> :
+
+                                        <TransactionsList transactions={transactions} />
+                                }
 
                             </div>
 
