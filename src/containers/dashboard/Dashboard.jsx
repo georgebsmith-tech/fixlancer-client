@@ -16,6 +16,8 @@ import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
 import { FaSortAmountUp } from 'react-icons/fa'
+import { Route } from "react-router-dom"
+import MyRequests from '../requests/MyRequests'
 
 
 
@@ -55,6 +57,10 @@ class Dahsboard extends Component {
 
             <>
                 <UserHeader />
+                <Link to={"/dashboard/my-requests"}>
+                    This is it
+
+                </Link>
                 {
                     this.state.isLoading ? <Loading
                         height="80vh"
@@ -227,9 +233,9 @@ class Dahsboard extends Component {
                 }
                 <UserFooter />
 
+                <Route path="/dashboard/my-requests" component={MyRequests} />
             </>
         );
     }
 }
-
 export default Dahsboard;

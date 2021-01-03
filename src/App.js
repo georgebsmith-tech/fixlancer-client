@@ -8,7 +8,7 @@ import Dashboard from './containers/dashboard/Dashboard'
 import CreateFix from './containers/CreateFix'
 import NotFound from './containers/404/NotFound'
 import Inbox from './containers/inbox/Inbox'
-import ViewProfile from './containers/ViewProfile'
+
 import EditProfile from './containers/editProfile/EditProfile'
 import Notices from './containers/finance/Notices'
 import TransactionHistory from './containers/finance/TransactionHistory'
@@ -31,12 +31,9 @@ import Finance from './containers/finance/Finance'
 import Withdraw from './containers/finance/Withdraw'
 import HowItWorks from './containers/howItWorks/HowItWorks'
 import EditFix from './containers/EditFix'
-
-import AllUsers from './containers/admin/allUsers/AllUsers'
-import AllOrders from './containers/admin/allOrders/AllOrders'
-import AllMessages from './containers/admin/allMessages/AllMessages'
-import UserBalance from './containers/admin/userBalance/UserBalance'
+import ViewProfile from './containers/ViewProfile'
 import SendNotifications from './containers/admin/notifications/SendNotifications'
+import Admin from './containers/admin/admin/Admin'
 
 function App() {
 
@@ -74,12 +71,9 @@ function App() {
         <Route path="/search-fix" component={SearchFix} />
         <Route path="/section/:slug" component={Section} />
 
+
         {/* Admin Routes */}
-        <Route path="/admin/all-users" component={AllUsers} />
-        <Route path="/admin/all-orders" component={AllOrders} />
-        <Route path="/admin/all-messages" component={AllMessages} />
-        <Route path="/admin/user-balance" component={UserBalance} />
-        <Route path="/admin/send-notifications" component={SendNotifications} />
+        <Route path="/admin" component={Admin} />
 
 
         <Route component={NotFound} exact strict />

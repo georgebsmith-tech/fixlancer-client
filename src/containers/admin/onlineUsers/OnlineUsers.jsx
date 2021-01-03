@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import UsersList from './UsersList'
+import OnlineUsersList from './OnlineUsersList'
 import axios from 'axios'
 import { AdminHeading } from '../../../components/admin/AdminHeading'
 import { domain } from '../../../helperFunctions/domain'
 
 
-const AllUser = () => {
+const OnlineUser = () => {
     const [users, setUsers] = useState([])
     const [countOfUsersWithFixes, setCountOfUsersWithFixes] = useState(0)
     const config = {
@@ -38,7 +38,7 @@ const AllUser = () => {
             <main
                 className="main">
                 <AdminHeading
-                    title="All Users"
+                    title="Online Users"
 
                 />
 
@@ -46,7 +46,7 @@ const AllUser = () => {
 
 
 
-                <UsersList users={users} />
+                <OnlineUsersList users={users} />
             </main>
 
         </>
@@ -54,4 +54,4 @@ const AllUser = () => {
     )
 }
 
-export default AllUser;
+export default OnlineUser;

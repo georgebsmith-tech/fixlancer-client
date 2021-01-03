@@ -1,0 +1,134 @@
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { getDate } from '../../../helperFunctions/getDate'
+import { domain } from '../../../helperFunctions/domain'
+import axios from 'axios'
+
+export const RequestMobile = ({ request }) => {
+    const [request_, setRequest] = useState(request)
+    let state;
+    if (request_.declined)
+        state = "Declined/Draft"
+    else if (request_.approved)
+        state = "Published"
+    else
+        state = "Pending"
+
+    const handleAction = (state) => {
+
+
+        async function fetchData() {
+            const action = {}
+            action[state] = true
+            const url = `${domain}/api/requests/${request_._id}`
+            const response = await axios.put(url, action)
+            console.log(response.data)
+            setRequest(response.data)
+
+        }
+        fetchData()
+
+
+
+    }
+
+    return (
+        <li
+            className="border-smooth font14 padd10 margin5-bottom bg-white">
+            <ul>
+                <li
+                    className="margin5-bottom">
+                    <span>  </span>
+                    <Link
+                        to={`/u/${request_.username}`} className="text-link-with-hover"> {request.username}
+                    </Link>
+                </li>
+                <li
+                    className="margin5-bottom">
+                    <span> Title: </span>
+                    {request_.title}
+                </li>
+                <li
+                    className="margin5-bottom">
+                    <span> Category: </span>
+                    {request_.category}
+                </li>
+                <li
+                    className="margin5-bottom">
+                    <span> Date: </span>
+                    {getDate(request_.createdAt)}
+                </li>
+                <li
+                    className="margin10-bottom">
+                    <span> State: </span>
+                    {state}
+                </li>
+                {
+                    (!request_.approved && !request_.declined) &&
+                    <li className="flex-between">
+                        <button
+                            onClick={() => handleAction("approved")}
+                            className="padd15 padd5-top-bottom border5-radius bg-dark-blue border-dark-blue text-white no-outline">Approve
+                    </button>
+                        <button
+                            onClick={() => handleAction("declined")}
+                            className="padd15 padd5-top-bottom border5-radius no-outline">Decline
+                    </button>
+                    </li>
+
+                }
+
+            </ul>
+
+
+        </li>
+    )
+}
+export const RequestDesktop = ({ request }) => {
+    const style = {
+        grid7: {
+            display: "grid",
+            gridTemplateColumns: " 50px repeat(5,1fr) 100px",
+            alignItems: "center"
+        }
+    }
+    return (
+        <li
+            className="font14 padd10 margin5-bottom bg-white">
+            <ul style={style.grid7}>
+                <li></li>
+                <li
+                >
+                    <span>  </span>
+                    <Link
+                        to={`/u/${request.requestname}`}
+                        className="text-link-with-hover">
+                        {request.requestname}
+                    </Link>
+                </li>
+                <li>
+                    {getDate(request.createdAt)}
+                </li>
+                <li
+                >
+                    {request.phone}
+
+                </li>
+                <li
+                >
+                    {request.email}
+                </li>
+                <li
+                >
+                    <span> Last Seen: </span>
+                     3h
+                </li>
+                <li>
+                    <button className="padd5 border5-radius bg-dark-blue border-dark-blue text-white no-outline">Delete</button>
+                </li>
+            </ul>
+
+
+        </li>
+    )
+}
