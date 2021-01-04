@@ -4,6 +4,7 @@ import { domain } from '../../../helperFunctions/domain'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
+import { set } from 'mongoose'
 
 
 const AllJobRequests = ({ location }) => {
@@ -40,10 +41,20 @@ const AllJobRequests = ({ location }) => {
         published: allRequests.filter(request => (request.approved && !request.declined)).length
     }
     // console.log(counts)
+    const deleteItem = (item) => {
+        console.log(item)
+        const items = requests.filter(request => request._id !== item._id)
+        setRequests(requests.filter(request => request._id !== item._id))
+        setAllRequests(allRequests.filter(request => request._id !== item._id))
+    }
     return (
         <>
             <Header state={state} counts={counts} />
-            <RequestList requests={requests} />
+            <RequestList
+                requests={requests}
+                deleteItem={deleteItem}
+
+            />
         </>
     )
 }

@@ -809,6 +809,10 @@ h6 {
   padding: 10px !important;
 }
 
+.hover-text-black:hover {
+  color: #646464 !important;
+}
+
 .font15 {
   font-size: 1.5rem !important;
 }

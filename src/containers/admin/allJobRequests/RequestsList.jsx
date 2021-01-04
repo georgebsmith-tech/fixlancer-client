@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { RequestMobile, RequestDesktop } from './Request'
 
-const RequestList = ({ requests }) => {
+const RequestList = ({ requests, deleteItem }) => {
 
     return (
         <div>
@@ -14,6 +14,7 @@ const RequestList = ({ requests }) => {
                 {
                     requests.map(request => <RequestMobile
                         request={request}
+                        deleteItem={deleteItem}
                         key={request._id}
 
                     />
