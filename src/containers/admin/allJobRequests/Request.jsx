@@ -4,12 +4,14 @@ import { getDate } from '../../../helperFunctions/getDate'
 import { domain } from '../../../helperFunctions/domain'
 import axios from 'axios'
 import Modal from '../../../components/Modal'
+import { withRouter } from 'react-router-dom'
 
 
-export const RequestMobile = ({ request, deleteItem }) => {
+const Mobile = ({ request, deleteItem, history }) => {
     const [request_, setRequest] = useState(request)
     const [showAction, setShowAction] = useState(false)
     const [editModalIsOpen, setEditModalIsOpen] = useState(false)
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     let state;
     if (request_.declined)
         state = "Declined/Draft"
@@ -37,6 +39,7 @@ export const RequestMobile = ({ request, deleteItem }) => {
     }
 
     const handleEdit = () => {
+        history.push(`/dashboard/post-job-request?job=${request_.job_id}`)
 
     }
     const handleDelete = () => {
@@ -113,16 +116,16 @@ export const RequestMobile = ({ request, deleteItem }) => {
                         {showAction &&
                             <span style={style.actionButton} className=" block border5-radius padd10 padd5-top-bottom">
                                 <i
-                                    onClick={handleDelete}
-                                    title="Delete request"
+                                    onClick={handleEdit}
+                                    title="Edit request"
                                     className="fa fa-pencil font14 pointer hover-text-black margin5-right "
                                     style={style.actionItem}
                                 >
 
                                 </i>
                                 <i
-                                    onClick={() => setEditModalIsOpen(true)}
-                                    title="Edit request"
+                                    onClick={() => setDeleteModalIsOpen(true)}
+                                    title="Delete request"
                                     className="fa fa-trash font14 pointer margin5-right hover-text-black"
                                     style={style.actionItem}
                                 >
@@ -177,6 +180,8 @@ export const RequestMobile = ({ request, deleteItem }) => {
         </>
     )
 }
+export const RequestMobile = withRouter(Mobile)
+
 export const RequestDesktop = ({ request }) => {
     const style = {
         grid7: {
@@ -225,3 +230,5 @@ export const RequestDesktop = ({ request }) => {
         </li>
     )
 }
+
+

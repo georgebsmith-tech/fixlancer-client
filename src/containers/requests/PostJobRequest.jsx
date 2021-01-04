@@ -5,9 +5,12 @@ import { domain } from '../../helperFunctions/domain'
 import axios from 'axios'
 import UserHeader from '../../components/UserHeader'
 import { Loading } from '../../components/helperComponents/Loading'
+import queryString from 'query-string'
 
-const PostJobRequest = ({ history }) => {
+const PostJobRequest = ({ history, location }) => {
+    const qs = queryString.parse(location.search)
     const [categories, setcategories] = useState([])
+    const [id, setId] = useState("")
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [category, setCategory] = useState("")
@@ -16,6 +19,7 @@ const PostJobRequest = ({ history }) => {
     const [delivery, setDelivery] = useState("")
     const [isUploading, setisUploading] = useState(false)
     const [isLoading, setIsloading] = useState(true)
+    console.log(qs)
 
     useEffect(() => {
         async function fetchData() {
@@ -24,6 +28,20 @@ const PostJobRequest = ({ history }) => {
             const data = response1.data.data
             // console.log(data)
             setcategories(data)
+            if (qs.job) {
+                const url = `${domain}/api/requests/request/${qs.job}`
+                const response = await axios.get(url)
+                const data = response.data
+                console.log(data)
+                setDescription(data.description)
+                setTitle(data.title)
+                setDelivery(data.delivery)
+                setCategory(data.category)
+                setPrice(data.price)
+                setId(data._id)
+
+
+            }
             setIsloading(false)
         }
         fetchData()
@@ -39,10 +57,8 @@ const PostJobRequest = ({ history }) => {
 
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-
-        const body = {
+    function getBody() {
+        return {
             title,
             category,
             price,
@@ -50,6 +66,12 @@ const PostJobRequest = ({ history }) => {
             description
 
         }
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+
+        const body = getBody()
         function sendPost(body) {
             fetch(`${domain}/api/requests`,
                 {
@@ -77,6 +99,21 @@ const PostJobRequest = ({ history }) => {
         sendPost(body)
     }
 
+    const handleUpdate = async (e) => {
+        e.preventDefault()
+        console.log("update")
+        const body = getBody()
+        body.id = id
+        console.log(body)
+        const response = await axios.put(`${domain}/api/requests/${id}?action=update`, body)
+        const data = response.data
+        console.log(data)
+
+
+
+
+    }
+
 
     return (
         <>
@@ -89,7 +126,22 @@ const PostJobRequest = ({ history }) => {
 
                     <main className="post-a-request-main">
                         <section className="form-container">
-                            <h3 className="form-title">What service do you want fixed? </h3>
+                            {
+                                qs.job ? <h3
+                                    className="form-title">
+
+                                    Edit Request-
+                                    <span className="bold"> {title}</span>
+
+                                </h3>
+                                    :
+                                    <h3
+                                        className="form-title">
+
+                                        What service do you want fixed?
+                             </h3>
+                            }
+
                             <form>
                                 <fieldset><input
                                     type="text"
@@ -131,7 +183,7 @@ const PostJobRequest = ({ history }) => {
                                         </select>
                                     </fieldset>
                                     {
-                                        prices.length !== 0 &&
+                                        (prices.length !== 0 || qs.job) &&
 
                                         <fieldset>
                                             <select
@@ -148,6 +200,7 @@ const PostJobRequest = ({ history }) => {
                                     }
                                     <fieldset>
                                         <select
+                                            value={delivery}
                                             onChange={(e) => { setDelivery(e.target.value) }}
                                             name="delivery" id="delivery" data-placeholder="Please select a category..">
                                             <option value="">Delivery Days</option>
@@ -161,10 +214,18 @@ const PostJobRequest = ({ history }) => {
                                     </fieldset>
                                 </div>
                                 <fieldset>
-                                    <button
-                                        onClick={handleSubmit}
-                                        className="submit-post-request">Submit Post
+                                    {
+                                        qs.job ? <button
+                                            onClick={handleUpdate}
+                                            className="submit-post-request">Update Post
                                     </button>
+                                            :
+                                            <button
+                                                onClick={handleSubmit}
+                                                className="submit-post-request">Submit Post
+                                    </button>
+                                    }
+
                                 </fieldset>
 
 
