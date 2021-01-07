@@ -3,11 +3,9 @@ import { getDate } from '../helperFunctions/getDate'
 import { Link } from 'react-router-dom'
 
 const UserProfile = ({ user }) => {
+    const loggedUser = localStorage.getItem("username")
+    const isAdmin = localStorage.getItem("role") === "admin" ? true : false
 
-
-
-
-    // const userInitial=user?user.username[0]:"S"
     const userImage = <div style={{ width: 90, height: 90 }}>
         <img src={user.imageURL} alt={"Avatar of " + user.username} className="object-fit border-smooth" />
     </div>
@@ -53,14 +51,29 @@ const UserProfile = ({ user }) => {
                         Email: {user.email}
 
                     </li>
-                    <li className="border-smooth padd10 margin20-bottom">
-                        <Link to="/dashboard/edit" className="block">
-                            <i
-                                className="fa fa-pencil margin3-right">
+                    {
+                        isAdmin &&
+                        <li className="margin20-bottom">
+                            No. of Msg: 12
 
-                            </i>
-                            <span>Edit Profile</span>
-                        </Link>
+                        </li>
+                    }
+                    <li className="border-smoothmargin20-bottom">
+                        {
+                            loggedUser === user.username ? <Link to="/dashboard/edit" className="block border-smooth padd10">
+                                <i
+                                    className="fa fa-pencil margin3-right">
+
+                                </i>
+                                <span>Edit Profile</span>
+                            </Link>
+                                :
+                                <button className="padd10 padd5-top-bottom border5-radius text-orange bg-white bd-orange">
+                                    Contact Seller
+
+                                </button>
+                        }
+
 
                     </li>
                 </ul>

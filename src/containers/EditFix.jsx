@@ -6,8 +6,14 @@ import { domain } from '../helperFunctions/domain'
 import UserHeader from '../components/UserHeader'
 import { ButtonLoader } from '../components/helperComponents/ButtonLoader'
 import { Loading } from '../components/helperComponents/Loading'
-
 import { Link } from 'react-router-dom'
+const config = {
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+    }
+}
+
+
 const EditFix = ({ history, location, match }) => {
     const [fix, setFix] = useState({})
     const [isUpdating, setIsupdating] = useState(false)
@@ -68,11 +74,11 @@ const EditFix = ({ history, location, match }) => {
     useEffect(() => {
         async function fetchData() {
             const url = `${domain}/api/categories`
-            const response1 = await axios.get(url)
+            const response1 = await axios.get(url, config)
             const data = response1.data.data
             const fixUrl = `${domain}/api/fixes/fix/${location.search.substr(5)}`
             console.log(data)
-            const response = await axios.get(fixUrl)
+            const response = await axios.get(fixUrl, config)
             console.log(response.data)
             const fixData = response.data
             setcategories(data)

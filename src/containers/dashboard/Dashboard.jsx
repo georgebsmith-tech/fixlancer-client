@@ -18,9 +18,10 @@ import { Loading } from '../../components/helperComponents/Loading'
 import { FaSortAmountUp } from 'react-icons/fa'
 import { Route } from "react-router-dom"
 import MyRequests from '../requests/MyRequests'
+import { config } from '../../helperFunctions/config'
 
 
-
+console.log(config)
 class Dahsboard extends Component {
     constructor(props) {
         super(props)
@@ -38,7 +39,11 @@ class Dahsboard extends Component {
 
     componentDidMount = async () => {
         const url = `${domain}/api/users/${this.state.username}`
-        const response = await axios.get(url)
+        const response = await axios.get(url, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+            }
+        })
         console.log(response.data.data)
         //  this.setState({user:response.data.data})
         const recom_url = `${domain}/api/fixes?state=random&count=10`
@@ -57,10 +62,7 @@ class Dahsboard extends Component {
 
             <>
                 <UserHeader />
-                <Link to={"/dashboard/my-requests"}>
-                    This is it
 
-                </Link>
                 {
                     this.state.isLoading ? <Loading
                         height="80vh"

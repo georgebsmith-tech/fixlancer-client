@@ -25,7 +25,7 @@ const MyRequests = () => {
 
             const url_for_recommendations = `${domain}/api/fixes?state=random&count=6`
             const response1 = await axios.get(url_for_recommendations)
-            console.log(response1.data)
+
             setFixes(response1.data)
         }
         fetchData()

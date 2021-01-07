@@ -25,7 +25,11 @@ const ViewProfile = (props) => {
 
         async function fetchData() {
             const url_of_user_info = `${domain}/api/users/${username}?content=full`
-            const response1 = await axios.get(url_of_user_info)
+            const response1 = await axios.get(url_of_user_info, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+                }
+            })
             setUser(response1.data.data)
             console.log(response1.data.data)
 

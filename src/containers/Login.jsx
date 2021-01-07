@@ -44,6 +44,7 @@ class Login extends Component {
             if (response.data.token) {
                 localStorage.setItem("auth-token", response.data.token)
                 localStorage.setItem("username", response.data.user)
+                localStorage.setItem("role", response.data.role)
                 console.log(response.data)
                 this.setState({ loggedIn: true })
 

@@ -26,11 +26,16 @@ const EditProfile = ({ match, history }) => {
     const [isUpdating, setIsUpdating] = useState(false)
 
     const loggedUser = localStorage.getItem("username")
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+        }
+    }
 
     useEffect(() => {
         async function fetchData() {
             const url_of_user_info = `${domain}/api/users/${loggedUser}?content=full`
-            const response1 = await axios.get(url_of_user_info)
+            const response1 = await axios.get(url_of_user_info, config)
             const data = response1.data.data
             const bank = response1.data.data.bankDetails
             console.log(response1.data)

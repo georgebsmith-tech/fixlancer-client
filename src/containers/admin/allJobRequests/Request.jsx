@@ -141,7 +141,11 @@ const Mobile = ({ request, deleteItem, history }) => {
                     <li
                         className="margin5-bottom">
                         <span> Title: </span>
-                        {request_.title}
+                        <Link to={`/dashboard/${request_.slug}`} className="text-link-with-hover">
+
+                            {request_.title}
+                        </Link>
+
                     </li>
                     <li
                         className="margin5-bottom">
@@ -172,7 +176,6 @@ const Mobile = ({ request, deleteItem, history }) => {
                         </li>
 
                     }
-
                 </ul>
 
 

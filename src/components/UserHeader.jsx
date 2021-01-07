@@ -11,8 +11,10 @@ class UserHeader extends Component {
         showProfile: false,
         showRequests: false,
         showNav: false,
-        searchError: false
+        searchError: false,
+        isAdmin: localStorage.getItem("role") === "admin" ? true : false
     }
+
 
     handleInput = (e) => {
         this.setState({ searchTerm: e.target.value.trim() })
@@ -33,7 +35,12 @@ class UserHeader extends Component {
 
     componentDidMount = async () => {
         console.log("here in cdm")
-        const response = await axios.get(`${domain}/api/users/${localStorage.getItem("username")}`)
+        const response = await axios.get(`${domain}/api/users/${localStorage.getItem("username")}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+            }
+
+        })
         this.setState({ user: response.data.data })
         console.log(response.data.data)
 
@@ -60,6 +67,7 @@ class UserHeader extends Component {
         this.setState((prevState) => ({ showNav: !prevState.showNav }))
     }
     render() {
+        console.log(this.state)
         const style = {
             chopbarIMG: {
                 width: 30,
@@ -148,6 +156,15 @@ class UserHeader extends Component {
                         <li>
                             <a href="/dashboard/affiliate">Affiliate </a>
                         </li>
+                        {
+                            this.state.isAdmin && <li>
+                                <Link to="/admin">Admin Panel </Link>
+                            </li>
+                        }
+
+
+
+
                         <li>
                             <Link to="/" className="mobile-log-out">Log Out </Link>
                         </li>

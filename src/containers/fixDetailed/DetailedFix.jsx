@@ -12,7 +12,28 @@ import { Loading } from '../../components/helperComponents/Loading'
 import AboutFix from './AboutFix'
 import AboutSeller from './AboutSeller'
 
+
+const TrustButton = () => {
+    return (
+        <div>
+            <button className="bg-green text-white padd10 border5-radius padd5-top-bottom border-green no-outline">
+                Mark as trusted
+                             </button>
+        </div>
+    )
+}
+const ApproveFix = () => {
+    return (
+        <div>
+            <button className="bg-green text-white padd10 border5-radius padd5-top-bottom border-green no-outline">
+                Approve Fix
+                             </button>
+        </div>
+    )
+}
+
 const DetailedFix = ({ match, location, history }) => {
+    const isAdmin = localStorage.getItem("role") === "admin" ? true : false
     const [sent, setSent] = useState(false)
     const [isActive, setIsActive] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
@@ -100,6 +121,20 @@ const DetailedFix = ({ match, location, history }) => {
                                     View in inbox
                                  </Link>
                             </div>
+                        }
+                        {
+                            isAdmin &&
+                            <>
+
+                                {
+                                    fix.approved &&
+                                    <TrustButton />
+                                }
+                                {
+                                    !fix.approved &&
+                                    <ApproveFix />
+                                }
+                            </>
                         }
                         {
                             (!isActive && fix.username !== loggedUser) &&
