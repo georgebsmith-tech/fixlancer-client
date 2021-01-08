@@ -4,7 +4,7 @@ import { domain } from '../../../helperFunctions/domain'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
-import { set } from 'mongoose'
+
 
 
 const AllJobRequests = ({ location }) => {
@@ -12,7 +12,7 @@ const AllJobRequests = ({ location }) => {
     const [allRequests, setAllRequests] = useState([])
 
     const qs = queryString.parse(location.search)
-    console.log(qs)
+
     const [state, setState] = useState(qs.state || "all")
     useEffect(() => {
         async function fetchData() {

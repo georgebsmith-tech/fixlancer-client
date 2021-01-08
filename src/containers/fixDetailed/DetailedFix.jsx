@@ -10,22 +10,43 @@ import RecommendationsList from '../../components/fixes/FeaturedFixesList'
 import HorizontalScroll from '../../components/helperComponents/HorinzontalScroll'
 import { Loading } from '../../components/helperComponents/Loading'
 import AboutFix from './AboutFix'
-import AboutSeller from './AboutSeller'
 
 
-const TrustButton = () => {
+
+const config = {
+    headers: {
+        Authorization: 'Bearer ' + localStorage.getItem("auth-token")
+    }
+}
+async function upDateData(url, body = {}) {
+    try {
+        const response = await axios.put(url, body, config)
+        return response.data
+    } catch (err) {
+        console.log(err)
+    }
+
+}
+const TrustButton = ({ fix, handleTrust }) => {
+    const extraClasses = !fix.trusted ? " border-green text-white bg-green" : " "
+    const trusttext = fix.trusted ? "Remove trust" : "Mark as Trusted"
     return (
         <div>
-            <button className="bg-green text-white padd10 border5-radius padd5-top-bottom border-green no-outline">
-                Mark as trusted
-                             </button>
+            <button
+                onClick={handleTrust}
+                className={"padd10 border5-radius padd5-top-bottom  no-outline" + extraClasses}>
+                {trusttext}
+            </button>
         </div>
     )
 }
-const ApproveFix = () => {
+const ApproveFix = ({ fix, handleApproval }) => {
+
     return (
         <div>
-            <button className="bg-green text-white padd10 border5-radius padd5-top-bottom border-green no-outline">
+            <button
+                onClick={handleApproval}
+                className="bg-green text-white padd10 border5-radius padd5-top-bottom border-green no-outline">
                 Approve Fix
                              </button>
         </div>
@@ -50,14 +71,32 @@ const DetailedFix = ({ match, location, history }) => {
         images_url: ["https://res.cloudinary.com/dfm1c1iri/image/upload/v1605897187/xt2fezpk2xzrllaxkmof.png", "https://res.cloudinary.com/dfm1c1iri/image/upload/v1605758023/verymhk3qfrqdqb6jjsr.png", "https://res.cloudinary.com/dfm1c1iri/image/upload/v1605758023/verymhk3qfrqdqb6jjsr.png"]
     })
 
+    const handleApproval = async () => {
+        try {
+
+
+            const data = await upDateData(`${domain}/api/fixes/update-single/${fix._id}`, { approved: true })
+            setFix(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    const handleTrust = async () => {
+        try {
+
+
+            const data = await upDateData(`${domain}/api/fixes/update-single/${fix._id}`, { trusted: !fix.trusted })
+            setFix(data)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
     useEffect(() => {
         async function fetchData() {
             const url = `${domain}/api/fixes/${match.params.subCatSlug}/${match.params.titleSlug}`
-            const response1 = await axios.get(url, {
-                headers: {
-                    Authorization: 'Bearer ' + localStorage.getItem("auth-token")
-                }
-            })
+            const response1 = await axios.get(url, config)
             const data = response1.data
             console.log(data)
             // setRequest(data.request)
@@ -85,8 +124,9 @@ const DetailedFix = ({ match, location, history }) => {
                 }
             })
             const data = response1.data
-            console.log(data)
+
             setIsActive(data.active)
+            window.scrollTo(0, 0)
             // setIsLoading(false)
         }
         fetchData()
@@ -127,19 +167,23 @@ const DetailedFix = ({ match, location, history }) => {
                             <>
 
                                 {
-                                    fix.approved &&
-                                    <TrustButton />
+                                    (fix.approved) &&
+                                    <TrustButton fix={fix}
+                                        handleTrust={handleTrust} />
+
                                 }
                                 {
                                     !fix.approved &&
-                                    <ApproveFix />
+                                    <ApproveFix
+                                        handleApproval={handleApproval}
+                                        fix={fix} />
                                 }
                             </>
                         }
                         {
                             (!isActive && fix.username !== loggedUser) &&
                             <div
-                                className="text-white font15 bg-red center-text padd20">
+                                className="text-white font15 bg-red center-text padd20 margin10-top">
                                 This fix is currently deactivated.
                             </div>
                         }
@@ -151,7 +195,7 @@ const DetailedFix = ({ match, location, history }) => {
                                 loggedUser={loggedUser}
                             />
                             <section>
-                                {(fix.username === loggedUser)
+                                {(fix.username === loggedUser || isAdmin)
                                     &&
 
 
