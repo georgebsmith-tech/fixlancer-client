@@ -2,7 +2,7 @@ import React from 'react'
 
 import { CategoryMobile, CategoryDesktop } from './Category'
 
-const CategoriesList = ({ categories }) => {
+const CategoriesList = ({ categories, deleteItem }) => {
 
     return (
         <div>
@@ -15,6 +15,7 @@ const CategoriesList = ({ categories }) => {
                     categories.map(category => <CategoryMobile
                         category={category}
                         key={category._id}
+                        deleteItem={deleteItem}
 
                     />
                     )

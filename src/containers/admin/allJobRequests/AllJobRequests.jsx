@@ -49,12 +49,14 @@ const AllJobRequests = ({ location }) => {
     }
     return (
         <>
-            <Header state={state} counts={counts} />
-            <RequestList
-                requests={requests}
-                deleteItem={deleteItem}
+            <main>
+                <Header state={state} counts={counts} />
+                <RequestList
+                    requests={requests}
+                    deleteItem={deleteItem}
 
-            />
+                />
+            </main>
         </>
     )
 }

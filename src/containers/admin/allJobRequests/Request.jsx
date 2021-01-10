@@ -10,7 +10,7 @@ import { withRouter } from 'react-router-dom'
 const Mobile = ({ request, deleteItem, history }) => {
     const [request_, setRequest] = useState(request)
     const [showAction, setShowAction] = useState(false)
-    const [editModalIsOpen, setEditModalIsOpen] = useState(false)
+
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
     let state;
     if (request_.declined)
@@ -78,8 +78,8 @@ const Mobile = ({ request, deleteItem, history }) => {
 
     return (
         <>{
-            editModalIsOpen && <Modal
-                title="Delete Request" handleCloseModal={() => setEditModalIsOpen(false)}
+            deleteModalIsOpen && <Modal
+                title="Delete Request" handleCloseModal={() => setDeleteModalIsOpen(false)}
 
             >
                 <div className="padd10">
@@ -93,7 +93,7 @@ const Mobile = ({ request, deleteItem, history }) => {
                             Yes
     </button>
                         <button
-                            onClick={() => setEditModalIsOpen(false)}
+                            onClick={() => setDeleteModalIsOpen(false)}
                             className="padd20 padd5-top-bottom border5-radius">
                             No
     </button>

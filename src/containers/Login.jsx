@@ -15,7 +15,8 @@ class Login extends Component {
         password: "",
         loggedIn: false,
         logginError: [],
-        isLoading: false
+        isLoading: false,
+        path: ""
     }
     handleUsername = (e) => {
         this.setState({ username: e.target.value.trim() })
@@ -33,7 +34,7 @@ class Login extends Component {
         const password = this.state.password
         const username = this.state.username
         const body = { username, password }
-        console.log(body)
+
 
         try {
 
@@ -46,10 +47,10 @@ class Login extends Component {
                 localStorage.setItem("username", response.data.user)
                 localStorage.setItem("role", response.data.role)
                 console.log(response.data)
-                this.setState({ loggedIn: true })
+                this.setState({ loggedIn: true, path: response.data.role === "admin" ? "/admin" : "/dashboard" })
 
                 this.props.history.push({
-                    pathname: "/dashboard"
+                    pathname: response.date.role === "admin" ? "/admin" : "/dashboard"
                     , state: response.data.user
                 })
             } else {
@@ -66,7 +67,7 @@ class Login extends Component {
 
     render() {
         if (this.state.loggedIn) {
-            this.props.history.push("/dashboard")
+            this.props.history.push(this.state.path)
         }
         return (
             <div>
