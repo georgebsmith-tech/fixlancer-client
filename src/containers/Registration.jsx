@@ -3,20 +3,67 @@ import PageHeader from '../components/PageHeader'
 import ShadowCard from '../components/helperComponents/ShadowCard'
 import { Input } from '../components/form/Input'
 import { Link } from 'react-router-dom'
+import { domain } from '../helperFunctions/domain'
+import axios from 'axios'
 
 
 const Registration = () => {
     const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
+    const [country, setCountry] = useState("Nigeria");
+    const [password, setPassword] = useState("");
+    const [city, setCity] = useState("");
+    const [repeatPassword, setRepeatPassword] = useState("");
+    const [phone, setPhone] = useState("");
     const [countyOptions, setCountyOptions] = useState([]);
     const [isLoading, setIsloading] = useState(true);
     const handleUsername = (e) => {
-        setUsername(e.target.value.trim())
-        console.log(username)
+
+        setUsername(e.target.value)
+
+
     }
 
     const handleSubmit = (e) => {
-        console.log("Clikced")
-        console.log(username)
+        if (password !== repeatPassword) {
+            console.log("password must match!")
+            return
+        }
+        const body = {
+            password,
+            username,
+            phone,
+            email,
+            city,
+            country,
+            confirm_password: repeatPassword,
+            solved: true
+
+        }
+        console.log(body)
+        async function fetchData() {
+
+            const url = `${domain}/api/users`
+            const response = await axios.post(url, body)
+            console.log(response.data)
+
+
+
+        }
+        fetchData()
+    }
+    const handleEmail = (e) => {
+        setEmail(e.target.value)
+    }
+
+    const handlePassword = (e) => {
+        setPassword(e.target.value)
+    }
+    const handleRepeatpassword = (e) => {
+        setRepeatPassword(e.target.value)
+    }
+    const handlePhone = (e) => {
+        setPhone(e.target.value)
     }
 
     useEffect(() => {
@@ -27,7 +74,6 @@ const Registration = () => {
             setIsloading(false)
         }
         fetchData()
-
     }, [])
 
     const page = (
@@ -41,33 +87,56 @@ const Registration = () => {
 
                         <div className="padd20 margin30-bottom">
                             <div className="font14 margin20-bottom">Please enter your details. We will send you a new password.</div>
-                            <Input text={"Username"}
+                            <Input
+                                value={username}
+                                text={"Username"}
                                 handleChange={handleUsername}
                             />
-                            <Input text={"Email"} type="email"
-                                handleChange={handleUsername}
+                            <Input
+                                value={email}
+                                text={"Email"}
+                                type="email"
+                                handleChange={handleEmail}
                             />
-                            <select className="padd10 no-outline border-smooth full-width margin10-top margin10-bottom font16">
+                            <select
+                                onChange={(e) => setCountry(e.target.value)}
+                                value={country}
+                                className="padd10 no-outline border-smooth full-width margin10-top margin10-bottom font16">
                                 <option value={"Nigeria"} key={"Nigeria"} >Nigeria</option>
                                 {countyOptions.map(country => (<option value={country} key={country} >{country}</option>))}
 
 
                             </select>
-                            <Input text={"City"}
-                                handleChange={handleUsername}
+                            <Input
+                                value={city}
+                                text={"City"}
+                                handleChange={(e) => setCity(e.target.value)}
                             />
-                            <Input text={"Mobile Number"} type={"tel"}
-                                handleChange={handleUsername}
+                            <Input
+                                value={phone}
+                                text={"Mobile Number"}
+                                type={"tel"}
+                                handleChange={handlePhone}
                             />
-                            <Input text={"Password"} type={"password"}
-                                handleChange={handleUsername}
+                            <Input
+                                value={password}
+                                text={"Password"}
+                                type={"password"}
+                                handleChange={handlePassword}
                             />
-                            <Input text={"Retype Password"} type={"password"}
-                                handleChange={handleUsername}
+                            <Input
+                                value={repeatPassword}
+                                text={"Retype Password"}
+                                type={"password"}
+                                handleChange={handleRepeatpassword}
                             />
 
-                            <div className="margin10-top">
-                                <button className="btn full-width font16 text-white bg-dark-blue border-dark-blue" onClick={handleSubmit}>Create Account</button>
+                            <div
+                                className="margin10-top">
+                                <button
+                                    className="btn full-width font16 text-white bg-dark-blue border-dark-blue"
+                                    onClick={handleSubmit}>Create Account
+                                </button>
                             </div>
                             <div className="font13 margin20-top">
                                 By clicking create account you agree to our <Link to="/terms-and-conditions">
