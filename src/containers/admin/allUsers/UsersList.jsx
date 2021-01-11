@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { UserMobile, UserDesktop } from './User'
 
-const UsersList = ({ users }) => {
+const UsersList = ({ users, updateUsers }) => {
 
     return (
         <div>
@@ -15,6 +15,7 @@ const UsersList = ({ users }) => {
                     users.map(user => <UserMobile
                         user={user}
                         key={user._id}
+                        updateUsers={updateUsers}
 
                     />
                     )
