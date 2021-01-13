@@ -2,7 +2,7 @@ import React from 'react'
 import { BalanceMobile, BalanceDesktop } from './Balance'
 
 
-const BalanceList = ({ wallets }) => {
+const BalanceList = ({ wallets = [] }) => {
     return (
         <>
             <ul className="grid-responsive-max4 mobile">

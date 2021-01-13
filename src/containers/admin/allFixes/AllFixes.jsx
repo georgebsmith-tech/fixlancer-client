@@ -4,6 +4,7 @@ import axios from 'axios'
 import { domain } from '../../../helperFunctions/domain'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
+import { AdminHeading } from '../../../components/admin/AdminHeading'
 
 const AllFixes = ({ location }) => {
     const [fixes, setFixes] = useState([])
@@ -44,6 +45,10 @@ const AllFixes = ({ location }) => {
     }
     return (
         <>
+            <AdminHeading
+                title="All Fixes"
+
+            />
             <Header state={state} counts={counts} />
             <FixList fixes={fixes} admin={true} />
         </>

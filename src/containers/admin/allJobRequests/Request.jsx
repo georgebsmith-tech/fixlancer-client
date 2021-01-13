@@ -118,7 +118,7 @@ const Mobile = ({ request, deleteItem, history }) => {
                                 <i
                                     onClick={handleEdit}
                                     title="Edit request"
-                                    className="fa fa-pencil font14 pointer hover-text-black margin5-right "
+                                    className="fa fa-pencil font14 pointer hover-text-black margin15-right "
                                     style={style.actionItem}
                                 >
 

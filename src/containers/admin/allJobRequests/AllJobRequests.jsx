@@ -4,6 +4,7 @@ import { domain } from '../../../helperFunctions/domain'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import queryString from 'query-string'
+import { AdminHeading } from '../../../components/admin/AdminHeading'
 
 
 
@@ -50,6 +51,8 @@ const AllJobRequests = ({ location }) => {
     return (
         <>
             <main>
+                <AdminHeading
+                    title="All Job Requests" />
                 <Header state={state} counts={counts} />
                 <RequestList
                     requests={requests}

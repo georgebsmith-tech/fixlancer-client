@@ -1454,6 +1454,10 @@ i.fa.fa-star {
   line-height: 1.6;
 }
 
+.margin15-right {
+  margin-right: 15px !important;
+}
+
 .main-header {
   padding: 0px 15px 0px 15px;
   box-sizing: border-box;

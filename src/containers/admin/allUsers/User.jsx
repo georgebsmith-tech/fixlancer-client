@@ -62,7 +62,7 @@ export const UserMobile = withRouter(({ user, history, updateUsers }) => {
                             <i
                                 // onClick={() => history.push(`/u/${user.username}`)}
                                 title="Edit user details"
-                                className="fa fa-pencil font14 pointer hover-text-black margin5-right "
+                                className="fa fa-pencil font14 pointer hover-text-black margin15-right "
                                 style={style.actionItem}
                             >
 
@@ -70,13 +70,13 @@ export const UserMobile = withRouter(({ user, history, updateUsers }) => {
                             <i
                                 onClick={handleBan}
                                 title="Ban user"
-                                className="fa fa-ban font14 pointer margin5-right hover-text-black"
+                                className="fa fa-ban font14 pointer margin15-right hover-text-black"
                                 style={style.actionItem}
                                 aria-hidden="true"></i>
                             <i
                                 // onClick={() => setDeleteModalIsOpen(true)}
                                 title="Delete user"
-                                className="fa fa-trash font14 pointer margin5-right hover-text-black"
+                                className="fa fa-trash font14 pointer hover-text-black"
                                 style={style.actionItem}
                             >
 
