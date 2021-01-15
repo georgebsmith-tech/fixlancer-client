@@ -1999,7 +1999,7 @@ a.header-top-btn {
   object-fit: cover;
 }
 
-.username-icon {
+.username-icon ,.username-icon2{
   width: 2.2rem;
   height: 2.2rem;
   color: white;
@@ -2009,8 +2009,19 @@ a.header-top-btn {
   justify-content: center;
   align-items: center;
 }
+.username-icon2 {
+  width: 3.2rem;
+  height: 3.2rem;
+}
 .font23 {
   font-size: 2.3rem !important;
+}
+.border-none{
+  border:0px;
+}
+
+.bg-light-blue{
+  background-color:#52828f;
 }
 
 .btn {

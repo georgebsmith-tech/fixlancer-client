@@ -28,13 +28,26 @@ async function upDateData(url, body = {}) {
 
 }
 const TrustButton = ({ fix, handleTrust }) => {
-    const extraClasses = !fix.trusted ? " border-green text-white bg-green" : " "
-    const trusttext = fix.trusted ? "Remove trust" : "Mark as Trusted"
+    const extraClasses = !fix.trusted ? " text-white bg-green" : " "
+    const trusttext = fix.trusted ? "Remove Trust" : "Mark as Trusted"
+    return (
+        <div className="margin15-right">
+            <button
+                onClick={handleTrust}
+                className={"padd10 border5-radius padd5-top-bottom  no-outline border-none" + extraClasses}>
+                {trusttext}
+            </button>
+        </div>
+    )
+}
+const FeatureButton = ({ fix, handleFeature }) => {
+    const extraClasses = !fix.featured ? " text-white bg-light-blue" : " "
+    const trusttext = fix.featured ? "Remove from Featured" : "Mark as Featured"
     return (
         <div>
             <button
-                onClick={handleTrust}
-                className={"padd10 border5-radius padd5-top-bottom  no-outline" + extraClasses}>
+                onClick={handleFeature}
+                className={"padd10 border5-radius padd5-top-bottom  no-outline border-none" + extraClasses}>
                 {trusttext}
             </button>
         </div>
@@ -86,6 +99,17 @@ const DetailedFix = ({ match, location, history }) => {
 
 
             const data = await upDateData(`${domain}/api/fixes/update-single/${fix._id}`, { trusted: !fix.trusted })
+            setFix(data)
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+    const handleFeature = async () => {
+        try {
+
+
+            const data = await upDateData(`${domain}/api/fixes/update-single/${fix._id}`, { featured: !fix.featured })
             setFix(data)
         } catch (err) {
             console.log(err)
@@ -168,8 +192,13 @@ const DetailedFix = ({ match, location, history }) => {
 
                                 {
                                     (fix.approved) &&
-                                    <TrustButton fix={fix}
-                                        handleTrust={handleTrust} />
+                                    <div className="flex">
+                                        <TrustButton fix={fix}
+                                            handleTrust={handleTrust} />
+                                        <FeatureButton fix={fix}
+                                            handleFeature={handleFeature} />
+
+                                    </div>
 
                                 }
                                 {

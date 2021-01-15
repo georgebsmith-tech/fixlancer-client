@@ -10,6 +10,7 @@ import AllDisputes from '../allDisputes/AllDisputes'
 import AllJobRequests from '../allJobRequests/AllJobRequests'
 import AllFixes from '../allFixes/AllFixes'
 import FixCategories from '../fixCategories/FixCategories'
+import AdminMobileHeader from './AdminMobileHeader'
 
 import { Link, Route } from 'react-router-dom'
 
@@ -18,6 +19,7 @@ const Admin = ({ match }) => {
     const [meniItems, setMenuItems] = useState(["all users", "all orders", "all messages", "user balances", "send notifications", "all disputes", "all job requests", "all fixes", "fix categories"])
     return (
         <>
+            <AdminMobileHeader />
             <ul className="flex flex-wrap">
                 {
                     meniItems.map(item => <li><Link
