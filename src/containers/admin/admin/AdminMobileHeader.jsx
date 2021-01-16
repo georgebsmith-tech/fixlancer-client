@@ -10,7 +10,7 @@ const AdminMobileHeader = () => {
 
     }
     return (
-        <header>
+        <header className="hide">
             <ul className="flex-between padd20">
                 <li>
 

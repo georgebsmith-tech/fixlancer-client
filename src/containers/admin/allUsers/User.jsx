@@ -106,9 +106,14 @@ export const UserMobile = withRouter(({ user, history, updateUsers }) => {
                     {user.email}
                 </li>
                 <li
-                    className="margin10-bottom">
+                    className="margin5-bottom">
                     <span> Last Seen: </span>
                     {getDate(user.createdAt)}
+                </li>
+                <li
+                    className="margin10-bottom">
+                    <span> Role: </span>
+                    {user.role}
                 </li>
 
             </ul>
