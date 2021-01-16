@@ -13,6 +13,7 @@ import FixCategories from '../fixCategories/FixCategories'
 import AdminMobileHeader from './AdminMobileHeader'
 
 import { Link, Route } from 'react-router-dom'
+import Dashboard from "./Dashboard"
 
 const Admin = ({ match }) => {
     console.log(match.url)
@@ -29,6 +30,8 @@ const Admin = ({ match }) => {
                     </Link></li>)
                 }
             </ul>
+            {/* dashboard  */}
+            <Dashboard />
 
             <Route path={`${match.url}/all-users`} component={AllUsers} />
             <Route path={`${match.url}/all-orders`} component={AllOrders} />
