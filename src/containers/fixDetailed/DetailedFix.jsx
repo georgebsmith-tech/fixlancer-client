@@ -10,6 +10,7 @@ import RecommendationsList from '../../components/fixes/FeaturedFixesList'
 import HorizontalScroll from '../../components/helperComponents/HorinzontalScroll'
 import { Loading } from '../../components/helperComponents/Loading'
 import AboutFix from './AboutFix'
+import ContactSellerModal from '../../components/chats/ContactSeller'
 
 
 
@@ -70,6 +71,7 @@ const DetailedFix = ({ match, location, history }) => {
     const isAdmin = localStorage.getItem("role") === "admin" ? true : false
     const [sent, setSent] = useState(false)
     const [isActive, setIsActive] = useState(true)
+    const [contactSellerModalIsOpen, setContactSellerModalIsOpen] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [titleSlug, setTitleSlug] = useState(match.params.titleSlug)
     const loggedUser = localStorage.getItem("username")
@@ -217,7 +219,7 @@ const DetailedFix = ({ match, location, history }) => {
                             </div>
                         }
 
-                        <div class="grid-2-21">
+                        <div className="grid-2-21">
                             <AboutFix
                                 fix={fix}
                                 user={user}
@@ -304,16 +306,20 @@ const DetailedFix = ({ match, location, history }) => {
                                             <div
                                                 className="contact-seller-wrapper">
                                                 <button
+                                                    onClick={() => setContactSellerModalIsOpen(true)}
                                                     className="contact-seller-btn">
                                                     Contact Seller
                                         </button>
                                             </div>
                                         }
-                                        <div class="secured" style={{ borderTop: "1px solid #ddd" }}>
+                                        <div className="secured" style={{ borderTop: "1px solid #ddd" }}>
                                             <div>
-                                                <i class="fas fa-shield-alt text-success"></i>
+                                                <i
+                                                    className="fas fa-shield-alt text-success">
+
+                                                </i>
                                             </div>
-                                            <div class="center-text">
+                                            <div className="center-text">
                                                 <div><strong>100% Secured</strong></div>
                                                 <div>
                                                     Job is done or Money back
@@ -380,8 +386,14 @@ const DetailedFix = ({ match, location, history }) => {
                     </main>
             }
             <UserFooter />
+            {
+                contactSellerModalIsOpen && <ContactSellerModal
+                    closeModal={() => setContactSellerModalIsOpen(false)} />
+            }
+
         </>
     )
 }
 
 export default DetailedFix;
+

@@ -10,19 +10,20 @@ import { domain } from '../helperFunctions/domain'
 import { Loading } from '../components/helperComponents/Loading'
 
 import socketIOClient from "socket.io-client"
+import ContactSellerModal from '../components/chats/ContactSeller'
 
 const ViewProfile = (props) => {
     const socket = socketIOClient("http://localhost:4000")
     socket.emit("new-user", { name: "Smith" })
     console.log(socket)
+    window.scrollTo(0, 0)
 
     const username = props.match.params.username
     const [user, setUser] = useState({})
     const [fixes, setFixes] = useState([])
+    const [contactSellerModalIsOpen, setContactSellerModalIsOpen] = useState(false)
     const [isLoading, setIsloading] = useState(true)
-
     useEffect(() => {
-
         async function fetchData() {
             const url_of_user_info = `${domain}/api/users/${username}?content=full`
             const response1 = await axios.get(url_of_user_info, {
@@ -53,7 +54,9 @@ const ViewProfile = (props) => {
                         height="90vh"
 
                     /> :
-                    <UserProfile user={user} />}
+                    <UserProfile user={user}
+                        openContactSellerModal={() => setContactSellerModalIsOpen(true)}
+                    />}
 
 
 
@@ -77,7 +80,9 @@ const ViewProfile = (props) => {
 
 
             </main>
-
+            {
+                contactSellerModalIsOpen && <ContactSellerModal closeModal={() => setContactSellerModalIsOpen(false)} />
+            }
 
             <UserFooter />
 

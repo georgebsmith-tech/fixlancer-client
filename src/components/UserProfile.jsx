@@ -2,7 +2,7 @@ import React from 'react';
 import { getDate } from '../helperFunctions/getDate'
 import { Link } from 'react-router-dom'
 
-const UserProfile = ({ user }) => {
+const UserProfile = ({ user, openContactSellerModal }) => {
     const loggedUser = localStorage.getItem("username")
     const isAdmin = localStorage.getItem("role") === "admin" ? true : false
 
@@ -68,7 +68,9 @@ const UserProfile = ({ user }) => {
                                 <span>Edit Profile</span>
                             </Link>
                                 :
-                                <button className="padd10 padd5-top-bottom border5-radius text-orange bg-white bd-orange">
+                                <button
+                                    onClick={openContactSellerModal}
+                                    className="padd10 padd5-top-bottom border5-radius text-orange bg-white bd-orange">
                                     Contact Seller
 
                                 </button>
