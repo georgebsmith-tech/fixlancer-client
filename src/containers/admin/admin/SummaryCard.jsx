@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const SummaryCard = ({ title, perc = 0, count, state }) => {
+const SummaryCard = ({ title, perc = 0, count, state, style }) => {
     const styles = {
         card: {
             height: 170,
@@ -13,7 +13,7 @@ const SummaryCard = ({ title, perc = 0, count, state }) => {
     }
     const color = state === "inc" ? "green" : "red"
     return (
-        <div style={styles.card} className="bg-white padd20">
+        <div style={{ ...styles.card, ...style }} className="bg-white padd20">
 
             <h3 className="font18 margin20-bottom">
                 {title}

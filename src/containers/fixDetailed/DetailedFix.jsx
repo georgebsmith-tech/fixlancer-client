@@ -12,8 +12,6 @@ import { Loading } from '../../components/helperComponents/Loading'
 import AboutFix from './AboutFix'
 import ContactSellerModal from '../../components/chats/ContactSeller'
 
-
-
 const config = {
     headers: {
         Authorization: 'Bearer ' + localStorage.getItem("auth-token")
@@ -91,7 +89,7 @@ const DetailedFix = ({ match, location, history }) => {
 
 
             const data = await upDateData(`${domain}/api/fixes/update-single/${fix._id}`, { approved: true })
-            setFix(data)
+            setFix({ ...data, ratings: fix.ratings })
         } catch (err) {
             console.log(err)
         }
@@ -101,7 +99,7 @@ const DetailedFix = ({ match, location, history }) => {
 
 
             const data = await upDateData(`${domain}/api/fixes/update-single/${fix._id}`, { trusted: !fix.trusted })
-            setFix(data)
+            setFix({ ...data, ratings: fix.ratings })
         } catch (err) {
             console.log(err)
         }
@@ -112,7 +110,7 @@ const DetailedFix = ({ match, location, history }) => {
 
 
             const data = await upDateData(`${domain}/api/fixes/update-single/${fix._id}`, { featured: !fix.featured })
-            setFix(data)
+            setFix({ ...data, ratings: fix.ratings })
         } catch (err) {
             console.log(err)
         }
@@ -165,6 +163,7 @@ const DetailedFix = ({ match, location, history }) => {
 
     return (
         <>
+
             <UserHeader />
             {
                 isLoading ? <Loading

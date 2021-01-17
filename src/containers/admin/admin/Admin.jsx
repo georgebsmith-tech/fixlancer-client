@@ -31,8 +31,8 @@ const Admin = ({ match }) => {
                 }
             </ul>
             {/* dashboard  */}
-            <Dashboard />
 
+            <Route path={`${match.url}`} exact component={Dashboard} />
             <Route path={`${match.url}/all-users`} component={AllUsers} />
             <Route path={`${match.url}/all-orders`} component={AllOrders} />
             <Route path={`${match.url}/all-messages`} component={AllMessages} />

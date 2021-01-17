@@ -4,6 +4,7 @@ import { Link, withRouter } from 'react-router-dom'
 import { commafy } from '../../helperFunctions/commafy'
 import { getDateAndTime } from '../../helperFunctions/getDate'
 const AboutFix = ({ fix, user, loggedUser, history }) => {
+    console.log(fix.ratings)
     const [showCarNav, setShowCarNav] = useState(false)
     const [total, setTotal] = useState(fix.price)
     const [extra1, setExtra1] = useState("")
@@ -11,8 +12,6 @@ const AboutFix = ({ fix, user, loggedUser, history }) => {
     const [ratings, setRatings] = useState([{ rating: 4 }, { rating: 2 }, { rating: 5 }, { rating: 3 }])
     const carouselRef = useRef()
     const imageref = useRef()
-
-
 
     const style = {
         ratingsGrid: {
