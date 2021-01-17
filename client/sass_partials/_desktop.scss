@@ -552,8 +552,15 @@
     }
 
     .dashboard-grid-unequal>div{
-        height: 300px;
+
         background-color:white;
+    }
+
+    .orders-and-users-grid{
+         display: grid;
+          grid-template-columns: 1fr 1.5fr;
+           column-gap: 20px
+
     }
     
    

@@ -14,6 +14,7 @@ const Dashboard = () => {
     const [users, setUsers] = useState([])
     const [fixes, setFixes] = useState([])
     const [requests, setRequests] = useState([])
+    const [orderCounts, setOrderCounts] = useState({})
     useEffect(() => {
         async function fetchData() {
             const usersURL = `${domain}/api/users`
@@ -32,6 +33,11 @@ const Dashboard = () => {
             setRequests(jobsResponse.data.data)
             console.log(jobsResponse.data)
 
+            const ordersURL = `${domain}/api/sales/counts`
+            const ordersResponse = await axios.get(ordersURL, config)
+            setOrderCounts(ordersResponse.data)
+
+
 
         }
         fetchData()
@@ -43,6 +49,11 @@ const Dashboard = () => {
     const featured = fixes.filter(fix => fix.featured).length
     const trusted = fixes.filter(fix => fix.trusted).length
     const approved = fixes.filter(fix => fix.approved).length
+    const userCounts = {
+        total: users.length,
+        admins: users.filter(user => user.role === "admin").length,
+        sellers: users.filter(user => user.seller).length
+    }
     const requestsCounts = {
         total: requests.length,
         published: requests.filter(req => req.approved).length,
@@ -55,8 +66,14 @@ const Dashboard = () => {
 
     return (
         <main className="main">
-            <div className="bg-white padd20 margin20-top margin40-bottom" style={{ boxShadow: "-3px 3px 2px 5px #f2f2f2", backgroundColor: "#f7f7f7" }}>
-                <h2 className="font30">Fixes</h2>
+            <div className="bg-white padd20 margin20-top margin40-bottom" style={
+                {
+                    boxShadow: "-3px 3px 2px 5px #f2f2f2",
+                    backgroundColor: "#f7f7f7"
+                }
+            }
+            >
+                <h2 className="font30 bold">Fixes</h2>
 
                 <div className="dashboard-section1">
                     <SummaryCard
@@ -64,6 +81,7 @@ const Dashboard = () => {
                         perc={100}
                         count={total}
                         state="inc"
+                        color="lightblue"
 
                     />
                     <SummaryCard
@@ -71,6 +89,7 @@ const Dashboard = () => {
                         perc={(featured * 100 / total).toFixed(1)}
                         count={featured}
                         state="inc"
+                        color="gold"
 
                     />
                     <SummaryCard
@@ -78,6 +97,7 @@ const Dashboard = () => {
                         perc={(trusted * 100 / total).toFixed(1)}
                         count={trusted}
                         state="dec"
+                        color="green"
                     />
                 </div>
 
@@ -87,20 +107,21 @@ const Dashboard = () => {
                         perc={(approved * 100 / total).toFixed(1)}
                         count={approved}
                         state="inc"
-
+                        color="lightgreen"
                     />
                     <SummaryCard
                         title="Draft"
                         perc={((total - approved) * 100 / total).toFixed(1)}
                         count={total - approved}
                         state="dec"
+                        color="red"
                     />
                 </div>
 
             </div>
-            <div className="dashboard-grid-unequal margin20-bottom" >
+            <div className="dashboard-grid-unequal margin20-bottom bg-white" >
                 <div style={{ boxShadow: "-3px 3px 2px 5px #f2f2f2" }} className="padd20">
-                    <h2 className="font30 margin10-bottom bold">
+                    <h2 className="font30 margin20-bottom bold">
                         Jobs
                </h2>
                     <Job
@@ -141,14 +162,80 @@ const Dashboard = () => {
                 <div style={{ boxShadow: "-3px 3px 2px 5px #f2f2f2" }}></div>
 
             </div>
+            <div
+                className="orders-and-users-grid margin30-bottom margin30-top">
+
+
+                <div style={{ boxShadow: "-3px 3px 2px 5px #f2f2f2" }} className="padd20">
+                    <h2 className="font30 margin20-bottom bold">
+                        Orders
+               </h2>
+                    <div>
+                        <div style={{ boxShadow: "-3px 3px 2px 5px #f2f2f2" }}>
+
+
+                            <Order
+                                title="Total Orders"
+                                count={orderCounts.all}
+                            />
+                            <Order
+                                title="completed Orders"
+                                count={orderCounts.completed}
+                            />
+                            <Order
+                                title="Ongoing Orders"
+                                count={orderCounts.ongoing}
+                            />
+                            <Order
+                                title="Delivered Orders"
+                                count={orderCounts.delivered}
+                            />
+                            <Order
+                                title="Cancelled Orders"
+                                count={orderCounts.cancelled}
+                            />
+                            <Order
+                                title="Disputed Orders"
+                                count={orderCounts.disputed}
+                            />
+                        </div>
+
+                    </div>
+                </div>
+                <div className="padd20">
+                    <h2 className="font30 margin20-bottom bold">
+                        Users
+                </h2>
+                    <div className="bg-white padd20" style={{ boxShadow: "-3px 3px 2px 5px #f2f2f2" }} >
+
+                        <div className="flex-between font20 margin10-bottom" >
+                            <div>Total</div>
+                            <div>{userCounts.total}</div>
+                        </div>
+                        <div className="flex-between font20 margin10-bottom" >
+                            <div>Administrators</div>
+                            <div>{userCounts.admins}</div>
+                        </div>
+                        <div className="flex-between font20 margin10-bottom" >
+                            <div>Users</div>
+                            <div>{userCounts.total - userCounts.admins}</div>
+                        </div>
+
+                        <div className="flex-between font20 margin10-bottom" >
+                            <div>Sellers</div>
+                            <div>{userCounts.sellers}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <section>
-                <h3 className="font20">
-                    Recent Users
-                </h3>
+                <h2 className="font30 bold">
+                    Online Users
+                </h2>
                 <UsersList
                     // updateUsers={updateUsers}
-                    users={users} />
+                    users={users.filter(user => user.online)} />
 
             </section>
 
@@ -183,5 +270,18 @@ const Job = ({ title, count = 0, perc = 0, color = "orange" }) => {
 
             </div>
         </li>
+    )
+}
+const Order = ({ title, count }) => {
+    return (
+        <div className="grid2-1-6 justify-center align-center padd20 border-bottom bg-white">
+            <div>
+                <i className="fa fa-tasks" aria-hidden="true" style={{ fontSize: 35, color: "green" }}></i>
+            </div>
+            <div>
+                <div className="font28 margin10-bottom">{count}</div>
+                <div className="font13 upper">{title}</div>
+            </div>
+        </div>
     )
 }

@@ -22,6 +22,11 @@ const Admin = ({ match }) => {
         <>
             <AdminMobileHeader />
             <ul className="flex flex-wrap">
+                <li><Link
+                    className="padd10 font14 block"
+                    to={`${match.url}`}>
+                    Dashboard
+                </Link></li>
                 {
                     meniItems.map(item => <li><Link
                         className="padd10 font14 block"

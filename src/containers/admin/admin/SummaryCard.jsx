@@ -1,7 +1,7 @@
 import React from 'react'
 
 
-const SummaryCard = ({ title, perc = 0, count, state, style }) => {
+const SummaryCard = ({ title, perc = 0, count, state, style, color }) => {
     const styles = {
         card: {
             height: 170,
@@ -11,7 +11,7 @@ const SummaryCard = ({ title, perc = 0, count, state, style }) => {
 
         }
     }
-    const color = state === "inc" ? "green" : "red"
+
     return (
         <div style={{ ...styles.card, ...style }} className="bg-white padd20">
 
@@ -21,8 +21,8 @@ const SummaryCard = ({ title, perc = 0, count, state, style }) => {
             <div className="flex-between margin20-bottom">
                 <div className="font30" style={{ color }}>
                     {
-                        state === "inc" ? <i className="fa fa-arrow-up text-green margin5-right"></i>
-                            : <i className="fa fa-arrow-down text-red margin5-right"></i>
+                        state === "inc" ? <i className="fa fa-arrow-up margin5-right" style={{ color }}></i>
+                            : <i className="fa fa-arrow-down margin5-right" style={{ color }}></i>
                     }
 
                     {count}</div>

@@ -2004,6 +2004,10 @@ a.header-top-btn {
   animation-duration: 9s;
 }
 
+.upper {
+  text-transform: uppercase !important;
+}
+
 .honourable-mention {
   display: block;
   width: 130px;
@@ -3988,8 +3992,13 @@ a.control-btn {
   }
 
   .dashboard-grid-unequal > div {
-    height: 300px;
     background-color: white;
+  }
+
+  .orders-and-users-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    column-gap: 20px;
   }
 }
 @media only screen and (min-width: 1200px) {
