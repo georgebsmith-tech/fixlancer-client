@@ -15,33 +15,21 @@ import AdminMobileHeader from './AdminMobileHeader'
 import { Link, Route } from 'react-router-dom'
 import Dashboard from "./Dashboard"
 import MainNavigation from './MainNavigation'
+import NotFound from '../../404/NotFound'
 
 const Admin = ({ match }) => {
     console.log(match.url)
-    const [meniItems, setMenuItems] = useState(["all users", "all orders", "all messages", "user balances", "send notifications", "all disputes", "all job requests", "all fixes", "fix categories"])
+
     const [navIsOpen, setNavIsOpen] = useState(false)
     return (
         <>
             <AdminMobileHeader openNav={() => setNavIsOpen(true)} />
-            {navIsOpen &&
 
-                <MainNavigation closeNav={() => setNavIsOpen(false)} />
-            }
 
-            <ul className="flex flex-wrap">
-                <li><Link
-                    className="padd10 font14 block"
-                    to={`${match.url}`}>
-                    Dashboard
-                </Link></li>
-                {
-                    meniItems.map(item => <li><Link
-                        className="padd10 font14 block"
-                        to={`${match.url}/${item.split(" ").join("-")}`}>
-                        {item}
-                    </Link></li>)
-                }
-            </ul>
+            <MainNavigation
+                extraClass={navIsOpen ? "slide-out" : "slide-in"}
+                closeNav={() => setNavIsOpen(false)}
+            />
             {/* dashboard  */}
 
             <Route path={`${match.url}`} exact component={Dashboard} />
@@ -55,6 +43,9 @@ const Admin = ({ match }) => {
             <Route path="/admin/all-job-requests" component={AllJobRequests} />
             <Route path={`${match.url}/all-fixes`} component={AllFixes} />
             <Route path={`${match.url}/fix-categories`} component={FixCategories} />
+            <Route exact strict>
+                <NotFound header={false} />
+            </Route>
 
         </>
     )
