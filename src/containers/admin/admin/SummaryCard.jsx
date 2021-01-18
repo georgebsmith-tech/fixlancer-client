@@ -15,7 +15,7 @@ const SummaryCard = ({ title, perc = 0, count, state, style, color }) => {
     return (
         <div style={{ ...styles.card, ...style }} className="bg-white padd20">
 
-            <h3 className="font18 margin20-bottom">
+            <h3 className="font18 margin20-bottom bold">
                 {title}
             </h3>
             <div className="flex-between margin20-bottom">

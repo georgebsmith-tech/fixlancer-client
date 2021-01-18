@@ -1,33 +1,25 @@
 import React, { useState } from 'react'
 
 
-const AdminMobileHeader = () => {
-    const [menuIsOpen, setMenuIsOpen] = useState(false)
-    const handleMenu = () => {
-        setMenuIsOpen(!menuIsOpen)
-    }
+const AdminMobileHeader = ({ openNav }) => {
+
+
     const handleClick = () => {
 
     }
     return (
-        <header className="hide">
-            <ul className="flex-between padd20">
-                <li>
+        <header className="" style={{ boxShadow: "0px 4px 8px 2px #f2f2f2" }}>
+            <div className="flex-between padd20">
+                <div>
+                    <img src={"../../../../public/images/logo.png"} alt="" />
+                </div>
+                <div
+                    onClick={openNav}
+                    className="font28 pointer">
+                    &#9776;
+        </div>
+            </div>
 
-                </li>
-                <li>
-                    <div className="flex-center" style={{ flexDirection: "row" }}>
-                        <div
-                            style={{ backgroundColor: "red" }}
-                            className="username-icon2 margin10-right pointer">
-                            I
-                        </div>
-                        <div>
-                            <i className="fa fa-angle-down pointer"></i>
-                        </div>
-                    </div>
-                </li>
-            </ul>
         </header>
     )
 }

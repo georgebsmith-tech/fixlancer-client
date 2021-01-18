@@ -14,13 +14,20 @@ import AdminMobileHeader from './AdminMobileHeader'
 
 import { Link, Route } from 'react-router-dom'
 import Dashboard from "./Dashboard"
+import MainNavigation from './MainNavigation'
 
 const Admin = ({ match }) => {
     console.log(match.url)
     const [meniItems, setMenuItems] = useState(["all users", "all orders", "all messages", "user balances", "send notifications", "all disputes", "all job requests", "all fixes", "fix categories"])
+    const [navIsOpen, setNavIsOpen] = useState(false)
     return (
         <>
-            <AdminMobileHeader />
+            <AdminMobileHeader openNav={() => setNavIsOpen(true)} />
+            {navIsOpen &&
+
+                <MainNavigation closeNav={() => setNavIsOpen(false)} />
+            }
+
             <ul className="flex flex-wrap">
                 <li><Link
                     className="padd10 font14 block"

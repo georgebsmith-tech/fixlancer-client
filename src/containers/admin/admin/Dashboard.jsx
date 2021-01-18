@@ -15,6 +15,7 @@ const Dashboard = () => {
     const [fixes, setFixes] = useState([])
     const [requests, setRequests] = useState([])
     const [orderCounts, setOrderCounts] = useState({})
+   
     useEffect(() => {
         async function fetchData() {
             const usersURL = `${domain}/api/users`
