@@ -26,8 +26,8 @@ const style = {
     }
 }
 
-export const TransactionMobile = withRouter(({ transaction, history, updateUsers }) => {
-    const [showAction, setShowAction] = useState(false)
+export const TransactionMobile = withRouter(({ transaction, match, updateUsers }) => {
+
 
     const handleBan = () => {
         console.log("Ban")
@@ -49,44 +49,15 @@ export const TransactionMobile = withRouter(({ transaction, history, updateUsers
     return (
         <li
             className="border-smooth font14 padd10 margin5-bottom bg-white">
-            <ul onMouseEnter={() => setShowAction(true)} onMouseLeave={() => setShowAction(false)}>
+            <ul>
 
 
 
                 <li
                     className="margin5-bottom relative">
-                    {
-                        showAction &&
 
-                        <span style={style.actionButton} className=" block border5-radius padd10 padd5-top-bottom">
-                            <i
-                                // onClick={() => history.push(`/u/${user.username}`)}
-                                title="Edit user details"
-                                className="fa fa-pencil font14 pointer hover-text-black margin15-right "
-                                style={style.actionItem}
-                            >
-
-                            </i>
-                            <i
-                                onClick={handleBan}
-                                title="Ban user"
-                                className="fa fa-ban font14 pointer margin15-right hover-text-black"
-                                style={style.actionItem}
-                                aria-hidden="true"></i>
-                            <i
-                                // onClick={() => setDeleteModalIsOpen(true)}
-                                title="Delete user"
-                                className="fa fa-trash font14 pointer hover-text-black"
-                                style={style.actionItem}
-                            >
-
-                            </i>
-
-
-
-                        </span>
-                    }
                     <Link
+                        title="View User profile"
                         to={`/u/${transaction.username}`} className="text-link-with-hover"> {transaction.username}
                     </Link>
                 </li>
@@ -98,7 +69,10 @@ export const TransactionMobile = withRouter(({ transaction, history, updateUsers
                 <li
                     className="margin5-bottom">
                     <span> Count: </span>
-                    {transaction.count}
+                    <Link
+                        title={`View all Transactions by ${transaction.username}`}
+                        to={`${match.url}/${transaction.username}`} className="text-link-with-hover">{transaction.count}</Link>
+
                 </li>
 
             </ul>

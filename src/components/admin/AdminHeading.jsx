@@ -7,7 +7,7 @@ export const AdminHeading = ({ title }) => {
     }
     return (
         <h1
-            className="padd10 font14 margin30-bottom margin20-top"
+            className="padd10 font14 margin30-bottom margin20-top full-width"
             style={style}>
             {title}
         </h1>

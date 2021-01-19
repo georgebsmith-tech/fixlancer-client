@@ -12,6 +12,7 @@ import AllFixes from '../allFixes/AllFixes'
 import FixCategories from '../fixCategories/FixCategories'
 import AdminMobileHeader from './AdminMobileHeader'
 import AllTransactions from '../allTransactions/AllTransactions'
+import DetailedTransaction from '../detailedtransactions/DetailedTransaction'
 import { Link, Route } from 'react-router-dom'
 import Dashboard from "./Dashboard"
 import MainNavigation from './MainNavigation'
@@ -44,6 +45,7 @@ const Admin = ({ match }) => {
             <Route path={`${match.url}/all-fixes`} component={AllFixes} />
             <Route path={`${match.url}/fix-categories`} component={FixCategories} />
             <Route path={`${match.url}/all-transactions`} exact strict component={AllTransactions} />
+            <Route path={`${match.url}/all-transactions/:username`} exact strict component={DetailedTransaction} />
             {/* <Route exact strict>
                 <NotFound header={false} />
             </Route> */}

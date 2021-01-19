@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { Children, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { TransactionMobile, TransactionDeskTop } from './Transaction'
 
-const TransactionsList = ({ transactions = [], updateUsers }) => {
+const TransactionsList = ({ transactions = [], updateUsers, children }) => {
 
     return (
         <div>
             <h2
                 className="bold margin20-bottom font16 margin20-top">Showing 20 most recent
             </h2>
+            {children}
             <ul
                 className="grid-responsive-max6 mobile">
                 {
