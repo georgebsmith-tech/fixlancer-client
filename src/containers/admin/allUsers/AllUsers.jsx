@@ -27,9 +27,6 @@ const AllUser = ({ location }) => {
             const data = response.data
             console.log(data)
             setUsers(data.users)
-
-
-
             // setIsLoading(false)
         }
         fetchData()
