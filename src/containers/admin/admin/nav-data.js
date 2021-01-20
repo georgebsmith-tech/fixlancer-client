@@ -44,6 +44,17 @@ export const navs = [
 
         ]
     },
+    {
+        group: "ratings",
+        icon: "fa-star",
+        subs: [
+            {
+                title: "All Ratings",
+                link: "all-ratings"
+            }
+
+        ]
+    },
 
 
 
