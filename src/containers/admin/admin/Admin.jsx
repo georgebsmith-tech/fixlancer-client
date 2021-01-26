@@ -13,6 +13,7 @@ import FixCategories from '../fixCategories/FixCategories'
 import AdminMobileHeader from './AdminMobileHeader'
 import AllTransactions from '../allTransactions/AllTransactions'
 import DetailedTransaction from '../detailedtransactions/DetailedTransaction'
+import DetailedRatings from '../detailedRatings/DetailedRatings'
 import AllRatings from '../allRatings/AllRatings'
 import { Link, Route } from 'react-router-dom'
 import Dashboard from "./Dashboard"
@@ -20,8 +21,7 @@ import MainNavigation from './MainNavigation'
 import NotFound from '../../404/NotFound'
 
 const Admin = ({ match }) => {
-    console.log(match.url)
-
+    const closeTheNav = () => setNavIsOpen(false)
     const [navIsOpen, setNavIsOpen] = useState(false)
     return (
         <>
@@ -30,7 +30,7 @@ const Admin = ({ match }) => {
 
             <MainNavigation
                 extraClass={navIsOpen ? "slide-out" : "slide-in"}
-                closeNav={() => setNavIsOpen(false)}
+                closeNav={closeTheNav}
             />
             {/* dashboard  */}
 
@@ -48,6 +48,7 @@ const Admin = ({ match }) => {
             <Route path={`${match.url}/all-transactions`} exact strict component={AllTransactions} />
             <Route path={`${match.url}/all-transactions/:username`} exact strict component={DetailedTransaction} />
             <Route path={`${match.url}/all-ratings`} exact strict component={AllRatings} />
+            <Route path={`${match.url}/all-ratings/:username`} exact strict component={DetailedRatings} />
             {/* <Route exact strict>
                 <NotFound header={false} />
             </Route> */}

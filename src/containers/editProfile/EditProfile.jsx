@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import UserHeader from '../../components/UserHeader'
 import UserFooter from '../../components/UserFooter'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
 import { Link } from 'react-router-dom'
+import { DataLayerContext } from '../../context/DataLayer'
 
 
 const EditProfile = ({ match, history }) => {
+    const [state, dispatch] = useContext(DataLayerContext)
 
     const [isLoading, setIsLoading] = useState(true)
     const [success, setSuccess] = useState(false)
@@ -25,30 +27,22 @@ const EditProfile = ({ match, history }) => {
     const [accNumber, setAccNumber] = useState("")
     const [isUpdating, setIsUpdating] = useState(false)
 
-    const loggedUser = localStorage.getItem("username")
-    const config = {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem("auth-token")}`
-        }
-    }
-
     useEffect(() => {
         async function fetchData() {
-            const url_of_user_info = `${domain}/api/users/${loggedUser}?content=full`
-            const response1 = await axios.get(url_of_user_info, config)
-            const data = response1.data.data
-            const bank = response1.data.data.bankDetails
-            console.log(response1.data)
+
+            const data = state.user
+            const bank = data.bankDetails
+            console.log(data)
             setPhone(data.phone)
             setCity(data.city)
             setUsername(data.username)
-            setBankName(bank.bankName)
+            // setBankName(bank.bankName)
             setFullName(data.fullName)
-            setAccName(bank.accName)
-            setAccNumber(bank.accNumber)
-            setBio(data.bio)
-            setImageURL(data.imageURL)
-            console.log(data)
+            // setAccName(bank.accName)
+            // setAccNumber(bank.accNumber)
+            // setBio(data.bio)
+            // setImageURL(data.imageURL)
+            // console.log(data)
             setIsLoading(false)
         }
         fetchData()
@@ -93,7 +87,7 @@ const EditProfile = ({ match, history }) => {
         }
         const sendData = async () => {
             try {
-                const response = await axios.put(`${domain}/api/users/${loggedUser}`, body)
+                const response = await axios.put(`${domain}/api/users/${state.user.username}`, body)
                 const data = response.data
                 console.log(data)
                 if (data) {

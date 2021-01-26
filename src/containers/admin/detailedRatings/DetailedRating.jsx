@@ -26,55 +26,57 @@ const style = {
     }
 }
 
-export const TransactionMobile = withRouter(({ transaction, match, history }) => {
-
-
+export const DetailRatingMobile = withRouter(({ rating, history }) => {
+    const [showAction, setShowAction] = useState(false)
 
 
     return (
         <li
-            className="border-smooth font14 padd10 margin5-bottom bg-white flex-between">
-            <ul>
+            className="border-smooth font14 padd10 margin5-bottom bg-white">
+            <ul onMouseEnter={() => setShowAction(true)} onMouseLeave={() => setShowAction(false)}>
 
 
 
                 <li
                     className="margin5-bottom relative">
+                    <span>Buyer:</span>
 
                     <Link
-                        title="View User profile"
-                        to={`/u/${transaction.username}`} className="text-link-with-hover"> {transaction.username}
+                        to={`/u/${rating.username}`} className="text-link-with-hover"> {rating.username}
                     </Link>
                 </li>
                 <li
                     className="margin5-bottom">
-                    <span> Email: </span>
-                    {transaction.email}
+                    <span> Rating: </span>
+                    {rating.rating}
+                </li>
+
+                <li
+                    className="margin5-bottom">
+                    <span> Review: </span>
+                    <span title={rating.review}>{rating.review.substr(0, 42)}...</span>
+
+
                 </li>
                 <li
                     className="margin5-bottom">
-                    <span> Count: </span>
-                    <Link
-                        title={`View all Transactions by ${transaction.username}`}
-                        to={`${match.url}/${transaction.username}`} className="text-link-with-hover">{transaction.count}</Link>
+                    <span> Submitted: </span>
+                    {getDate(rating.createdAt)}
 
                 </li>
 
-            </ul>
-            <i
-                title={`View all Transactions by ${transaction.username}`}
-                onClick={() => { history.push(`${match.url}/${transaction.username}`) }}
 
-                className="fa fa-angle-right font40 text-green padd20 pointer"></i>
+            </ul>
+
 
         </li>
     )
 })
-export const TransactionDeskTop = ({ transaction }) => {
+export const DetailRatingDesktop = ({ rating }) => {
     const style = {
         grid7: {
             display: "grid",
-            gridTemplateColumns: " 50px 1fr 1.5fr  repeat(2,1fr)",
+            gridTemplateColumns: " 50px repeat(5,1fr) 100px",
             alignItems: "center"
         }
     }
@@ -87,19 +89,27 @@ export const TransactionDeskTop = ({ transaction }) => {
                 >
                     <span>  </span>
                     <Link
-                        to={`/u/${transaction.username}`}
+                        to={`/u/${rating.username}`}
                         className="text-link-with-hover">
-                        {transaction.username}
+                        {rating.ratingname}
                     </Link>
                 </li>
-
-                <li
-                >
-                    {transaction.email}
+                <li>
+                    {getDate(rating.createdAt)}
                 </li>
                 <li
                 >
-                    {transaction.count}
+                    {rating.phone}
+
+                </li>
+                <li
+                >
+                    {rating.email}
+                </li>
+                <li
+                >
+                    <span> Last Seen: </span>
+                     3h
                 </li>
                 <li>
                     <button className="padd5 border5-radius bg-dark-blue border-dark-blue text-white no-outline">Delete</button>

@@ -11,7 +11,7 @@ const TransactionsList = ({ transactions = [], updateUsers, children }) => {
             </h2>
             {children}
             <ul
-                className="grid-responsive-max6 mobile">
+                className="grid-responsive-3 mobile">
                 {
                     transactions.map(transaction => <TransactionMobile
                         transaction={transaction}

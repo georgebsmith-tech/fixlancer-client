@@ -11,8 +11,10 @@ import { Loading } from '../components/helperComponents/Loading'
 
 import socketIOClient from "socket.io-client"
 import ContactSellerModal from '../components/chats/ContactSeller'
+import { DataLayerContext } from '../context/DataLayer'
 
 const ViewProfile = (props) => {
+    const [state, dispatch] = React.useContext(DataLayerContext)
     const socket = socketIOClient("http://localhost:4000")
     socket.emit("new-user", { name: "Smith" })
     console.log(socket)
@@ -25,24 +27,31 @@ const ViewProfile = (props) => {
     const [isLoading, setIsloading] = useState(true)
     useEffect(() => {
         async function fetchData() {
-            const url_of_user_info = `${domain}/api/users/${username}?content=full`
-            const response1 = await axios.get(url_of_user_info, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("auth-token")}`
-                }
-            })
-            setUser(response1.data.data)
-            console.log(response1.data.data)
+            if (state.user.username !== username) {
+                const url_of_user_info = `${domain}/api/users/${username}?content=full`
+                const response1 = await axios.get(url_of_user_info, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+                    }
+                })
+                setUser(response1.data.data)
 
-            const url_of_user_fix = `${domain}/api/fixes/${username}`
-            const response2 = await axios.get(url_of_user_fix)
-            console.log(response2.data.data)
-            setFixes(response2.data.data)
+                const url_of_user_fix = `${domain}/api/fixes/${username}`
+                const response2 = await axios.get(url_of_user_fix)
+                console.log(response2.data.data)
+                setFixes(response2.data.data)
+
+            } else {
+                setUser(state.user)
+                setFixes(state.userFixes)
+            }
+
+
             setIsloading(false)
         }
         fetchData()
 
-    }, [])
+    }, [props.match.params.username])
 
     return (
         <>

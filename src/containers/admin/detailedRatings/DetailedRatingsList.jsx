@@ -1,22 +1,21 @@
-import React, { Children, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { RatingMobile, RatingDesktop } from './Rating'
+import React, { useState } from 'react'
 
-const RatingsList = ({ ratings = [], updateUsers, children }) => {
+import { DetailRatingMobile, DetailRatingDesktop } from './DetailedRating'
+
+const DetailedRatingsList = ({ ratings }) => {
+
 
     return (
         <div>
             <h2
                 className="bold margin20-bottom font16 margin20-top">Showing 20 most recent
             </h2>
-            {children}
             <ul
                 className="grid-responsive-3 mobile">
                 {
-                    ratings.map(rating => <RatingMobile
+                    ratings.map(rating => <DetailRatingMobile
                         rating={rating}
-                        key={rating._id}
-                        updateUsers={updateUsers}
+
 
                     />
                     )
@@ -26,7 +25,7 @@ const RatingsList = ({ ratings = [], updateUsers, children }) => {
                 className="desktop">
                 {
                     ratings.map(rating =>
-                        <RatingDesktop
+                        <DetailRatingDesktop
                             rating={rating}
                             key={rating._id}
                         />)
@@ -39,4 +38,4 @@ const RatingsList = ({ ratings = [], updateUsers, children }) => {
     )
 }
 
-export default RatingsList;
+export default DetailedRatingsList;

@@ -5,15 +5,20 @@ import App from './App';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
+import { DataLayer } from './context/DataLayer'
+import reducer, { initialState } from './context/reducer'
 
 
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
+  // <React.StrictMode>
+  <Router>
+    <DataLayer initialState={initialState} reducer={reducer}>
       <App />
-    </Router>
-  </React.StrictMode>,
+    </DataLayer>
+  </Router>
+  // </React.StrictMode>
+  ,
   document.getElementById('root')
 );
 

@@ -7,6 +7,7 @@ import UserHeader from '../components/UserHeader'
 import { ButtonLoader } from '../components/helperComponents/ButtonLoader'
 import { Loading } from '../components/helperComponents/Loading'
 import { Link } from 'react-router-dom'
+import { DataLayerContext } from '../context/DataLayer'
 const config = {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("auth-token")}`
@@ -15,6 +16,9 @@ const config = {
 
 
 const EditFix = ({ history, location, match }) => {
+
+    const [state, dispatch] = React.useContext(DataLayerContext)
+    console.log(state)
     const [fix, setFix] = useState({})
     const [isUpdating, setIsupdating] = useState(false)
     const [isUpdated, setIsupdated] = useState(false)

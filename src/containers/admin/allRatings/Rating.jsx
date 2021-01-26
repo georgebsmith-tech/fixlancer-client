@@ -26,11 +26,12 @@ const style = {
     }
 }
 
-export const RatingMobile = withRouter(({ rating, match, updateUsers }) => {
+export const RatingMobile = withRouter(({ rating, match, history }) => {
 
     return (
         <li
-            className="border-smooth font14 padd10 margin5-bottom bg-white">
+            className="border-smooth font14 padd10 margin5-bottom bg-white flex-between">
+
             <ul>
 
 
@@ -58,6 +59,16 @@ export const RatingMobile = withRouter(({ rating, match, updateUsers }) => {
                 </li>
 
             </ul>
+
+
+            <i
+                title={`View all Ratings by ${rating.username}`}
+                onClick={() => { history.push(`${match.url}/${rating.username}`) }}
+
+                className="fa fa-angle-right font40 text-green padd20 pointer"></i>
+
+
+
 
 
         </li>

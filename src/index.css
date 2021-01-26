@@ -829,6 +829,10 @@ h6 {
   border: 1px solid #f27415;
 }
 
+.bd-red {
+  border: 1px solid red !important;
+}
+
 .text-white {
   color: white;
 }
@@ -2031,6 +2035,16 @@ a.header-top-btn {
 
 .slide-out {
   transform: translateX(0);
+}
+
+.grid-responsive-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  column-gap: 10px;
+}
+
+.finance-withdrwal > li:nth-child(even) {
+  background-color: #f7f7f7;
 }
 
 .honourable-mention {
