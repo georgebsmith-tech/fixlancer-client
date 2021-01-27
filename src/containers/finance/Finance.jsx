@@ -120,7 +120,7 @@ const Finance = () => {
                         </div> :
                                     <section style={{ overflow: "auto", }}>
 
-                                        <ul className="finance-withdrwal">
+                                        <ul className="finance-withdrwa">
                                             {withdrawals.map(withdrawal => <li key={withdrawal._id} >
                                                 <div style={{ display: "grid", gridTemplateColumns: "repeat(6,1fr)", columnGap: 10 }} className="padd10 align-center ">
                                                     <div className="font15  no-break">{getDate(withdrawal.createdAt)}</div>

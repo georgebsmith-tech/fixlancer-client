@@ -11,6 +11,7 @@ import Heading from '../components/helperComponents/SubHeading'
 import axios from 'axios'
 import { domain } from '../helperFunctions/domain'
 import { Loading } from '../components/helperComponents/Loading'
+document.title = "Get Jobs Done|Fixlancer"
 
 class Home extends Component {
     state = {

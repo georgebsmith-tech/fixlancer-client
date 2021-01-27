@@ -2494,12 +2494,12 @@ main.request-page {
   color: black;
 }
 
-.sales-and-orders-headings {
+.sales-and-orders-headings, .common-headings {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   background-color: #f8f9fc;
 }
-.sales-and-orders-headings a {
+.sales-and-orders-headings a, .common-headings a {
   display: block;
   color: #2F9CDD;
   text-align: center;
@@ -2508,14 +2508,14 @@ main.request-page {
   font-size: 1.2rem;
   text-transform: uppercase;
 }
-.sales-and-orders-headings a:hover {
+.sales-and-orders-headings a:hover, .common-headings a:hover {
   text-decoration: underline;
 }
-.sales-and-orders-headings a.active, .sales-and-orders-headings a.active span {
+.sales-and-orders-headings a.active, .sales-and-orders-headings a.active span, .common-headings a.active, .common-headings a.active span {
   background: #5aba79;
   color: white;
 }
-.sales-and-orders-headings a span {
+.sales-and-orders-headings a span, .common-headings a span {
   color: #2F9CDD;
 }
 
@@ -3535,11 +3535,11 @@ a.control-btn {
     max-height: 476px;
   }
 
-  .sales-and-orders-headings {
+  .sales-and-orders-headings, .common-headings {
     display: flex;
     padding: 5px 40px;
   }
-  .sales-and-orders-headings a {
+  .sales-and-orders-headings a, .common-headings a {
     padding: 5px 40px;
   }
 
