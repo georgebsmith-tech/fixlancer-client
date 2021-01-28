@@ -19,6 +19,7 @@ import { Link, Route } from 'react-router-dom'
 import Dashboard from "./Dashboard"
 import MainNavigation from './MainNavigation'
 import AllWithdrawals from '../allWithdrawals/AllWithdrawals'
+import JobFee from '../settings/JobFee'
 import NotFound from '../../404/NotFound'
 
 const Admin = ({ match }) => {
@@ -51,6 +52,7 @@ const Admin = ({ match }) => {
             <Route path={`${match.url}/all-ratings`} exact strict component={AllRatings} />
             <Route path={`${match.url}/all-ratings/:username`} exact strict component={DetailedRatings} />
             <Route path={`${match.url}/all-withdrawals`} component={AllWithdrawals} />
+            <Route path={`${match.url}/job-fee`} component={JobFee} />
             {/* <Route exact strict>
                 <NotFound header={false} />
             </Route> */}

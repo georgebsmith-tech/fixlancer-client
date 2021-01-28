@@ -2047,6 +2047,10 @@ a.header-top-btn {
   background-color: #f7f7f7;
 }
 
+.header-bg {
+  background-color: #f8f9fc;
+}
+
 .honourable-mention {
   display: block;
   width: 130px;
@@ -4037,6 +4041,12 @@ a.control-btn {
   .orders-and-users-grid {
     display: grid;
     grid-template-columns: 1fr 1.5fr;
+    column-gap: 20px;
+  }
+
+  .grid2-desktop {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     column-gap: 20px;
   }
 }

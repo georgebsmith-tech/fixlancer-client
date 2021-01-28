@@ -153,7 +153,7 @@ export const navs = [
         subs: [
             {
                 title: "Job fee",
-                link: ""
+                link: "job-fee"
             },
             {
                 title: "Fix Approval",

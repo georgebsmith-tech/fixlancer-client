@@ -7,7 +7,6 @@ const config = {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("auth-token")}`
     }
-
 }
 const AllTransactions = () => {
     const [transactionsStore, setTransactionsStore] = useState([])
