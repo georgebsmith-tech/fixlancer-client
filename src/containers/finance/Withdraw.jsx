@@ -89,13 +89,8 @@ const Withdraw = ({ history }) => {
                     setAmountError(true)
                 }
                 setError(err.response.data.error)
-
-
             }
-
         }
-
-
         sendData()
         console.log(body)
     }

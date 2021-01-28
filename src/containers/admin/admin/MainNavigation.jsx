@@ -33,6 +33,20 @@ const MainNavigation = ({ closeNav, extraClass }) => {
                         icon={nav.icon}
                         subs={nav.subs} />)
                 }
+                <li
+                    onClick={(e) => { e.stopPropagation(); }}
+                    className="font10 text-white margin20-top">
+                    <div className="flex-between pointer">
+                        <Link
+                            to="/admin/settings"
+                            className="text-white">
+                            <i className={`fa fa-cog text-white font10 margin10-right`}></i>{"Settings".toUpperCase()
+                            }
+                        </Link>
+
+
+                    </div>
+                </li>
 
 
             </ul>
