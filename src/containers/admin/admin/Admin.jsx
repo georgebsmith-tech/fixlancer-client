@@ -20,6 +20,7 @@ import Dashboard from "./Dashboard"
 import MainNavigation from './MainNavigation'
 import AllWithdrawals from '../allWithdrawals/AllWithdrawals'
 import Settings from '../settings/Settings'
+import PaymentGateway from '../paymentGateway/PaymentGateway'
 import NotFound from '../../404/NotFound'
 
 const Admin = ({ match }) => {
@@ -52,6 +53,7 @@ const Admin = ({ match }) => {
             <Route path={`${match.url}/all-ratings`} exact strict component={AllRatings} />
             <Route path={`${match.url}/all-ratings/:username`} exact strict component={DetailedRatings} />
             <Route path={`${match.url}/all-withdrawals`} component={AllWithdrawals} />
+            <Route path={`${match.url}/payment-gateway`} component={PaymentGateway} />
             <Route path={`${match.url}/settings`} component={Settings} />
             {/* <Route exact strict>
                 <NotFound header={false} />

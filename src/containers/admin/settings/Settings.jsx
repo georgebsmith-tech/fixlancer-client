@@ -220,7 +220,7 @@ const JobCard = ({ val, updateConfig, text, state, title }) => {
                 updateConfig(data)
                 setFormIsVisible(false)
                 setPerc("")
-                window.scrollTo(0, 0)
+
             } catch (err) {
                 console.log(err)
 
@@ -341,7 +341,7 @@ const WithdrawalCard = ({ }) => {
                 SetLimit(data.config.limit)
                 setFormIsVisible(false)
                 setNewLimit("")
-                window.scrollTo(0, 0)
+
             } catch (err) {
                 console.log(err)
 

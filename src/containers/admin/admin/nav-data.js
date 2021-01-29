@@ -147,21 +147,7 @@ export const navs = [
 
         ]
     },
-    {
-        group: "Settings",
-        icon: "fa-cog",
-        subs: [
-            {
-                title: "Job fee",
-                link: "job-fee"
-            },
-            {
-                title: "Fix Approval",
-                link: ""
-            }
 
-        ]
-    },
 
 
 
