@@ -12,25 +12,74 @@ const config = {
 }
 const Settings = () => {
 
-    const [config, setConfig] = useState({})
+    const [withdrawalConfig, setWithdrawalConfig] = useState({})
     const [extrasAreEnabled, setExtrasAreEnabled] = useState(false)
     const [fixApprovalsEnabled, setFixApprovalsEnabled] = useState(false)
 
     useEffect(() => {
 
         async function fetchData() {
-            const settingsURL = `${domain}/api/settings/job_fee`
+            const settingsURL = `${domain}/api/settings`
             const response = await axios.get(settingsURL, config)
             const data = response.data
-            setConfig(data.config)
+            setWithdrawalConfig(data.filter(setting => setting.setting === "job_fee")[0].config)
 
-            console.log(data)
+            console.log(data.filter(setting => setting.setting === "job_fee"))
+            setExtrasAreEnabled(data.filter(setting => setting.setting === "extras")[0].config.vissible)
+            setFixApprovalsEnabled(data.filter(setting => setting.setting === "fix_approval")[0].config.automatic)
 
         }
         fetchData()
 
     },
         [])
+
+
+    const updateData = async (url, body) => {
+        try {
+            const response = await axios.put(url, body)
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err)
+
+        }
+
+    }
+
+
+    const handleVissibilityOfExtras = () => {
+        const body = {
+            vissible: !extrasAreEnabled
+        }
+        console.log(body)
+        updateData(`${domain}/api/settings/extraVissibility`, body)
+            .then(data => {
+                setExtrasAreEnabled(data.config.vissible)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+
+    }
+    const handlefixApproval = () => {
+        const body = {
+            automatic: !fixApprovalsEnabled
+        }
+        console.log(body)
+        updateData(`${domain}/api/settings/fix_approval`, body)
+            .then(data => {
+                setFixApprovalsEnabled(data.config.automatic)
+            }).catch(err => {
+                console.log(err)
+            })
+
+
+
+    }
+
+
 
 
     return (
@@ -47,15 +96,15 @@ const Settings = () => {
                 <div className="grid2-desktop">
 
                     <JobCard
-                        val={config.seller}
-                        updateConfig={(data) => setConfig(data.config)}
+                        val={withdrawalConfig.seller}
+                        updateConfig={(data) => setWithdrawalConfig(data.config)}
                         text="The present job fee for sellers is"
                         title="Seller"
                         state="seller"
                     />
                     <JobCard
-                        val={config.deposit}
-                        updateConfig={(data) => setConfig(data.config)}
+                        val={withdrawalConfig.deposit}
+                        updateConfig={(data) => setWithdrawalConfig(data.config)}
                         text="The present charge per deposit is"
                         title="Deposit"
                         state="deposit"
@@ -95,7 +144,7 @@ const Settings = () => {
                         <div>
                             <Switch
                                 checked={extrasAreEnabled}
-                                onChange={() => setExtrasAreEnabled(!extrasAreEnabled)}
+                                onChange={handleVissibilityOfExtras}
                             />
                         </div>
                     </div>
@@ -123,14 +172,12 @@ const Settings = () => {
                             Automatic approval of new fix is   <span className="bold">
                                 {fixApprovalsEnabled ? " Enabled" : " Disabled"}.
                                  </span>. {fixApprovalsEnabled ? "  All Fixes will automatically be published without admin approval." : "  New fixes must be approved by Admin before published."}
-
-
                         </div>
 
                         <div>
                             <Switch
                                 checked={fixApprovalsEnabled}
-                                onChange={() => setFixApprovalsEnabled(!fixApprovalsEnabled)}
+                                onChange={handlefixApproval}
                             />
                         </div>
                     </div>
