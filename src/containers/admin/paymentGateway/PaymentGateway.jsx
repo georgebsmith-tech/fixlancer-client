@@ -42,6 +42,7 @@ const PaymentGateway = () => {
     const [accNumber, setAccNumber] = useState("")
     const [accType, setAccType] = useState("")
     const [minAmount, setMinAmount] = useState("")
+    const [id, setId] = useState("")
 
     useEffect(() => {
 
@@ -55,6 +56,7 @@ const PaymentGateway = () => {
             setBank(data.bank)
             setAccType(data.accType)
             setMinAmount(data.minAmount)
+            setId(data._id)
 
 
         }
@@ -62,6 +64,41 @@ const PaymentGateway = () => {
 
     },
         [])
+
+    const updateData = async (url, body) => {
+        try {
+            const response = await axios.put(url, body)
+            const data = response.data
+            return data
+        } catch (err) {
+            console.log(err)
+
+        }
+
+    }
+    const handleUpdate = (e) => {
+        e.preventDefault()
+        const body = {
+            accName,
+            accNumber,
+            accType,
+            minAmount,
+            bank,
+            id
+
+        }
+        console.log(body)
+        updateData(`${domain}/api/gateway`, body)
+            .then(data => {
+                console.log(data)
+
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
+        console.log("Update")
+    }
     return (
         <main className="main">
             <AdminHeading
@@ -82,6 +119,7 @@ const PaymentGateway = () => {
                                 <div>
                                     <input
                                         value={accName}
+                                        onChange={(e) => setAccType(e.target.value)}
                                         type="text" className="font16 padd10 padd5-top-bottom border-smooth full-width" />
                                 </div>
                             </div>
@@ -90,6 +128,7 @@ const PaymentGateway = () => {
                                 <div>
                                     <input
                                         value={accNumber}
+                                        onChange={(e) => setAccNumber(e.target.value)}
                                         type="number"
                                         className="font16 padd10 padd5-top-bottom border-smooth full-width"
                                     />
@@ -137,7 +176,9 @@ const PaymentGateway = () => {
                                 </div>
                             </div>
                             <div className="margin20-top">
-                                <button className="full-width padd5 text-white bg-dark-blue border-dark-blue font16">
+                                <button
+                                    onClick={handleUpdate}
+                                    className="full-width padd5 text-white bg-dark-blue border-dark-blue font16">
                                     Update
                                 </button>
                             </div>
