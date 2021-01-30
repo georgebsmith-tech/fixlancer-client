@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link, withRouter, } from 'react-router-dom'
 import axios from 'axios'
 import { domain } from '../helperFunctions/domain'
+import { getDate } from '../helperFunctions/getDate'
+import { commafy } from '../helperFunctions/commafy'
 import Modal from './Modal'
 const config = {
     headers: {
@@ -22,7 +24,9 @@ class UserHeader extends Component {
         isAdmin: localStorage.getItem("role") === "admin" ? true : false,
         accModalIsopen: false,
         bankDetails: {},
-        detailsFormIsVissible: false
+        detailsFormIsVissible: false,
+        senderAccName: "",
+        amountSent: ""
     }
 
 
@@ -75,6 +79,12 @@ class UserHeader extends Component {
     handleShowNav = () => {
         this.setState((prevState) => ({ showNav: !prevState.showNav }))
     }
+
+    handleDetailsSubmission = (e) => {
+        e.preventDefault()
+        console.log("Clicked")
+
+    }
     render() {
         console.log(this.state)
         const style = {
@@ -103,7 +113,7 @@ class UserHeader extends Component {
                             <span>Bank:</span> <span>{this.state.bankDetails.bank}</span>
                         </div>
                         <div className="margin20-bottom">
-                            <span>Minimum Deposit:</span> <span>{this.state.bankDetails.minAmount}</span>
+                            <span>Minimum Deposit:</span> <span className="bold">₦{commafy(this.state.bankDetails.minAmount)}</span>
                         </div>
                         {
                             !this.state.detailsFormIsVissible && <div>
@@ -122,16 +132,22 @@ class UserHeader extends Component {
                                 </p>
                                 <div className="margin10-bottom margin10-top">
                                     <input
+                                        value={this.state.senderAccName}
                                         className="padd10 font16 border-smooth full-width"
-                                        type="text" placeholder="Full Name on Bank Account" />
+                                        type="text" placeholder="Full Name on Bank Account"
+                                        required />
                                 </div>
                                 <div className="margin10-bottom">
                                     <input
+                                        value={this.state.amountSent}
                                         className="padd10 font16 border-smooth full-width"
-                                        type="number" placeholder="Amount Paid" />
+                                        type="number" placeholder="Amount Paid"
+                                        required />
                                 </div>
                                 <div>
-                                    <button className="padd10 font16 text-white bg-green full-width border5-radius border-green">
+                                    <button
+                                        onClick={this.handleDetailsSubmission}
+                                        className="padd10 font16 text-white bg-green full-width border5-radius border-green">
                                         Submit
                             </button>
                                 </div>
