@@ -1,5 +1,6 @@
 import React from "react"
 import MyOrdersAndSales from './MyOrdersAndSales'
+import {withRouter} from 'react-router-dom'
 
 
 const MySales = ({ match }) => {
@@ -9,4 +10,4 @@ const MySales = ({ match }) => {
     )
 }
 
-export default MySales
+export default withRouter(MySales)

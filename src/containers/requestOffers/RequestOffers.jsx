@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { commafy } from '../../helperFunctions/commafy'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import { domain } from '../../helperFunctions/domain'
 import axios from 'axios'
 import { getDate } from '../../helperFunctions/getDate'
@@ -8,6 +8,7 @@ import { Loading } from '../../components/helperComponents/Loading'
 import UserHeader from '../../components/UserHeader'
 import UserFooter from '../../components/UserFooter'
 import queryString from "query-string"
+
 
 
 
@@ -476,7 +477,7 @@ const RequestOffers = ({ match, location, history }) => {
                         </select>
                     </fieldset>
                 </div>
-                <div class="font16">
+                <div className="font16">
 
                     <input type="checkbox" id="accept-terms" className="margin3-right" />
                     <span>
@@ -484,7 +485,7 @@ const RequestOffers = ({ match, location, history }) => {
                         </span>
 
                 </div>
-                <div class="margin30-top">
+                <div className="margin30-top">
                     <fieldset>
                         <button
                             onClick={handleUpdate}
@@ -685,4 +686,4 @@ function Modal({ handleCloseModal }) {
     )
 }
 
-export default RequestOffers
+export default withRouter(RequestOffers)
