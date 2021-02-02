@@ -37,6 +37,7 @@ import Admin from './containers/admin/admin/Admin'
 
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
 import UnProtectedRoute from './components/ProtectedRoute/UnProtectedRoute'
+import UserHeaderDesktop from './components/UserHeaderDesktop';
 
 function App() {
   const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
@@ -80,8 +81,8 @@ function App() {
           isAuth={isAuth} path="/dashboard/finance/notices" component={Notices} />
         <ProtectedRoute
           isAuth={isAuth}
-        path="/dashboard/inbox" 
-        component={Inbox} />
+          path="/dashboard/inbox"
+          component={Inbox} />
         <ProtectedRoute
           isAuth={isAuth} path="/dashboard/finance/transactions" component={TransactionHistory} />
         <ProtectedRoute
@@ -98,7 +99,7 @@ function App() {
           isAuth={isAuth} path="/dashboard/order-requirements" component={OrderRequirements} />
         <ProtectedRoute
           isAuth={isAuth}
-           path="/dashboard/my-sales" exact component={MySales} />
+          path="/dashboard/my-sales" exact component={MySales} />
         <ProtectedRoute
           isAuth={isAuth} path="/dashboard/my-orders" component={MyOrders} />
         <ProtectedRoute

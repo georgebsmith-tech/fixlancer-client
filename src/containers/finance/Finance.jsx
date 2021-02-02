@@ -2,18 +2,20 @@ import React, { useState, useEffect } from 'react'
 import UserFooter from "../../components/UserFooter"
 import UserHeader from "../../components/UserHeader"
 import FinanceNavigation from "./FinanceNavigations"
-import { Link,withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import axios from 'axios'
 import { getDate } from '../../helperFunctions/getDate'
 import { domain } from '../../helperFunctions/domain'
-const config = {
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`
-    }
-}
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
+
 
 
 const Finance = () => {
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+        }
+    }
     const [revenue, setRevenue] = useState({ amount: 0 });
     const [requestIsCancelled, setRequestIsCancelled] = useState(false);
     const [deposit, setDeposit] = useState({ amount: 0 });
@@ -87,6 +89,7 @@ const Finance = () => {
     return (isLoading ? loading :
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main className="main">
                 <h1>Finance</h1>
                 {requestIsCancelled &&

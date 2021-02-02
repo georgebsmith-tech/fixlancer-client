@@ -17,6 +17,7 @@ import DeliverWorkModal from './DeliverWorkModal'
 import Chats from './Chats'
 import ChatStatus from '../../components/chats/ChatStatus'
 import { Link } from 'react-router-dom'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 // import socketIOClient from "socket.io-client"
 
@@ -195,6 +196,7 @@ const OrderChat = ({ location }) => {
                     timer
                 }} >
                 <UserHeader />
+                <UserHeaderDesktop />
                 {
                     isLoading ? <Loading height="80vh" /> :
 

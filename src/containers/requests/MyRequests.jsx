@@ -6,6 +6,7 @@ import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 
 import RecommendedFixes from '../../components/fixes/RecommendationList'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 
 
@@ -38,6 +39,7 @@ const MyRequests = () => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main className="main">
                 <section>
                     <h1>My Job Requests</h1>

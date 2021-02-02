@@ -19,16 +19,17 @@ import { FaSortAmountUp } from 'react-icons/fa'
 import { Route } from "react-router-dom"
 import MyRequests from '../requests/MyRequests'
 import { DataLayerContext } from '../../context/DataLayer'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 
 
 
 const Dahsboard = () => {
     const config = {
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+        }
     }
-}
 
 
     const [state, dispatch] = useContext(DataLayerContext);
@@ -53,7 +54,7 @@ const Dahsboard = () => {
             const recom_response = await axios.get(recom_url)
             const url_of_user_fix = `${domain}/api/fixes/${localStorage.getItem("username")}`
             const response2 = await axios.get(url_of_user_fix)
-        
+
             dispatch({
                 type: "SET_USER_FIXES",
                 userFixes: response2.data.data
@@ -66,7 +67,7 @@ const Dahsboard = () => {
 
             const url_of_user_info = `${domain}/api/users/${localStorage.getItem("username")}?content=full`
             const user_response = await axios.get(url_of_user_info, config)
-            window.scrollTo(0,0)
+            window.scrollTo(0, 0)
 
             dispatch({
                 type: "SAVE_LOGGED_USER",
@@ -93,6 +94,7 @@ const Dahsboard = () => {
 
         <>
             <UserHeader />
+            <UserHeaderDesktop />
 
             {
                 state.isLoading ? <Loading
@@ -136,97 +138,97 @@ const Dahsboard = () => {
 
                             </HorinzontalScroll>
                         </div>
-<div className="grid-desktop2-21">
-<div className="user-summary"> 
-<div
-style={{padding:"0px 20px",height:100}}
- className="bg-white border-smooth border-left-danger">
- <Link to="#" className="flex-between full-height hover-underline">
-                            <div className="font14">
-                                <div className="margin10-bottom">
-                                    Unread Messages
+                        <div className="grid-desktop2-21">
+                            <div className="user-summary">
+                                <div
+                                    style={{ padding: "0px 20px", height: 100 }}
+                                    className="bg-white border-smooth border-left-danger">
+                                    <Link to="#" className="flex-between full-height hover-underline">
+                                        <div className="font14">
+                                            <div className="margin10-bottom">
+                                                Unread Messages
 
                                 </div>
-                                <div className="text-danger font20 bolder">
-                                    {state.userSummary.summary[0][1]}
+                                            <div className="text-danger font20 bolder">
+                                                {state.userSummary.summary[0][1]}
 
-        </div>
-        </div>
-        <div>
-            <i className="fa fa-comments font40 text-light-grey"></i>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <i className="fa fa-comments font40 text-light-grey"></i>
 
-        </div>
-        </Link>
-</div>
-<div 
-style={{padding:"0px 20px",height:100}}
-className="bg-white border-smooth">
- <Link to="/dashboard/finance" className="flex-between full-height text-link-with-hover">
-                <div className="font14">
-                    <div className="margin10-bottom">
-                        Balance
-
-                    </div>
-                    <div className="font20 bolder">
-                        ₦{state.userSummary.summary[1][1]}
-
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div
+                                    style={{ padding: "0px 20px", height: 100 }}
+                                    className="bg-white border-smooth">
+                                    <Link to="/dashboard/finance" className="flex-between full-height text-link-with-hover">
+                                        <div className="font14">
+                                            <div className="margin10-bottom">
+                                                Balance
 
                     </div>
-                </div>
-                <div>
-                
-                    <i className="fa fa-money  font40 text-light-grey"></i>
-
-                </div>
-            </Link>
-</div>
-<div
-style={{padding:"0px 20px",height:100}}
- className="bg-white border-smooth">
-  <Link to="/dashboard/my-sales" className="flex-between full-height text-link-with-hover">
-                <div className="font14">
-                    <div className="margin10-bottom">
-                        Active Sales
-
-                    </div>
-                    <div className="font20 bolder">
-                        {state.userSummary.summary[2][1]}
+                                            <div className="font20 bolder">
+                                                ₦{state.userSummary.summary[1][1]}
 
 
-                    </div>
-                </div>
-                <div>
-                    <i className="fa fa-shopping-cart  font40 text-light-grey"></i>
+                                            </div>
+                                        </div>
+                                        <div>
 
-                </div>
-            </Link>
- </div>
-<div 
-style={{padding:"0px 20px",height:100}}
-className="bg-white border-smooth">
- <Link to="/dashboard/my-orders" class="flex-between full-height text-link-with-hover">
-                <div class="font14">
-                    <div class="margin10-bottom">
-                        Active Orders
+                                            <i className="fa fa-money  font40 text-light-grey"></i>
+
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div
+                                    style={{ padding: "0px 20px", height: 100 }}
+                                    className="bg-white border-smooth">
+                                    <Link to="/dashboard/my-sales" className="flex-between full-height text-link-with-hover">
+                                        <div className="font14">
+                                            <div className="margin10-bottom">
+                                                Active Sales
 
                     </div>
-                    <div className=" font20 bolder">
-                        {state.userSummary.summary[3][1]}
+                                            <div className="font20 bolder">
+                                                {state.userSummary.summary[2][1]}
 
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <i className="fa fa-shopping-cart  font40 text-light-grey"></i>
+
+                                        </div>
+                                    </Link>
+                                </div>
+                                <div
+                                    style={{ padding: "0px 20px", height: 100 }}
+                                    className="bg-white border-smooth">
+                                    <Link to="/dashboard/my-orders" class="flex-between full-height text-link-with-hover">
+                                        <div class="font14">
+                                            <div class="margin10-bottom">
+                                                Active Orders
 
                     </div>
-                </div>
-                <div>
-                    <i className="fa fa-sort-amount-up  font40 text-light-grey"></i>
+                                            <div className=" font20 bolder">
+                                                {state.userSummary.summary[3][1]}
 
-                </div>
-            </Link></div>
-</div>
-  <DashBoardProfile 
-   view="desktop-grid"
-  user={state.userSummary} />
 
-</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <i className="fa fa-sort-amount-up  font40 text-light-grey"></i>
+
+                                        </div>
+                                    </Link></div>
+                            </div>
+                            <DashBoardProfile
+                                view="desktop-grid"
+                                user={state.userSummary} />
+
+                        </div>
 
                         <div
                             className="margin20-top mobile">
@@ -351,8 +353,8 @@ className="bg-white border-smooth">
 
 
                         <DashBoardProfile
-                        view="mobile"
-                         user={state.userSummary} />
+                            view="mobile"
+                            user={state.userSummary} />
                     </main>
             }
             <UserFooter />

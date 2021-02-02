@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import UserHeader from '../../components/UserHeader'
 import UserFooter from '../../components/UserFooter'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { getDate } from '../../helperFunctions/getDate'
 import { Loading } from '../../components/helperComponents/Loading'
 import axios from 'axios'
@@ -10,6 +10,7 @@ import ChatEntryContainer from '../../components/helperComponents/ChatEntryConta
 import ChatStatus from '../../components/chats/ChatStatus'
 import queryString from 'query-string'
 import Chats from './Chats'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 const Conversation = ({ conversation, loggedUser }) => {
     console.log(loggedUser)
     console.log(conversation)
@@ -119,6 +120,7 @@ const Inbox = ({ location }) => {
 
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main className="main">
                 {!location.search ?
                     <section class="font16 bg-white border-smooth">
@@ -153,4 +155,4 @@ const Inbox = ({ location }) => {
     )
 
 }
-export default Inbox;
+export default withRouter(Inbox);

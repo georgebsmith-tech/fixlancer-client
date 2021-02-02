@@ -2058,6 +2058,11 @@ a.header-top-btn {
   display: none;
 }
 
+input:focus {
+  outline-color: #36b9cc;
+  outline-width: 10px;
+}
+
 .honourable-mention {
   display: block;
   width: 130px;
@@ -3530,6 +3535,10 @@ a.control-btn {
 @media only screen and (min-width: 991px) {
   .desk {
     display: grid !important;
+  }
+
+  .header-desktop {
+    display: block;
   }
 
   .desktop-grid {

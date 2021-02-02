@@ -6,6 +6,7 @@ import axios from 'axios'
 import UserHeader from '../../components/UserHeader'
 import { Loading } from '../../components/helperComponents/Loading'
 import queryString from 'query-string'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 const PostJobRequest = ({ history, location }) => {
     const qs = queryString.parse(location.search)
@@ -118,6 +119,7 @@ const PostJobRequest = ({ history, location }) => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             {
                 isLoading ? <Loading
                     height="67vh"

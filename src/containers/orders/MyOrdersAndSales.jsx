@@ -7,6 +7,7 @@ import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Link } from 'react-router-dom'
 import { Loading } from '../../components/helperComponents/Loading'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop';
 
 const MyOrders = ({ title, page, kind }) => {
     // console.log(props)
@@ -45,6 +46,7 @@ const MyOrders = ({ title, page, kind }) => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main className="main">
                 <section>
                     <h1>{title}</h1>

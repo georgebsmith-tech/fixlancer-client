@@ -5,6 +5,7 @@ import axios from 'axios'
 import { domain } from '../helperFunctions/domain'
 import UserHeader from '../components/UserHeader'
 import { Loading } from '../components/helperComponents/Loading'
+import UserHeaderDesktop from '../components/UserHeaderDesktop'
 
 
 const CreateFix = ({ history }) => {
@@ -187,6 +188,7 @@ const CreateFix = ({ history }) => {
     }
     return (<>
         <UserHeader />
+        <UserHeaderDesktop />
         {
             isLoading ? <Loading height="90vh" message="Just a moment" /> :
 

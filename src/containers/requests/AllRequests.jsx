@@ -4,6 +4,7 @@ import UserFooter from '../../components/UserFooter'
 import UserHeader from '../../components/UserHeader'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 
 
@@ -26,6 +27,7 @@ const AllRequests = () => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main className="main">
                 <section>
                     <h1>All Requests</h1>

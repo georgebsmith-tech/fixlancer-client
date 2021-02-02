@@ -7,6 +7,7 @@ import FeaturedList from '../../components/fixes/RecommendationList'
 import { Link } from 'react-router-dom'
 import { Loading } from '../../components/helperComponents/Loading'
 import queryString from 'query-string'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 
 
@@ -112,6 +113,7 @@ const SearchFix = ({ location, history, match }) => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             {
                 isLoading ? <Loading /> :
 

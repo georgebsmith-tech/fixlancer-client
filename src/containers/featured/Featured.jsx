@@ -6,6 +6,7 @@ import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
 
+
 const Featured = () => {
     const [term, setTerm] = useState("")
     const [isLoading, setIsloading] = useState(true)

@@ -3,6 +3,7 @@ import UserHeader from '../../components/UserHeader'
 import UserFooter from '../../components/UserFooter'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 const OrderRequirements = ({ location, history }) => {
 
@@ -77,6 +78,7 @@ const OrderRequirements = ({ location, history }) => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main>
                 <div
                     className="text-white bg-green font20 padd10 border-smooth margin20-top">

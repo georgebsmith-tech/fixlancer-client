@@ -22,9 +22,10 @@ class UserHeader extends Component {
         amountSent: ""
     }
     config = {
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`
-    }}
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+        }
+    }
 
     handleInput = (e) => {
         this.setState({ searchTerm: e.target.value.trim() })
@@ -44,23 +45,23 @@ class UserHeader extends Component {
     }
 
     componentDidMount = async () => {
-        const username=localStorage.getItem("username")
-    
+        const username = localStorage.getItem("username")
 
 
-        try{
-        console.log("here in cdm")
-        console.log(username)
-        console.log(localStorage)
-        const response = await axios.get(`${domain}/api/users/${username}`, this.config)
-        const bankResponse = await axios.get(`${domain}/api/gateway`, this.config)
-        // console.log()
-        this.setState({ user: response.data.data, bankDetails: bankResponse.data })
-        console.log(response.data.data)
-      }catch(err){
-          console.log("Somthing wen wrong")
-        
-      }
+
+        try {
+            console.log("here in cdm")
+            console.log(username)
+            console.log(localStorage)
+            const response = await axios.get(`${domain}/api/users/${username}`, this.config)
+            const bankResponse = await axios.get(`${domain}/api/gateway`, this.config)
+            // console.log()
+            this.setState({ user: response.data.data, bankDetails: bankResponse.data })
+            console.log(response.data.data)
+        } catch (err) {
+            console.log("Somthing wen wrong")
+
+        }
 
 
 
@@ -68,10 +69,10 @@ class UserHeader extends Component {
     handlelogOut = (e) => {
         e.preventDefault()
         localStorage.clear()
-    
-               this.props.history.push("/")
-            
-     
+
+        this.props.history.push("/")
+
+
 
     }
     toggleProfile = () => {
@@ -169,7 +170,9 @@ class UserHeader extends Component {
                     </div>
 
                 </Modal>}
-                <header onClick={this.closeAllToggle}>
+                <header
+                    className="mobile"
+                    onClick={this.closeAllToggle}>
                     <nav className={`padd15 ${!this.state.showNav && 'hide'}`}>
                         <div
                             className="flex-between"
@@ -193,11 +196,11 @@ class UserHeader extends Component {
                                 <img src="../../images/logo.png" alt="" />
                             </div>
                             <div className="mobile-finance mobile">
-                                <a className="block button header-top-btn" href="/dashboard/finance">
+                                <Link className="block button header-top-btn" to="/dashboard/finance">
 
                                     <span className="font16 text-orange">Balance:</span>
                                     <span className="font16 text-orange">{this.state.user.summary[1][1].toFixed(2)}</span>
-                                </a>
+                                </Link>
                                 <div>
                                     <button
                                         onClick={() => this.setState({ accModalIsopen: true })}
@@ -223,7 +226,7 @@ class UserHeader extends Component {
 
                             </li>
                             <li>
-                                <a href="#" className="drop-down-requests" onClick={this.toggleRequest}>Job Request <i className="fa fa-caret-down"></i></a>
+                                <Link to="#" className="drop-down-requests" onClick={this.toggleRequest}>Job Request <i className="fa fa-caret-down"></i></Link>
                                 {
                                     this.state.showRequests && <ul className="drop-down-container drop-requests">
                                         <li><a href="/dashboard/post-job-request" className="drop">Post a Request</a></li>
@@ -243,10 +246,10 @@ class UserHeader extends Component {
                                 <a href="/dashboard/my-orders">Orders ({this.state.user.summary[3][1]}) <span className="header-ongoing-orders"></span></a>
                             </li>
                             <li>
-                                <a href="/dashboard/create-a-fix">Start Selling </a>
+                                <Link to="/dashboard/create-a-fix">Start Selling </Link>
                             </li>
                             <li>
-                                <a href="/dashboard/affiliate">Affiliate </a>
+                                <Link to="/dashboard/affiliate">Affiliate </Link>
                             </li>
                             {
                                 this.state.isAdmin && <li>

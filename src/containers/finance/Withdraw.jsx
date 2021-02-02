@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react'
 import UserFooter from "../../components/UserFooter"
 import UserHeader from "../../components/UserHeader"
 import FinanceNavigation from "./FinanceNavigations"
-import { Link,withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { domain } from '../../helperFunctions/domain';
 import { commafy } from '../../helperFunctions/commafy'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop';
 // import { DataLayerContext } from '../../context/DataLayer'
 
 const config = {
@@ -100,6 +101,7 @@ const Withdraw = ({ history }) => {
 
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main className="main">
                 <h1>Finance</h1>
                 <div className="grid-2-21 margin20-top">

@@ -12,6 +12,7 @@ import { Loading } from '../components/helperComponents/Loading'
 import socketIOClient from "socket.io-client"
 import ContactSellerModal from '../components/chats/ContactSeller'
 import { DataLayerContext } from '../context/DataLayer'
+import UserHeaderDesktop from '../components/UserHeaderDesktop'
 
 const ViewProfile = (props) => {
     const [state, dispatch] = React.useContext(DataLayerContext)
@@ -56,6 +57,7 @@ const ViewProfile = (props) => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             <main>
 
                 {isLoading ?

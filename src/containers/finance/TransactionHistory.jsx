@@ -6,7 +6,8 @@ import TransactionsList from './TransactionsList'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 const TransactionHistory = () => {
     const username = localStorage.getItem("username")
@@ -30,6 +31,7 @@ const TransactionHistory = () => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             { isLoading ? <Loading height="90vh" /> :
                 <main className="main">
                     <h1>Finance</h1>

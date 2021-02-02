@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { commafy } from '../../helperFunctions/commafy'
-import { Link,withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { domain } from '../../helperFunctions/domain'
 import axios from 'axios'
 import { getDate } from '../../helperFunctions/getDate'
@@ -8,6 +8,7 @@ import { Loading } from '../../components/helperComponents/Loading'
 import UserHeader from '../../components/UserHeader'
 import UserFooter from '../../components/UserFooter'
 import queryString from "query-string"
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 
 
@@ -510,6 +511,7 @@ const RequestOffers = ({ match, location, history }) => {
             }
 
             <UserHeader />
+            <UserHeaderDesktop />
             {
                 isLoading ? <Loading
                     height="80vh"

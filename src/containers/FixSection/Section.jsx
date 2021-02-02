@@ -5,6 +5,7 @@ import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
 import FixMax4List from '../../components/fixes/FixMax4List'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 const Section = ({ match, history, location }) => {
     const [category, setCategory] = useState("")
@@ -45,6 +46,7 @@ const Section = ({ match, history, location }) => {
     return (
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             {
                 isLoading ? <Loading
                     height="80vh"

@@ -6,8 +6,9 @@ import { domain } from '../helperFunctions/domain'
 import UserHeader from '../components/UserHeader'
 import { ButtonLoader } from '../components/helperComponents/ButtonLoader'
 import { Loading } from '../components/helperComponents/Loading'
-import { Link,withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { DataLayerContext } from '../context/DataLayer'
+import UserHeaderDesktop from '../components/UserHeaderDesktop'
 const config = {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("auth-token")}`
@@ -259,6 +260,7 @@ const EditFix = ({ history, location, match }) => {
     }
     return (<>
         <UserHeader />
+        <UserHeaderDesktop />
         {
             isLoading ? <Loading height="90vh" message="Just a moment" /> :
 

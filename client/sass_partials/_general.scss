@@ -2216,3 +2216,7 @@ a.header-top-btn {
     .desktop-grid{
         display:none;
     }
+input:focus {
+  outline-color: #36b9cc;
+  outline-width: 10px;
+}

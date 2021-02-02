@@ -4,8 +4,9 @@ import UserFooter from '../../components/UserFooter'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
-import { Link,withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { DataLayerContext } from '../../context/DataLayer'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 
 const EditProfile = ({ match, history }) => {
@@ -121,6 +122,7 @@ const EditProfile = ({ match, history }) => {
 
         <>
             <UserHeader />
+            <UserHeaderDesktop />
             {
                 isLoading ?
                     <Loading

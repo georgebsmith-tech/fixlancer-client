@@ -11,6 +11,7 @@ import HorizontalScroll from '../../components/helperComponents/HorinzontalScrol
 import { Loading } from '../../components/helperComponents/Loading'
 import AboutFix from './AboutFix'
 import ContactSellerModal from '../../components/chats/ContactSeller'
+import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 const config = {
     headers: {
@@ -165,6 +166,7 @@ const DetailedFix = ({ match, location, history }) => {
         <>
 
             <UserHeader />
+            <UserHeaderDesktop />
             {
                 isLoading ? <Loading
                     message="Loading fix details"
