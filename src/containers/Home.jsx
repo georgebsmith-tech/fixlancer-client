@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import CategoriesList from '../components/CategoriesList'
 import HorinzontalScroll from '../components/helperComponents/HorinzontalScroll'
 import FeaturedFixesList from '../components/fixes/FeaturedFixesList'
-import RecommendationList from '../components/fixes/RecommendationList'
+import FixListMax6 from '../components/fixes/FixListMax6'
 import { HomeFooter } from '../components/HomeFooter'
 import { HomeExtra } from '../components/HomeExtra'
 import { HomeMainExtra } from '../components/HomeMainExtra'
@@ -47,6 +47,10 @@ class Home extends Component {
     }
 
     render() {
+  
+        if (localStorage.getItem("isAuth")) {
+            return <Redirect to={{ pathname: "/dashboard", state: this.props.location }} />
+        } else
         return (
             <>
                 <header
@@ -297,7 +301,7 @@ class Home extends Component {
                         {
                             this.state.isLoading ? <Loading height="600px" /> :
 
-                                <RecommendationList
+                                <FixListMax6
                                     fixes={this.state.recommendedFixes} />
                         }
                     </section>

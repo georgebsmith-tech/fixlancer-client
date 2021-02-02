@@ -5,13 +5,6 @@ import { domain } from '../helperFunctions/domain'
 import { getDate } from '../helperFunctions/getDate'
 import { commafy } from '../helperFunctions/commafy'
 import Modal from './Modal'
-const config = {
-    headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth-token")}`
-    }
-
-}
-
 
 class UserHeader extends Component {
     state = {
@@ -28,7 +21,10 @@ class UserHeader extends Component {
         senderAccName: "",
         amountSent: ""
     }
-
+    config = {
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+    }}
 
     handleInput = (e) => {
         this.setState({ searchTerm: e.target.value.trim() })
@@ -48,18 +44,36 @@ class UserHeader extends Component {
     }
 
     componentDidMount = async () => {
+        const username=localStorage.getItem("username")
+    
+
+
+        try{
         console.log("here in cdm")
-        const response = await axios.get(`${domain}/api/users/${localStorage.getItem("username")}`, config)
-        const bankResponse = await axios.get(`${domain}/api/gateway`, config)
+        console.log(username)
+        console.log(localStorage)
+        const response = await axios.get(`${domain}/api/users/${username}`, this.config)
+        const bankResponse = await axios.get(`${domain}/api/gateway`, this.config)
         // console.log()
         this.setState({ user: response.data.data, bankDetails: bankResponse.data })
         console.log(response.data.data)
-
+      }catch(err){
+          console.log("Somthing wen wrong")
+        
+      }
 
 
 
     }
+    handlelogOut = (e) => {
+        e.preventDefault()
+        localStorage.clear()
+    
+               this.props.history.push("/")
+            
+     
 
+    }
     toggleProfile = () => {
         this.setState((prevState) => ({ showProfile: !prevState.showProfile }))
 
@@ -244,7 +258,9 @@ class UserHeader extends Component {
 
 
                             <li>
-                                <Link to="/" className="mobile-log-out">Log Out </Link>
+                                <Link
+                                    onClick={this.handlelogOut}
+                                    to="/" className="mobile-log-out">Log Out </Link>
                             </li>
 
 

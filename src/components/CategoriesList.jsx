@@ -35,7 +35,7 @@ class CategoriesList extends Component {
                 className="flex ">
                 {this.state.categories.map(category =>
                     <li
-                        className="bg-white circle font13 padd10"
+                        className="bg-white circle font15 padd10"
                         style={style} key={category._id}>
                         <Link
                             to={`/section/${category.catSlug}`}>

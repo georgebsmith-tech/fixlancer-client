@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch } from 'react-router-dom'
 import Home from './containers/Home'
 import Login from './containers/Login'
@@ -35,24 +35,50 @@ import ViewProfile from './containers/ViewProfile'
 import SendNotifications from './containers/admin/notifications/SendNotifications'
 import Admin from './containers/admin/admin/Admin'
 
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute'
+import UnProtectedRoute from './components/ProtectedRoute/UnProtectedRoute'
+
 function App() {
+  const [isAuth, setIsAuth] = useState(localStorage.getItem("isAuth"))
+  const handleAuth = (state) => {
+    console.log(state)
+    localStorage.setItem("isAuth", true)
+    setIsAuth(state)
+  }
 
   return (
     <div>
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" component={Login} />
+        <Route
+          path="/" exact
+          render={() => <Home isAuth={isAuth} />}
+        />
+
+        <Route path="/login"
+          render={() => <Login handleAuth={handleAuth} />}
+        />
         <Route path="/register" component={Registration} />
         <Route path="/how-it-works/" component={HowItWorks} />
         <Route path="/reset-password" component={Reset} />
         <Route path="/dashboard/finance/withdraw" component={Withdraw} />
-        <Route path="/dashboard" exact component={Dashboard} />
+        <ProtectedRoute
+          isAuth={isAuth}
+          path="/dashboard"
+          exact component={Dashboard} />
         <Route path="/dashboard/create-a-fix" component={CreateFix} />
-        <Route path="/dashboard/edit-fix" component={EditFix} />
-        <Route path="/dashboard/edit" component={EditProfile} />
+        <ProtectedRoute
+          isAuth={isAuth}
+          path="/dashboard/edit-fix"
+          component={EditFix} />
+        <ProtectedRoute
+          isAuth={isAuth}
+          path="/dashboard/edit" component={EditProfile} />
         <Route path="/u/:username" component={ViewProfile} />
         <Route path="/dashboard/finance/notices" component={Notices} />
-        <Route path="/dashboard/inbox" component={Inbox} />
+        <ProtectedRoute
+          isAuth={isAuth}
+        path="/dashboard/inbox" 
+        component={Inbox} />
         <Route path="/dashboard/finance/transactions" component={TransactionHistory} />
         <Route path="/dashboard/finance" exact component={Finance} />
         <Route path="/dashboard/pay-for-extra" component={PayForExtra} />
@@ -61,13 +87,20 @@ function App() {
         <Route path="/order-fix/:slug" component={OrderFix} />
         <Route path="/dashboard/order-chat" component={OrderChat} />
         <Route path="/dashboard/order-requirements" component={OrderRequirements} />
-        <Route path="/dashboard/my-sales" exact component={MySales} />
-        <Route path="/dashboard/my-orders" component={MyOrders} />
-        <Route path="/dashboard/my-requests" component={MyRequests} />
-        <Route path="/dashboard/post-job-request" component={PostJobRequest} />
-        <Route path="/dashboard/job-requests" component={AllRequests} />
+        <ProtectedRoute
+          isAuth={isAuth}
+           path="/dashboard/my-sales" exact component={MySales} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/my-orders" component={MyOrders} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/my-requests" component={MyRequests} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/post-job-request" component={PostJobRequest} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/job-requests" component={AllRequests} />
         <Route path="/dashboard/affiliate" component={Affiliate} />
-        <Route path="/dashboard/:slug" component={RequestOffers} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/:slug" component={RequestOffers} />
         <Route path="/search-fix" component={SearchFix} />
         <Route path="/section/:slug" component={Section} />
 

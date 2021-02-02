@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
 import AllUsers from '../allUsers/AllUsers'
-
 import AllOrders from '../allOrders/AllOrders'
 import AllMessages from '../allMessages/AllMessages'
 import UserBalances from '../userBalances/UserBalances'
@@ -21,6 +20,7 @@ import MainNavigation from './MainNavigation'
 import AllWithdrawals from '../allWithdrawals/AllWithdrawals'
 import Settings from '../settings/Settings'
 import PaymentGateway from '../paymentGateway/PaymentGateway'
+import AffiliateDashboard from '../affiliates/AffiliateDashboard'
 import NotFound from '../../404/NotFound'
 
 const Admin = ({ match }) => {
@@ -54,6 +54,7 @@ const Admin = ({ match }) => {
             <Route path={`${match.url}/all-ratings/:username`} exact strict component={DetailedRatings} />
             <Route path={`${match.url}/all-withdrawals`} component={AllWithdrawals} />
             <Route path={`${match.url}/payment-gateway`} component={PaymentGateway} />
+            <Route path={`${match.url}/affiiate-dashboard`} component={AffiliateDashboard} />
             <Route path={`${match.url}/settings`} component={Settings} />
             {/* <Route exact strict>
                 <NotFound header={false} />

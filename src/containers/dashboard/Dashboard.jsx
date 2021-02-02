@@ -8,7 +8,7 @@ import UserFooter from '../../components/UserFooter'
 
 import Heading from '../../components/helperComponents/SubHeading'
 
-import FeaturedList from '../../components/fixes/RecommendationList'
+import FixListMax6 from '../../components/fixes/FixListMax6'
 
 import MyFixes from '../../components/fixes/FeaturedFixesList'
 import DashBoardProfile from './DashBoardProfile'
@@ -21,22 +21,17 @@ import MyRequests from '../requests/MyRequests'
 import { DataLayerContext } from '../../context/DataLayer'
 
 
-const config = {
+
+
+const Dahsboard = () => {
+    const config = {
     headers: {
         Authorization: `Bearer ${localStorage.getItem("auth-token")}`
     }
 }
 
 
-const Dahsboard = () => {
-
     const [state, dispatch] = useContext(DataLayerContext);
-    console.log(state)
-
-
-
-
-
     useEffect(() => {
         const fetchData = async () => {
             const url = `${domain}/api/users/${localStorage.getItem("username")}`
@@ -58,7 +53,7 @@ const Dahsboard = () => {
             const recom_response = await axios.get(recom_url)
             const url_of_user_fix = `${domain}/api/fixes/${localStorage.getItem("username")}`
             const response2 = await axios.get(url_of_user_fix)
-            console.log(response2.data.data)
+        
             dispatch({
                 type: "SET_USER_FIXES",
                 userFixes: response2.data.data
@@ -71,6 +66,7 @@ const Dahsboard = () => {
 
             const url_of_user_info = `${domain}/api/users/${localStorage.getItem("username")}?content=full`
             const user_response = await axios.get(url_of_user_info, config)
+            window.scrollTo(0,0)
 
             dispatch({
                 type: "SAVE_LOGGED_USER",
@@ -140,7 +136,97 @@ const Dahsboard = () => {
 
                             </HorinzontalScroll>
                         </div>
+<div className="grid-desktop2-21">
+<div className="user-summary"> 
+<div
+style={{padding:"0px 20px",height:100}}
+ className="bg-white border-smooth border-left-danger">
+ <Link to="#" className="flex-between full-height hover-underline">
+                            <div className="font14">
+                                <div className="margin10-bottom">
+                                    Unread Messages
 
+                                </div>
+                                <div className="text-danger font20 bolder">
+                                    {state.userSummary.summary[0][1]}
+
+        </div>
+        </div>
+        <div>
+            <i className="fa fa-comments font40 text-light-grey"></i>
+
+        </div>
+        </Link>
+</div>
+<div 
+style={{padding:"0px 20px",height:100}}
+className="bg-white border-smooth">
+ <Link to="/dashboard/finance" className="flex-between full-height text-link-with-hover">
+                <div className="font14">
+                    <div className="margin10-bottom">
+                        Balance
+
+                    </div>
+                    <div className="font20 bolder">
+                        ₦{state.userSummary.summary[1][1]}
+
+
+                    </div>
+                </div>
+                <div>
+                
+                    <i className="fa fa-money  font40 text-light-grey"></i>
+
+                </div>
+            </Link>
+</div>
+<div
+style={{padding:"0px 20px",height:100}}
+ className="bg-white border-smooth">
+  <Link to="/dashboard/my-sales" className="flex-between full-height text-link-with-hover">
+                <div className="font14">
+                    <div className="margin10-bottom">
+                        Active Sales
+
+                    </div>
+                    <div className="font20 bolder">
+                        {state.userSummary.summary[2][1]}
+
+
+                    </div>
+                </div>
+                <div>
+                    <i className="fa fa-shopping-cart  font40 text-light-grey"></i>
+
+                </div>
+            </Link>
+ </div>
+<div 
+style={{padding:"0px 20px",height:100}}
+className="bg-white border-smooth">
+ <Link to="/dashboard/my-orders" class="flex-between full-height text-link-with-hover">
+                <div class="font14">
+                    <div class="margin10-bottom">
+                        Active Orders
+
+                    </div>
+                    <div className=" font20 bolder">
+                        {state.userSummary.summary[3][1]}
+
+
+                    </div>
+                </div>
+                <div>
+                    <i className="fa fa-sort-amount-up  font40 text-light-grey"></i>
+
+                </div>
+            </Link></div>
+</div>
+  <DashBoardProfile 
+   view="desktop-grid"
+  user={state.userSummary} />
+
+</div>
 
                         <div
                             className="margin20-top mobile">
@@ -208,7 +294,7 @@ const Dahsboard = () => {
                         </div>
                         <div className="margin50-top">
                             <Heading heading={"Featured"} />
-                            <FeaturedList
+                            <FixListMax6
                                 fixes={state.fixes}
 
                             />
@@ -264,7 +350,9 @@ const Dahsboard = () => {
 
 
 
-                        <DashBoardProfile user={state.userSummary} />
+                        <DashBoardProfile
+                        view="mobile"
+                         user={state.userSummary} />
                     </main>
             }
             <UserFooter />

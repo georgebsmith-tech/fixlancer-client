@@ -1,9 +1,9 @@
 import React from "react"
 import {Link} from 'react-router-dom'
 
-const DashBoardProfile=({user})=>{
+const DashBoardProfile=({user,view})=>{
     return (
-        <div className="border-smooth bg-white padd10 margin30-top  grid2-1-6 margin20-bottom mobile">
+        <div className={"border-smooth bg-white padd10 margin30-top  grid2-1-6 margin20-bottom "+view}>
         <div>
            
             <span className=" user-avatar font28 bold" style={{width: 60,height: 60,backgroundColor:user.userColor}}>{user?user.username[0].toUpperCase():"S"}</span>

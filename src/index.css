@@ -2016,11 +2016,6 @@ a.header-top-btn {
   margin-left: 20px;
 }
 
-::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
 .text-dark-white {
   color: #bbbbbb;
 }
@@ -2049,6 +2044,18 @@ a.header-top-btn {
 
 .header-bg {
   background-color: #f8f9fc;
+}
+
+.desk {
+  display: none !important;
+}
+
+.grid-responsive-desk-6 {
+  display: none;
+}
+
+.desktop-grid {
+  display: none;
 }
 
 .honourable-mention {
@@ -3521,6 +3528,20 @@ a.control-btn {
 }
 
 @media only screen and (min-width: 991px) {
+  .desk {
+    display: grid !important;
+  }
+
+  .desktop-grid {
+    display: grid;
+  }
+
+  .grid-responsive-desk-6 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    row-gap: 20px;
+  }
+
   .grid-2-21 {
     display: grid;
     grid-template-columns: 2fr 1fr;

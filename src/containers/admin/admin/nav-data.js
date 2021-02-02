@@ -147,6 +147,25 @@ export const navs = [
 
         ]
     },
+    {
+        group: "Affiliate",
+        icon: "fa-briefcase",
+        subs: [
+            {
+                title: "Affiliate Dashboard",
+                link: "affiiate-dashboard"
+            },
+            {
+                title: "Payout",
+                link: "affiiate-dashboard/payout"
+            },
+            {
+                title: "Applications",
+                link: "affiiate-dashboard/applications"
+            },
+
+        ]
+    },
 
 
 

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { Input } from '../components/form/Input'
 import { domain } from '../helperFunctions/domain'
 import axios from 'axios'
+import { withRouter } from 'react-router-dom'
 
 import { ButtonLoader } from '../components/helperComponents/ButtonLoader'
 
@@ -18,6 +19,9 @@ class Login extends Component {
         isLoading: false,
         path: ""
     }
+
+
+
     handleUsername = (e) => {
         this.setState({ username: e.target.value.trim() })
         console.log(this.state)
@@ -48,9 +52,9 @@ class Login extends Component {
                 localStorage.setItem("role", response.data.role)
                 console.log(response.data)
                 this.setState({ loggedIn: true, path: response.data.role === "admin" ? "/admin" : "/dashboard" })
-
+                this.props.handleAuth(true)
                 this.props.history.push({
-                    pathname: response.date.role === "admin" ? "/admin" : "/dashboard"
+                    pathname: response.data.role === "admin" ? "/admin" : "/dashboard"
                     , state: response.data.user
                 })
             } else {
@@ -66,6 +70,7 @@ class Login extends Component {
     }
 
     render() {
+        console.log(this.props.handleAuth)
         if (this.state.loggedIn) {
             this.props.history.push(this.state.path)
         }
@@ -133,17 +138,14 @@ class Login extends Component {
                                             Forgot
                                         <Link
                                                 to="/reset-password"
-                                                className="text-link-with-hover">
-                                                Password?
+                                                className="text-link-with-hover"> Password?
                                         </Link>
                                         </div>
                                         <div
-                                            className="margin20-top">
-                                            Dont have an account?
+                                            className="margin20-top"> Dont have an account?
                                         <Link
                                                 to="/register"
-                                                className="text-link-with-hover">
-                                                Register Now?
+                                                className="text-link-with-hover"> Register Now?
                                         </Link>
                                         </div>
                                     </div>
@@ -158,7 +160,7 @@ class Login extends Component {
                     <div
                         className="margin20-top center-text font13">Go back to
                         <Link
-                            to="/" className="text-link-with-hover">Home
+                            to="/" className="text-link-with-hover"> Home
                         </Link>
                     </div>
                 </main>
@@ -168,4 +170,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default withRouter(Login);

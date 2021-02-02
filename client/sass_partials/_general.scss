@@ -2173,10 +2173,10 @@ a.header-top-btn {
 .margin20-left{
   margin-left:20px;
 }
-::-webkit-scrollbar {
-    width: 0;
-    height: 0;
-}
+// ::-webkit-scrollbar {
+//     width: 10;
+//     height: 10;
+// }
 .text-dark-white{
   color:rgb(187, 187, 187);
 }
@@ -2205,3 +2205,14 @@ a.header-top-btn {
   background-color:#f8f9fc;
 }
 
+.desk{
+  display:none!important;
+}
+
+.grid-responsive-desk-6{
+  display:none;
+}
+
+    .desktop-grid{
+        display:none;
+    }
