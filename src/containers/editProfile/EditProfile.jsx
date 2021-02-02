@@ -4,7 +4,7 @@ import UserFooter from '../../components/UserFooter'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import { DataLayerContext } from '../../context/DataLayer'
 
 
@@ -395,4 +395,4 @@ const EditProfile = ({ match, history }) => {
     )
 }
 
-export default EditProfile
+export default withRouter(EditProfile)

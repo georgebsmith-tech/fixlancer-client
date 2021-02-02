@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Loading } from '../../components/helperComponents/Loading'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import PageHeader from '../../components/PageHeader'
 
 import { FaClock } from 'react-icons/fa'
@@ -332,4 +332,4 @@ const OrderFix = ({ match, location, history }) => {
     )
 }
 
-export default OrderFix;
+export default withRouter(OrderFix);

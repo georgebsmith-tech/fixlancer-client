@@ -60,12 +60,14 @@ function App() {
         <Route path="/register" component={Registration} />
         <Route path="/how-it-works/" component={HowItWorks} />
         <Route path="/reset-password" component={Reset} />
-        <Route path="/dashboard/finance/withdraw" component={Withdraw} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/finance/withdraw" component={Withdraw} />
         <ProtectedRoute
           isAuth={isAuth}
           path="/dashboard"
           exact component={Dashboard} />
-        <Route path="/dashboard/create-a-fix" component={CreateFix} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/create-a-fix" component={CreateFix} />
         <ProtectedRoute
           isAuth={isAuth}
           path="/dashboard/edit-fix"
@@ -74,19 +76,26 @@ function App() {
           isAuth={isAuth}
           path="/dashboard/edit" component={EditProfile} />
         <Route path="/u/:username" component={ViewProfile} />
-        <Route path="/dashboard/finance/notices" component={Notices} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/finance/notices" component={Notices} />
         <ProtectedRoute
           isAuth={isAuth}
         path="/dashboard/inbox" 
         component={Inbox} />
-        <Route path="/dashboard/finance/transactions" component={TransactionHistory} />
-        <Route path="/dashboard/finance" exact component={Finance} />
-        <Route path="/dashboard/pay-for-extra" component={PayForExtra} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/finance/transactions" component={TransactionHistory} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/finance" exact component={Finance} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/pay-for-extra" component={PayForExtra} />
         <Route path="/featured" component={Featured} />
         <Route path="/fix/:subCatSlug/:titleSlug" component={DetailedFix} />
-        <Route path="/order-fix/:slug" component={OrderFix} />
-        <Route path="/dashboard/order-chat" component={OrderChat} />
-        <Route path="/dashboard/order-requirements" component={OrderRequirements} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/order-fix/:slug" component={OrderFix} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/order-chat" component={OrderChat} />
+        <ProtectedRoute
+          isAuth={isAuth} path="/dashboard/order-requirements" component={OrderRequirements} />
         <ProtectedRoute
           isAuth={isAuth}
            path="/dashboard/my-sales" exact component={MySales} />

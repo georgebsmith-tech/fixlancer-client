@@ -6,6 +6,7 @@ import TransactionsList from './TransactionsList'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
+import {withRouter} from 'react-router-dom'
 
 const TransactionHistory = () => {
     const username = localStorage.getItem("username")
@@ -67,4 +68,4 @@ const TransactionHistory = () => {
 }
 
 
-export default TransactionHistory
+export default withRouter(TransactionHistory)

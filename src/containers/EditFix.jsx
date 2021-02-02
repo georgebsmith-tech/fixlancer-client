@@ -6,7 +6,7 @@ import { domain } from '../helperFunctions/domain'
 import UserHeader from '../components/UserHeader'
 import { ButtonLoader } from '../components/helperComponents/ButtonLoader'
 import { Loading } from '../components/helperComponents/Loading'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import { DataLayerContext } from '../context/DataLayer'
 const config = {
     headers: {
@@ -766,4 +766,4 @@ const EditFix = ({ history, location, match }) => {
     )
 }
 
-export default EditFix
+export default withRouter(EditFix)

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import UserFooter from "../../components/UserFooter"
 import UserHeader from "../../components/UserHeader"
 import FinanceNavigation from "./FinanceNavigations"
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import axios from 'axios'
 import { getDate } from '../../helperFunctions/getDate'
 import { domain } from '../../helperFunctions/domain'
@@ -164,4 +164,4 @@ const Finance = () => {
     )
 }
 
-export default Finance
+export default withRouter(Finance)

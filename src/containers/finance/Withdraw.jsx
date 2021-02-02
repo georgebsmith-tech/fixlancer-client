@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import UserFooter from "../../components/UserFooter"
 import UserHeader from "../../components/UserHeader"
 import FinanceNavigation from "./FinanceNavigations"
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { domain } from '../../helperFunctions/domain';
 import { commafy } from '../../helperFunctions/commafy'
@@ -190,4 +190,4 @@ const Withdraw = ({ history }) => {
 
 }
 
-export default Withdraw
+export default withRouter(Withdraw)
