@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { Loading } from '../../components/helperComponents/Loading'
 import queryString from 'query-string'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
+import FixMax4List from '../../components/fixes/FixMax4List'
 
 
 
@@ -250,7 +251,7 @@ const SearchFix = ({ location, history, match }) => {
 
                         }
 
-                        <FeaturedList fixes={fixes} />
+                        <FixMax4List fixes={fixes} />
                         {pages > 1 && <div
                             className="search-pagination">
 

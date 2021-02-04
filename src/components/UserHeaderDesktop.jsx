@@ -1,11 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom'
+import axios from 'axios'
+import { domain } from '../helperFunctions/domain'
 
 const UserHeaderDesktop = ({ history, location }) => {
-    console.log(location)
+    const username = localStorage.getItem("username")
+    const config = {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth-token")}`
+        }
+    }
     const [showRequests, setShowRequests] = useState(false)
+    const [user, setUser] = useState({})
     const [searchTerm, setSearchTerm] = useState("")
     const [searchError, setSearchError] = useState(false)
+    const [showFinanceDropDown, setShowFinanceDropDown] = useState(false)
+    const [showUserDropDown, setShowUserDropDown] = useState(false)
+    async function fetchData(url) {
+
+        // const url = `${domain}/api/fixes?state=search&limit=4&${q_strings}`
+        const response = await axios.get(url, config)
+        return response.data
+
+    }
+
+
+    useEffect(() => {
+        (async function () {
+            const userData = await fetchData(`${domain}/api/users/${username}`)
+            console.log(userData)
+            setUser(userData.data)
+
+        })()
+
+    }, [])
+
+
+
     const toggleRequest = () => {
         setShowRequests(!showRequests)
 
@@ -28,6 +59,25 @@ const UserHeaderDesktop = ({ history, location }) => {
 
         }
 
+
+
+
+    }
+
+    const handleDropFinance = () => {
+        setShowFinanceDropDown(!showFinanceDropDown)
+
+    }
+    const handleDropDownUser = () => {
+        setShowUserDropDown(!showUserDropDown)
+
+    }
+
+    const handlelogOut = (e) => {
+        e.preventDefault()
+        localStorage.clear()
+
+        history.push("/")
 
 
 
@@ -63,12 +113,12 @@ const UserHeaderDesktop = ({ history, location }) => {
                                 onClick={toggleRequest}>Job Request <i className="fa fa-caret-down"></i></Link>
                             {
                                 showRequests && <ul className="drop-down-container drop-requests">
-                                    <li><a href="/dashboard/post-job-request" className="drop">Post a Request</a></li>
-                                    <li><a href="/dashboard/my-requests" className="drop">My Requests</a></li>
-                                    {/* {this.state.user.seller &&
-                                    <li><a href="/dashboard/job-requests" className="drop">All Requests</a></li>
+                                    <li><Link to="/dashboard/post-job-request" className="drop">Post a Request</Link></li>
+                                    <li><Link to="/dashboard/my-requests" className="drop">My Requests</Link></li>
+                                    {user.seller &&
+                                        <li><Link to="/dashboard/job-requests" className="drop">All Requests</Link></li>
 
-                                } */}
+                                    }
 
                                 </ul>
                             }
@@ -76,13 +126,13 @@ const UserHeaderDesktop = ({ history, location }) => {
                         <li>
                             <Link
                                 to="/dashboard/my-sales"
-                                className="font15 padd15">Sales (4)<span className="header-ongoing-sales"></span></Link>
+                                className="font15 padd15">Sales ({user.summary && user.summary[2][1]})<span className="header-ongoing-sales"></span></Link>
                         </li>
                         <li>
                             <Link
                                 to="/dashboard/my-orders"
                                 className="font15 padd15"
-                            >Orders (4)<span className="header-ongoing-sales"></span></Link>
+                            >Orders ({user.summary && user.summary[3][1]})<span className="header-ongoing-sales"></span></Link>
                         </li>
                         <li>
                             <Link
@@ -143,19 +193,52 @@ const UserHeaderDesktop = ({ history, location }) => {
                             <i className="fa fa-bell font18"></i>
                         </Link>
                     </li>
-                    <li className="padd20 flex align-center">
+                    <li
+                        onClick={handleDropDownUser}
+                        className="margin20-right margin20-left flex align-center relative pointer">
                         <span
                             style={{ width: 30, height: 30 }}
                             className="bold text-white bg-green font16 flex justify-center align-center circle margin5-right">
-                            {"b".toUpperCase()}
+                            {user.username ? user.username[0].toUpperCase() : ""}
                         </span>
                         <i className="fa fa-angle-down font16 bold pointer"></i>
+                        {
+                            showUserDropDown &&
+
+                            <ul
+                                style={{ position: "absolute", right: -10, top: 70 }}
+                                className="border-smooth bg-white padd20 font13">
+                                <li className="margin10-bottom"><Link to={`/u/${user.username}`} className="no-break">View Profile</Link></li>
+                                <li className="margin10-bottom"><Link to="/dashboard/edit" className="drop no-break margin10-bottom">Edit Profile</Link></li>
+
+                                <li><Link to="#" onClick={handlelogOut}>Log Out</Link></li>
+
+
+                            </ul>
+
+                        }
                     </li>
                     <li
-                        className="margin20 bd-orange circle padd10 padd5-top-bottom pointer">
+                        onClick={handleDropFinance}
+                        className="margin20 bd-orange circle padd10 padd5-top-bottom pointer relative">
 
-                        <span className="font14 text-orange">₦{(28.4).toFixed(3)}</span>
+                        <span className="font14 text-orange margin5-right">₦{user.summary && user.summary[1][1].toFixed(2)}</span>
+                        <i className="fa fa-angle-down font16 bold text-orange"></i>
+                        {
+                            showFinanceDropDown &&
 
+                            <ul
+                                style={{ position: "absolute", right: 22, top: 60 }}
+                                className="border-smooth bg-white padd20 font13">
+                                <li className="margin10-bottom"><Link to="/dashboard/finance" className="">Finance</Link></li>
+                                <li className="margin10-bottom"><Link to="/dashboard/finance/withdraw" className="drop no-break margin10-bottom">Request Withdrawal</Link></li>
+
+                                <li className="margin10-bottom"><Link to="/dashboard/job-requests" className="drop">Deposit Funds</Link></li>
+
+                                <li className="margin10-bottom"><Link to="/dashboard/job-requests" className="no-break" >Buy chopbarh Voucher</Link></li>
+                            </ul>
+
+                        }
                     </li>
 
                 </ul>

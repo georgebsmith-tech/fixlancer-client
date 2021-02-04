@@ -29,7 +29,7 @@ class UserHeader extends Component {
 
     handleInput = (e) => {
         this.setState({ searchTerm: e.target.value.trim() })
-        console.log(this.state)
+
     }
     handleSearch = () => {
         if (!this.state.searchTerm) {
@@ -50,9 +50,7 @@ class UserHeader extends Component {
 
 
         try {
-            console.log("here in cdm")
-            console.log(username)
-            console.log(localStorage)
+
             const response = await axios.get(`${domain}/api/users/${username}`, this.config)
             const bankResponse = await axios.get(`${domain}/api/gateway`, this.config)
             // console.log()
@@ -229,10 +227,10 @@ class UserHeader extends Component {
                                 <Link to="#" className="drop-down-requests" onClick={this.toggleRequest}>Job Request <i className="fa fa-caret-down"></i></Link>
                                 {
                                     this.state.showRequests && <ul className="drop-down-container drop-requests">
-                                        <li><a href="/dashboard/post-job-request" className="drop">Post a Request</a></li>
-                                        <li><a href="/dashboard/my-requests" className="drop">My Requests</a></li>
+                                        <li><Link to="/dashboard/post-job-request" className="drop">Post a Request</Link></li>
+                                        <li><Link to="/dashboard/my-requests" className="drop">My Requests</Link></li>
                                         {this.state.user.seller &&
-                                            <li><a href="/dashboard/job-requests" className="drop">All Requests</a></li>
+                                            <li><Link to="/dashboard/job-requests" className="drop">All Requests</Link></li>
 
                                         }
 

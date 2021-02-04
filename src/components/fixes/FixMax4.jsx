@@ -19,7 +19,7 @@ const FixMax4 = ({ fix = { username: "Smith", title: "it is what it is", images_
                 <div>
                     <Link to={`/fix/${fix.subcatSlug}/${fix.titleSlug}`}
                         class="anchor-hover-blue-underline fix-title block">
-                        {fix.title.toLowerCase().substr(0, 40)}...
+                        {fix.title.toLowerCase().substr(0, 80)}...
                     </Link>
                     <div className="duration-and-rating-trust">
                         <i class="fas fa-clock"></i>
