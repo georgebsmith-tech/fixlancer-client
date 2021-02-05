@@ -66,21 +66,15 @@ const UserHeaderDesktop = ({ history, location }) => {
 
     const handleDropFinance = () => {
         setShowFinanceDropDown(!showFinanceDropDown)
-
     }
     const handleDropDownUser = () => {
         setShowUserDropDown(!showUserDropDown)
-
     }
 
     const handlelogOut = (e) => {
         e.preventDefault()
         localStorage.clear()
-
         history.push("/")
-
-
-
     }
 
 
@@ -107,16 +101,17 @@ const UserHeaderDesktop = ({ history, location }) => {
                                 Home
                         </Link>
                         </li>
-                        <li>
+                        <li className="relative">
                             <Link to="#"
                                 className="drop-down-requests font15"
                                 onClick={toggleRequest}>Job Request <i className="fa fa-caret-down"></i></Link>
                             {
-                                showRequests && <ul className="drop-down-container drop-requests">
-                                    <li><Link to="/dashboard/post-job-request" className="drop">Post a Request</Link></li>
-                                    <li><Link to="/dashboard/my-requests" className="drop">My Requests</Link></li>
+                                showRequests && <ul className="border-smooth bg-white padd20 font13"
+                                    style={{ position: "absolute" }}>
+                                    <li className="margin10-bottom"><Link to="/dashboard/post-job-request" className="no-break">Post a Request</Link></li>
+                                    <li className="margin10-bottom"><Link to="/dashboard/my-requests" className="drop">My Requests</Link></li>
                                     {user.seller &&
-                                        <li><Link to="/dashboard/job-requests" className="drop">All Requests</Link></li>
+                                        <li className="margin10-bottom"><Link to="/dashboard/job-requests" className="drop">All Requests</Link></li>
 
                                     }
 

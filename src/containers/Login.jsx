@@ -24,12 +24,10 @@ class Login extends Component {
 
     handleUsername = (e) => {
         this.setState({ username: e.target.value.trim() })
-        console.log(this.state)
     }
 
     handlePassword = (e) => {
         this.setState({ password: e.target.value })
-        console.log(this.state)
     }
 
     handleSubmit = async (e) => {
@@ -53,9 +51,16 @@ class Login extends Component {
                 console.log(response.data)
                 this.setState({ loggedIn: true, path: response.data.role === "admin" ? "/admin" : "/dashboard" })
                 this.props.handleAuth(true)
+                let pathname;
+                if (this.props.location.state.next) {
+                    pathname = this.props.location.state.next
+                } else if (response.data.role === "admin") {
+                    pathname = "/admin"
+                } else {
+                    pathname = "/dashboard"
+                }
                 this.props.history.push({
-                    pathname: response.data.role === "admin" ? "/admin" : "/dashboard"
-                    , state: response.data.user
+                    pathname
                 })
             } else {
                 console.log(response.data)
@@ -70,7 +75,7 @@ class Login extends Component {
     }
 
     render() {
-        console.log(this.props.handleAuth)
+        console.log(this.props.location)
         if (this.state.loggedIn) {
             this.props.history.push(this.state.path)
         }

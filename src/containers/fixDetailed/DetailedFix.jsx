@@ -5,7 +5,7 @@ import UserFooter from '../../components/UserFooter'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
-import UserFixes from '../../components/fixes/RecommendationList'
+import FixListMax6 from '../../components/fixes/FixListMax6'
 import RecommendationsList from '../../components/fixes/FeaturedFixesList'
 import HorizontalScroll from '../../components/helperComponents/HorinzontalScroll'
 import { Loading } from '../../components/helperComponents/Loading'
@@ -355,7 +355,7 @@ const DetailedFix = ({ match, location, history }) => {
                                         }}>More fixes by  {fix.username}
                                     </h2>
                                 }
-                                <UserFixes
+                                <FixListMax6
                                     fixes={userFixes}
                                 />
 

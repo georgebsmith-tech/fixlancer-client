@@ -51,7 +51,7 @@ export const FixMax6Desktop = ({ fix, handleSlugChange }) => {
 
     return (
 
-        <div style={{borderRadius: 0 }} className='border-smooth margin20-right bg-white'>
+        <div style={{ borderRadius: 0 }} className='border-smooth margin20-right bg-white'>
             <div style={{ height: 120 }} className="border-smooth border0-radius">
                 <img src={fix.images_url[0]} alt={"Image for the fix" + fix.title} style={{ ...styles.objectFit, ...styles.borderSquare }} />
             </div>

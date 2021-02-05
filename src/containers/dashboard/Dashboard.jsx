@@ -20,6 +20,7 @@ import { Route } from "react-router-dom"
 import MyRequests from '../requests/MyRequests'
 import { DataLayerContext } from '../../context/DataLayer'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
+import { commafy } from '../../helperFunctions/commafy'
 
 
 
@@ -169,7 +170,7 @@ const Dahsboard = () => {
 
                     </div>
                                             <div className="font20 bolder">
-                                                ₦{state.userSummary.summary[1][1]}
+                                                ₦{commafy(state.userSummary.summary[1][1].toFixed(2))}
 
 
                                             </div>

@@ -5,7 +5,7 @@ import UserHeader from '../../components/UserHeader'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 
-import RecommendedFixes from '../../components/fixes/RecommendationList'
+import FixListMax6 from '../../components/fixes/FixListMax6'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 
@@ -51,7 +51,7 @@ const MyRequests = () => {
                         }
                     </section>
                 </section>
-                <RecommendedFixes fixes={fixes} />
+                <FixListMax6 fixes={fixes} />
 
             </main>
             <UserFooter />

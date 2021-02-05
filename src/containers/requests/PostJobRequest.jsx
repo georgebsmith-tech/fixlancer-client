@@ -7,6 +7,7 @@ import UserHeader from '../../components/UserHeader'
 import { Loading } from '../../components/helperComponents/Loading'
 import queryString from 'query-string'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
+import { withRouter } from 'react-router-dom'
 
 const PostJobRequest = ({ history, location }) => {
     const qs = queryString.parse(location.search)
@@ -126,115 +127,119 @@ const PostJobRequest = ({ history, location }) => {
 
                 /> :
 
-                    <main className="post-a-request-main">
-                        <section className="form-container">
-                            {
-                                qs.job ? <h3
-                                    className="form-title">
-
-                                    Edit Request-
-                                    <span className="bold"> {title}</span>
-
-                                </h3>
-                                    :
-                                    <h3
+                    <main className="main">
+                        <div>
+                            <section
+                                style={{ maxWidth: 700 }}
+                                className="form-container">
+                                {
+                                    qs.job ? <h3
                                         className="form-title">
 
-                                        What service do you want fixed?
+                                        Edit Request-
+                                    <span className="bold"> {title}</span>
+
+                                    </h3>
+                                        :
+                                        <h3
+                                            className="form-title">
+
+                                            What service do you want fixed?
                              </h3>
-                            }
+                                }
 
-                            <form>
-                                <fieldset><input
-                                    type="text"
-                                    placeholder="Title"
-                                    name="post-title" id="post-title"
-                                    value={title}
-                                    onChange={(e) => setTitle(e.target.value)}
+                                <form>
+                                    <fieldset><input
+                                        type="text"
+                                        placeholder="Title"
+                                        name="post-title" id="post-title"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
 
-                                />
-                                </fieldset>
-
-                                <fieldset>
-                                    <textarea
-                                        name="post-descr"
-                                        id="post-descr"
-                                        placeholder="Describe the job you want done. Be detailed as possible..."
-                                        cols="30"
-                                        rows="6"
-                                        value={description}
-                                        onChange={(e) => setDescription(e.target.value)}>
-
-                                    </textarea>
-                                </fieldset>
-
-                                <div className="selections">
-                                    <fieldset>
-                                        <select
-                                            value={category}
-                                            onChange={handleChangeCategory}
-                                            name="category"
-                                            id="category"
-                                            data-placeholder="Please select a category..">
-                                            <option value="">Select a Category...</option>
-                                            {
-                                                categories.map(category => <option
-                                                    value={category.name}
-                                                    key={category._id}>{category.name}</option>)
-                                            }
-                                        </select>
+                                    />
                                     </fieldset>
-                                    {
-                                        (prices.length !== 0 || qs.job) &&
 
+                                    <fieldset>
+                                        <textarea
+                                            name="post-descr"
+                                            id="post-descr"
+                                            placeholder="Describe the job you want done. Be detailed as possible..."
+                                            cols="30"
+                                            rows="6"
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}>
+
+                                        </textarea>
+                                    </fieldset>
+
+                                    <div className="selections">
                                         <fieldset>
                                             <select
-                                                onChange={((e) => { setPrice(e.target.value) })}
-                                                name="prices" id="prices" data-placeholder="Please select a category..">
-                                                <option value="">Select Price...</option>
+                                                value={category}
+                                                onChange={handleChangeCategory}
+                                                name="category"
+                                                id="category"
+                                                data-placeholder="Please select a category..">
+                                                <option value="">Select a Category...</option>
                                                 {
-                                                    prices.map(price => <option
-                                                        value={price}
-                                                        key={price}>{price}</option>)
+                                                    categories.map(category => <option
+                                                        value={category.name}
+                                                        key={category._id}>{category.name}</option>)
                                                 }
                                             </select>
                                         </fieldset>
-                                    }
+                                        {
+                                            (prices.length !== 0 || qs.job) &&
+
+                                            <fieldset>
+                                                <select
+                                                    onChange={((e) => { setPrice(e.target.value) })}
+                                                    name="prices" id="prices" data-placeholder="Please select a category..">
+                                                    <option value="">Select Price...</option>
+                                                    {
+                                                        prices.map(price => <option
+                                                            value={price}
+                                                            key={price}>{price}</option>)
+                                                    }
+                                                </select>
+                                            </fieldset>
+                                        }
+                                        <fieldset>
+                                            <select
+                                                value={delivery}
+                                                onChange={(e) => { setDelivery(e.target.value) }}
+                                                name="delivery" id="delivery" data-placeholder="Please select a category..">
+                                                <option value="">Delivery Days</option>
+                                                <option value="2">2 days</option>
+                                                <option value="3">3 days</option>
+                                                <option value="4">4 days</option>
+                                                <option value="14">14 days</option>
+                                                <option value="21">21 days</option>
+                                                <option value="30">30 days</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
                                     <fieldset>
-                                        <select
-                                            value={delivery}
-                                            onChange={(e) => { setDelivery(e.target.value) }}
-                                            name="delivery" id="delivery" data-placeholder="Please select a category..">
-                                            <option value="">Delivery Days</option>
-                                            <option value="2">2 days</option>
-                                            <option value="3">3 days</option>
-                                            <option value="4">4 days</option>
-                                            <option value="14">14 days</option>
-                                            <option value="21">21 days</option>
-                                            <option value="30">30 days</option>
-                                        </select>
+                                        {
+                                            qs.job ? <button
+                                                onClick={handleUpdate}
+                                                className="submit-post-request">Update Post
+                                    </button>
+                                                :
+                                                <button
+                                                    onClick={handleSubmit}
+                                                    className="submit-post-request">Submit Post
+                                    </button>
+                                        }
+
                                     </fieldset>
-                                </div>
-                                <fieldset>
-                                    {
-                                        qs.job ? <button
-                                            onClick={handleUpdate}
-                                            className="submit-post-request">Update Post
-                                    </button>
-                                            :
-                                            <button
-                                                onClick={handleSubmit}
-                                                className="submit-post-request">Submit Post
-                                    </button>
-                                    }
-
-                                </fieldset>
 
 
-                            </form>
+                                </form>
 
 
-                        </section>
+                            </section>
+                        </div>
 
                     </main>
             }
@@ -245,4 +250,4 @@ const PostJobRequest = ({ history, location }) => {
 }
 
 
-export default PostJobRequest;
+export default withRouter(PostJobRequest);
