@@ -135,7 +135,6 @@ const Dahsboard = () => {
                                </h2>
                             <HorinzontalScroll>
                                 <CategoriesList />
-
                             </HorinzontalScroll>
                         </div>
                         <div className="grid-desktop2-21">

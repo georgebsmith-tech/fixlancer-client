@@ -2063,6 +2063,10 @@ input:focus {
   outline-width: 10px;
 }
 
+.grid-desktop2-21 {
+  display: none;
+}
+
 .honourable-mention {
   display: block;
   width: 130px;
