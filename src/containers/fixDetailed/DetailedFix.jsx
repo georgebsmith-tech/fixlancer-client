@@ -12,6 +12,8 @@ import { Loading } from '../../components/helperComponents/Loading'
 import AboutFix from './AboutFix'
 import ContactSellerModal from '../../components/chats/ContactSeller'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
+import GuestUserHeaderDesktop from '../../components/GuestUserHeaderDesktop'
+import GuestUserHeader from '../../components/GuestUserHeader'
 
 const config = {
     headers: {
@@ -165,8 +167,11 @@ const DetailedFix = ({ match, location, history }) => {
     return (
         <>
 
-            <UserHeader />
-            <UserHeaderDesktop />
+            {
+                localStorage.getItem("isAuth") ? <> <UserHeader />
+                    <UserHeaderDesktop /></> : <> <GuestUserHeaderDesktop />
+                        <GuestUserHeader /></>
+            }
             {
                 isLoading ? <Loading
                     message="Loading fix details"

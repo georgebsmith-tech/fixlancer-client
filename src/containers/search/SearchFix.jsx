@@ -3,12 +3,13 @@ import UserHeader from '../../components/UserHeader'
 import UserFooter from '../../components/UserFooter'
 import { domain } from '../../helperFunctions/domain'
 import axios from 'axios'
-import FeaturedList from '../../components/fixes/RecommendationList'
+import GuestUserHeaderDesktop from '../../components/GuestUserHeaderDesktop'
 import { Link } from 'react-router-dom'
 import { Loading } from '../../components/helperComponents/Loading'
 import queryString from 'query-string'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 import FixMax4List from '../../components/fixes/FixMax4List'
+import GuestUserHeader from '../../components/GuestUserHeader'
 
 
 
@@ -113,8 +114,12 @@ const SearchFix = ({ location, history, match }) => {
 
     return (
         <>
-            <UserHeader />
-            <UserHeaderDesktop />
+            {
+                localStorage.getItem("isAuth") ? <> <UserHeader />
+                    <UserHeaderDesktop /></> : <> <GuestUserHeaderDesktop />
+                        <GuestUserHeader />
+                    </>
+            }
             {
                 isLoading ? <Loading /> :
 

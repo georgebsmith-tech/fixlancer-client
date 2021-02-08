@@ -16,9 +16,9 @@ const MainNavigation = ({ closeNav, extraClass }) => {
                 className="padd15" style={{ height: "100%", width: 250, backgroundColor: "#3f4d67", overflow: "auto" }}>
                 <li
                     onClick={(e) => { e.stopPropagation() }}
-                    className="font20 text-white margin30-bottom">
-                    FixLancer
-            </li>
+                    className="font20 text-white margin30-bottom bg-white">
+                    <img src="./images/logo.png" alt="" />
+                </li>
                 <li
                     className="margin20-bottom">
                     <i className="fa fa-home text-white font14 margin10-right"></i>

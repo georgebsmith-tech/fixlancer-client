@@ -13,6 +13,8 @@ import socketIOClient from "socket.io-client"
 import ContactSellerModal from '../components/chats/ContactSeller'
 import { DataLayerContext } from '../context/DataLayer'
 import UserHeaderDesktop from '../components/UserHeaderDesktop'
+import GuestUserHeaderDesktop from '../components/GuestUserHeaderDesktop'
+import GuestUserHeader from '../components/GuestUserHeader'
 
 const ViewProfile = (props) => {
     const [state, dispatch] = React.useContext(DataLayerContext)
@@ -56,8 +58,12 @@ const ViewProfile = (props) => {
 
     return (
         <>
-            <UserHeader />
-            <UserHeaderDesktop />
+            {
+                localStorage.getItem("isAuth") ? <> <UserHeader />
+                    <UserHeaderDesktop /></> : <> <GuestUserHeaderDesktop />
+                        <GuestUserHeader />
+                    </>
+            }
             <main>
 
                 {isLoading ?

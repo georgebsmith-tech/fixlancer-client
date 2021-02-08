@@ -63,7 +63,7 @@ class Login extends Component {
                     pathname
                 })
             } else {
-                console.log(response.data)
+
                 this.setState({ logginError: [response.data.message] })
                 this.setState({ isLoading: false })
             }
