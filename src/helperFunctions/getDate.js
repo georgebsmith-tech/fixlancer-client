@@ -10,6 +10,9 @@ export const getDate = (date) => {
 
 
 export const getDateAndTime = (date) => {
+    if (!date) {
+        return "Just now"
+    }
     date = new Date(date)
     let hr;
     if (date.getHours() === 0)

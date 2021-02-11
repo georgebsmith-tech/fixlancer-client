@@ -164,6 +164,14 @@ const DetailedFix = ({ match, location, history }) => {
         setTitleSlug(match.params.titleSlug)
     }
 
+    const handleCloseModal = () => {
+        setContactSellerModalIsOpen(false);
+        setSent(true)
+        window.scrollTo(0, 0)
+
+    }
+
+
     return (
         <>
 
@@ -394,7 +402,8 @@ const DetailedFix = ({ match, location, history }) => {
             <UserFooter />
             {
                 contactSellerModalIsOpen && <ContactSellerModal
-                    closeModal={() => setContactSellerModalIsOpen(false)} />
+                    receiver={fix.username}
+                    closeModal={handleCloseModal} />
             }
 
         </>

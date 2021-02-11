@@ -21,11 +21,13 @@ import MyRequests from '../requests/MyRequests'
 import { DataLayerContext } from '../../context/DataLayer'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 import { commafy } from '../../helperFunctions/commafy'
+import socketIOClient from "socket.io-client";
+const ENDPOINT = domain;
 
-
-
+const socket = socketIOClient(ENDPOINT);
 
 const Dahsboard = () => {
+    socket.emit("new-user", { "name": "smith" })
     const config = {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("auth-token")}`

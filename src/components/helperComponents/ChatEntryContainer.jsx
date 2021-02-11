@@ -1,8 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import OfferExtraBTN from './OfferExtaBTN'
+import { domain } from '../../helperFunctions/domain'
+import socketIOClient from "socket.io-client";
+const ENDPOINT = domain;
+const socket = socketIOClient(ENDPOINT);
 
-const ChatEntryContainer = ({ show }) => {
+const ChatEntryContainer = ({ show, receiver, updateChat }) => {
+    const [message, setMessage] = useState("")
+
+    const handleTyping = () => {
+        console.log("typing")
+    }
+    const handleSend = () => {
+        const body = { message, sender: localStorage.getItem("username"), receiver }
+
+        socket.emit("chat", body)
+        setMessage("")
+        updateChat(body)
+
+    }
+
     return (
         <div className="message-control bg-white padd10 padd10-bottom margin10-bottom border-smooth">
             {
@@ -14,6 +32,9 @@ const ChatEntryContainer = ({ show }) => {
             <div
                 className="relative">
                 <textarea
+                    onFocus={handleTyping}
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
                     name="" cols="30"
                     rows="2"
                     className="fill-width padd8 outline-none border-smooth font14"
@@ -46,7 +67,9 @@ const ChatEntryContainer = ({ show }) => {
 
 
                     </div>
-                    <button class="font13 send-message padd10-sides padd5-top-bottom border5-radius text-white bg-green no-outline border-green">Send</button>
+                    <button
+                        onClick={handleSend}
+                        className="font13 send-message padd10-sides padd5-top-bottom border5-radius text-white bg-green no-outline border-green">Send</button>
                 </div>
 
             </div>

@@ -1,7 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { domain } from '../../helperFunctions/domain'
+import socketIOClient from "socket.io-client";
+const ENDPOINT = domain;
+const socket = socketIOClient(ENDPOINT);
+const ContactSellerModal = ({ closeModal, receiver }) => {
+    const sender = localStorage.getItem("username")
 
+    const [message, setMessage] = useState("")
 
-const ContactSellerModal = ({ closeModal }) => {
+    const handleSubmit = () => {
+        socket.emit("chat", { message, receiver, sender })
+        setMessage("")
+        closeModal()
+    }
     return (
         <div className="modal">
             <div
@@ -27,11 +38,16 @@ const ContactSellerModal = ({ closeModal }) => {
                             Note: Sharing of contact details is not allowed e.g Phone Number, Whatsapp, Email
                     </div>
                         <div>
-                            <textarea id="" cols="30" rows="6" className="border-smooth chat-message"
+                            <textarea
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                id="" cols="30" rows="6" className="border-smooth chat-message"
                                 placeholder="Explain the services you want done..."></textarea>
 
                             <div style={{ display: "flex", justifyContent: "flex-end" }}>
-                                <button className="button font15 send-chat-btn">Send</button>
+                                <button
+                                    onClick={handleSubmit}
+                                    className="button font15 send-chat-btn">Send</button>
                             </div>
                         </div>
                     </div>
