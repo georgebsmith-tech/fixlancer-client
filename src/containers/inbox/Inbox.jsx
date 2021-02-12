@@ -54,7 +54,7 @@ const Conversation = ({ conversation, loggedUser }) => {
 }
 
 const Conversations = ({ conversations = [], loggedUser }) => {
-    console.log(conversations)
+
     const theConversations = conversations.map(conversation => <Conversation conversation={conversation} loggedUser={loggedUser} key={conversation._id} />)
     return (
 
@@ -72,11 +72,25 @@ const Inbox = ({ location }) => {
     const [with_, setWith_] = useState("")
     const [chats, setChats] = useState([])
     const messagesEnd = useRef()
-    console.log(messagesEnd)
+
 
     socket.on("chat", data => {
         console.log(data)
+        console.log(conversations)
+
+        const toRemove = conversations.find(chat => chat.from === data.sender)
+        console.log(toRemove)
+        if (toRemove) {
+            const modToRemove = { ...toRemove, message: data.message, createdAt: "just now" }
+            // modToRemove.message = data.message
+            console.log(modToRemove)
+
+            setConversations([modToRemove, ...conversations.filter(chat => chat.from !== data.sender)])
+
+        }
+
         setChats([...chats, data])
+
     })
 
 
@@ -134,9 +148,18 @@ const Inbox = ({ location }) => {
 
 
     const scrollToBottom = () => {
-        console.log(messagesEnd)
-        messagesEnd.current && messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+        if (messagesEnd.current) {
+            const scrollHeight = messagesEnd.current.scrollHeight;
+            const height = messagesEnd.current.clientHeight;
+            const maxScrollTop = scrollHeight - height;
+            messagesEnd.current.scrollTop = maxScrollTop > 0 ? maxScrollTop : 0;
+        }
+
     }
+    // const scrollToBottom = () => {
+
+    //     messagesEnd.current && messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+    // }
 
 
     return (
@@ -163,15 +186,17 @@ const Inbox = ({ location }) => {
                     </section>
                     : <>
                         <ChatStatus recipient={with_} />
-                        <div className="message-container">
+                        <div
+                            ref={messagesEnd}
+                            className="message-container">
                             <Chats chats={chats} />
-                            <div
+                            {/* <div
                                 style={{
                                     float: "left",
                                     clear: "both"
                                 }}
                                 ref={messagesEnd}>
-                            </div>
+                            </div> */}
                         </div>
                         <ChatEntryContainer
                             receiver={with_}

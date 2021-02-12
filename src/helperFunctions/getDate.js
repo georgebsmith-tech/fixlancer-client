@@ -1,4 +1,7 @@
 export const getDate = (date) => {
+    if (date === "just now") {
+        return date
+    }
     if (!date)
         return "N/A"
     date = new Date(date)

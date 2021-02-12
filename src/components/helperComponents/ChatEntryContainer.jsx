@@ -22,6 +22,7 @@ const ChatEntryContainer = ({ show, receiver, updateChat }) => {
     }
 
     return (
+
         <div className="message-control bg-white padd10 padd10-bottom margin10-bottom border-smooth">
             {
                 <div style={{ marginTop: -5 }} className="invisible"><em
@@ -32,6 +33,7 @@ const ChatEntryContainer = ({ show, receiver, updateChat }) => {
             <div
                 className="relative">
                 <textarea
+
                     onFocus={handleTyping}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
@@ -55,9 +57,10 @@ const ChatEntryContainer = ({ show, receiver, updateChat }) => {
                 <div class="flex-between margin20-top">
                     <div>
                         <i
-                            class="fa fa-paperclip font16 margin10-right padd10 attach-btn"></i>
-                        <input type="file"
-                            class="invisible absolute attachment" />
+                            className="fa fa-paperclip font16 margin10-right padd10 attach-btn"></i>
+                        <input
+                            type="file"
+                            className="invisible absolute attachment" />
 
 
 
@@ -68,12 +71,14 @@ const ChatEntryContainer = ({ show, receiver, updateChat }) => {
 
                     </div>
                     <button
+
                         onClick={handleSend}
                         className="font13 send-message padd10-sides padd5-top-bottom border5-radius text-white bg-green no-outline border-green">Send</button>
                 </div>
 
             </div>
         </div>
+
     )
 }
 
