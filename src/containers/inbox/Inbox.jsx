@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import UserHeader from '../../components/UserHeader'
 import { Link, withRouter } from 'react-router-dom'
 import { getDate } from '../../helperFunctions/getDate'
@@ -71,6 +71,8 @@ const Inbox = ({ location }) => {
     const loggedUser = localStorage.getItem("username")
     const [with_, setWith_] = useState("")
     const [chats, setChats] = useState([])
+    const messagesEnd = useRef()
+    console.log(messagesEnd)
 
     socket.on("chat", data => {
         console.log(data)
@@ -129,11 +131,11 @@ const Inbox = ({ location }) => {
         setChats([...chats, { ...newChat, to: newChat.receiver, from: newChat.sender }])
 
     }
-    const messagesEnd = React.useRef()
+
 
     const scrollToBottom = () => {
-
-        messagesEnd.current.scrollIntoView({ behavior: "smooth" });
+        console.log(messagesEnd)
+        messagesEnd.current && messagesEnd.current.scrollIntoView({ behavior: "smooth" });
     }
 
 
@@ -163,7 +165,11 @@ const Inbox = ({ location }) => {
                         <ChatStatus recipient={with_} />
                         <div className="message-container">
                             <Chats chats={chats} />
-                            <div style={{ float: "left", clear: "both" }}
+                            <div
+                                style={{
+                                    float: "left",
+                                    clear: "both"
+                                }}
                                 ref={messagesEnd}>
                             </div>
                         </div>
