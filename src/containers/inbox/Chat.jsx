@@ -1,6 +1,7 @@
 import React from 'react'
-import { getDateAndTime } from '../../helperFunctions/getDate'
+import { getDateAndTime2 } from '../../helperFunctions/getDate'
 import { commafy } from '../../helperFunctions/commafy'
+import { FaCheck, FaCheckDouble } from 'react-icons/fa'
 
 
 const Chat = ({ chat }) => {
@@ -59,8 +60,9 @@ const Chat = ({ chat }) => {
                 <div
                     className={`${fromUser ? "flex-end" : "flex-start"} flex-end margin5-top`}>
                     <small
-                        className="font-small">{getDateAndTime(chat.createdAt)}
+                        className="font-small">{getDateAndTime2(chat.createdAt)}
                     </small>
+                    <i className="fa fa-checked"></i>
                 </div>
             </div>
             break;
@@ -74,8 +76,17 @@ const Chat = ({ chat }) => {
                             {chat.message}
                         </div>
                         <em className={`margin5-top font-small italic ${fromUser ? "flex-end" : "flex-start"}`}>
-                            {getDateAndTime(chat.createdAt)}
+                            {getDateAndTime2(chat.createdAt)}
+
+                            {
+                                chat.read ? <FaCheckDouble
+                                    className="margin5-left"
+                                    style={{ color: "blue" }}
+                                /> : <FaCheck className="margin5-left" />
+                            }
+
                         </em>
+
                     </div>
                 </div>
 

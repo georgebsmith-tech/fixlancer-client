@@ -2067,6 +2067,10 @@ input:focus {
   display: none;
 }
 
+.margin5-left {
+  margin-left: 5px;
+}
+
 .honourable-mention {
   display: block;
   width: 130px;

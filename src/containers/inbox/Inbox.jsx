@@ -13,7 +13,7 @@ import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 import socketIOClient from "socket.io-client";
 const ENDPOINT = domain;
-const socket = socketIOClient(domain)
+const socket = socketIOClient(ENDPOINT)
 const Conversation = ({ conversation, loggedUser }) => {
 
     const initial = conversation.from === loggedUser ? conversation.to : conversation.from
@@ -79,7 +79,7 @@ const Inbox = ({ location }) => {
         console.log(conversations)
 
         const toRemove = conversations.find(chat => chat.from === data.sender)
-        console.log(toRemove)
+
         if (toRemove) {
             const modToRemove = { ...toRemove, message: data.message, createdAt: "just now" }
             // modToRemove.message = data.message
@@ -118,6 +118,11 @@ const Inbox = ({ location }) => {
                 setChats(data.chats)
                 setIsloading(false)
                 scrollToBottom()
+                socket.emit("read-chats", { with: with_, username: loggedUser }, (resp) => {
+                    // if (resp.done)
+                    //     setChats(chats.map(chat => ({ ...chat })))
+
+                })
             } catch (err) {
                 console.log(err)
             }

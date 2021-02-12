@@ -15,9 +15,12 @@ const ChatEntryContainer = ({ show, receiver, updateChat }) => {
     const handleSend = () => {
         const body = { message, sender: localStorage.getItem("username"), receiver }
 
-        socket.emit("chat", body)
+        socket.emit("chat", body, (resp) => {
+            updateChat(resp)
+            console.log(resp)
+        })
         setMessage("")
-        updateChat(body)
+
 
     }
 
