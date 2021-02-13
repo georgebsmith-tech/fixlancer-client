@@ -203,10 +203,13 @@ const Inbox = ({ location }) => {
                                 ref={messagesEnd}>
                             </div> */}
                         </div>
-                        <ChatEntryContainer
-                            receiver={with_}
-                            updateChat={updateChat}
-                        />
+                        <div style={{ position: "absolute", bottom: 0, width: "100%" }}>
+                            <ChatEntryContainer
+                                receiver={with_}
+                                updateChat={updateChat}
+                            />
+                        </div>
+
                     </>
                 }
 

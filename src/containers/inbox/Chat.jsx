@@ -81,7 +81,7 @@ const Chat = ({ chat }) => {
                             {
                                 chat.read ? <FaCheckDouble
                                     className="margin5-left"
-                                    style={{ color: "blue" }}
+                                    style={{ color: "#36b9cc" }}
                                 /> : <FaCheck className="margin5-left" />
                             }
 

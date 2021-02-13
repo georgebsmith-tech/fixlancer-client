@@ -1034,7 +1034,7 @@ fieldset textarea {
 fieldset input:focus,
 fieldset select:focus,
 fieldset textarea:focus {
-  border: 1px solid rgba(105, 196, 248, 0.4);
+  border: 1px solid rgba(222, 236, 245, 0.4);
 }
 fieldset button {
   background: #415478;
@@ -3365,7 +3365,7 @@ a.control-btn {
 }
 
 .message-container {
-  height: 50vh;
+  height: 57vh;
   overflow-y: auto;
 }
 .message-container textarea {

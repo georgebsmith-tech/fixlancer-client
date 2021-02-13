@@ -26,7 +26,8 @@ const ChatEntryContainer = ({ show, receiver, updateChat }) => {
 
     return (
 
-        <div className="message-control bg-white padd10 padd10-bottom margin10-bottom border-smooth">
+        <div
+            className="bg-white padd10 padd10-bottom margin10-bottom border-smooth">
             {
                 <div style={{ marginTop: -5 }} className="invisible"><em
                     className="typing-status ">{""} is typing</em>
