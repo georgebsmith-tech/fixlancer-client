@@ -16,7 +16,7 @@ import DeliverWorkModal from './DeliverWorkModal'
 
 import Chats from './Chats'
 import ChatStatus from '../../components/chats/ChatStatus'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
 
 // import socketIOClient from "socket.io-client"
@@ -302,4 +302,4 @@ const OrderChat = ({ location }) => {
 
 
 
-export default OrderChat
+export default withRouter(OrderChat)
