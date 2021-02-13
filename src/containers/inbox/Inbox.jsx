@@ -186,8 +186,6 @@ const Inbox = ({ location }) => {
                                 />
 
                         }
-
-
                     </section>
                     : <>
                         <ChatStatus recipient={with_} />
