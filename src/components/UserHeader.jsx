@@ -169,7 +169,7 @@ class UserHeader extends Component {
 
                 </Modal>}
                 <header
-                    className="mobile"
+                    className="mobile bg-white"
                     onClick={this.closeAllToggle}>
                     <nav className={`padd15 ${!this.state.showNav && 'hide'}`}>
                         <div

@@ -72,6 +72,7 @@ const Inbox = ({ location }) => {
     const [with_, setWith_] = useState("")
     const [chats, setChats] = useState([])
     const messagesEnd = useRef()
+    const [chatHeight, setChatheigt] = useState("60vh")
 
 
     socket.on("chat", data => {
@@ -93,8 +94,17 @@ const Inbox = ({ location }) => {
 
     })
 
-
+    const headerRef = useRef()
+    const chatContanerRef = useRef()
     useEffect(() => {
+        var height = window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight;
+        console.log(headerRef)
+        console.log(height)
+        console.log(chatContanerRef)
+        // chatHeight = ""
+        setChatheigt(height - headerRef.current.clientHeight - chatContanerRef.current.clientHeight - 60)
 
         const fetchData = async () => {
             const url = `${domain}/api/chats/${loggedUser}`
@@ -142,6 +152,11 @@ const Inbox = ({ location }) => {
 
 
     }, [location.search])
+
+    // useEffect(() => {
+    //     scrollToBottom()
+    // }, [chats])
+
     useEffect(() => {
         scrollToBottom()
     }, [chats])
@@ -169,12 +184,16 @@ const Inbox = ({ location }) => {
 
     return (
 
-        <>
-            <UserHeader />
-            <UserHeaderDesktop />
-            <main className="main">
+        <div className="chat-main bg-background" style={{ height: "100vh", boxSizing: "border-box" }}>
+            <div ref={headerRef}>
+                <UserHeader />
+                <UserHeaderDesktop />
+            </div>
+
+            <div
+                className="bg-background chat-inbox">
                 {!location.search ?
-                    <section class="font16 bg-white border-smooth">
+                    <section className="font16 bg-white border-smooth">
                         <h2 className="padd30 border-bottom font16">All conversations</h2>
                         {
                             isLoading ?
@@ -187,33 +206,31 @@ const Inbox = ({ location }) => {
 
                         }
                     </section>
-                    : <>
+                    : <section>
                         <ChatStatus recipient={with_} />
                         <div
+                            style={{ height: chatHeight }}
                             ref={messagesEnd}
                             className="message-container">
                             <Chats chats={chats} />
-                            {/* <div
-                                style={{
-                                    float: "left",
-                                    clear: "both"
-                                }}
-                                ref={messagesEnd}>
-                            </div> */}
+
                         </div>
-                        <div style={{ position: "absolute", bottom: 50, width: "100%" }}>
+                        <div
+                            className="bg-background"
+                            ref={chatContanerRef}
+                            style={{ position: "absolute", bottom: -5, width: "100%" }}>
                             <ChatEntryContainer
                                 receiver={with_}
                                 updateChat={updateChat}
                             />
                         </div>
 
-                    </>
+                    </section>
                 }
 
-            </main>
+            </div>
 
-        </>
+        </div>
     )
 
 }

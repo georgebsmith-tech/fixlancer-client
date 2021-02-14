@@ -79,7 +79,7 @@ const UserHeaderDesktop = ({ history, location }) => {
 
 
     return (
-        <section className="desktop">
+        <section className="desktop bg-white">
             <header
                 style={{
                     boxShadow: "0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15)",

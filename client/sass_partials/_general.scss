@@ -1118,6 +1118,20 @@ main {
   padding: 10px 7px;
 }
 
+.chat-inbox{
+padding: 0px 10px;
+overflow-y: auto;
+}
+
+.chat-main{
+  height: 100vh;
+
+   box-sizing: border-box;
+}
+.bg-background{
+  background: #fcfcfc;
+}
+
 .new-post-notice {
   background: #1cc88a;
   padding: 10px;
