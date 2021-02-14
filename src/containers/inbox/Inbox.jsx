@@ -221,7 +221,7 @@ const Inbox = ({ location }) => {
                         <div
                             className="bg-background"
                             ref={chatContanerRef}
-                            style={{ position: "absolute", bottom: -5, width: "100%" }}>
+                            style={{ position: "absolute", bottom: 0, width: "100%" }}>
                             <ChatEntryContainer
                                 receiver={with_}
                                 updateChat={updateChat}
