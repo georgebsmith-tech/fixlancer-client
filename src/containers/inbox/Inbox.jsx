@@ -97,14 +97,17 @@ const Inbox = ({ location }) => {
     const headerRef = useRef()
     const chatContanerRef = useRef()
     useEffect(() => {
-        var height = window.innerHeight
-            || document.documentElement.clientHeight
-            || document.body.clientHeight;
-        console.log(headerRef)
-        console.log(height)
-        console.log(chatContanerRef)
-        // chatHeight = ""
-        setChatheigt(height - headerRef.current.clientHeight - chatContanerRef.current.clientHeight - 60)
+        if (headerRef.current && chatContanerRef.current) {
+            var height = window.innerHeight
+                || document.documentElement.clientHeight
+                || document.body.clientHeight;
+            console.log(headerRef)
+            console.log(height)
+            console.log(chatContanerRef)
+            // chatHeight = ""
+            setChatheigt(height - headerRef.current.clientHeight - chatContanerRef.current.clientHeight - 60)
+        }
+
 
         const fetchData = async () => {
             const url = `${domain}/api/chats/${loggedUser}`
