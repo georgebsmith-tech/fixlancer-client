@@ -72,9 +72,12 @@ const Chat = ({ chat }) => {
             content =
                 <div className={chatsContent}>
                     <div>
-                        <div className={className}>
-                            {chat.message}
+                        <div className={fromUser ? "flex-end" : "flex-start"}>
+                            <div className={className}>
+                                {chat.message}
+                            </div>
                         </div>
+
                         <em className={`margin5-top font-small italic ${fromUser ? "flex-end" : "flex-start"}`}>
                             {getDateAndTime2(chat.createdAt)}
 
