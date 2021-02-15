@@ -65,6 +65,7 @@ const Conversations = ({ conversations = [], loggedUser }) => {
     )
 }
 const Inbox = ({ location }) => {
+    document.body.classList.add("bg-background")
     socket.emit("new-user", { name: localStorage.getItem("username") })
     const [conversations, setConversations] = useState([])
     const [isLoading, setIsloading] = useState(true)
@@ -187,7 +188,7 @@ const Inbox = ({ location }) => {
 
     return (
 
-        <div className="chat-main bg-background" style={{ height: "100vh", boxSizing: "border-box" }}>
+        <div className="chat-main bg-background" style={{ boxSizing: "border-box" }}>
             <div ref={headerRef}>
                 <UserHeader />
                 <UserHeaderDesktop />

@@ -943,7 +943,7 @@ main {
 }
 
 .chat-main {
-  height: 100vh;
+  height: 80vh;
   box-sizing: border-box;
 }
 
@@ -3558,6 +3558,10 @@ a.control-btn {
 @media only screen and (min-width: 991px) {
   .desk {
     display: grid !important;
+  }
+
+  .chat-main {
+    height: 100vh;
   }
 
   .header-desktop {
