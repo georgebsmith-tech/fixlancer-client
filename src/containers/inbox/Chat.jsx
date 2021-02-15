@@ -82,10 +82,11 @@ const Chat = ({ chat }) => {
                             {getDateAndTime2(chat.createdAt)}
 
                             {
-                                chat.read ? <FaCheckDouble
+                                fromUser &&
+                                (chat.read ? <FaCheckDouble
                                     className="margin5-left"
                                     style={{ color: "#36b9cc" }}
-                                /> : <FaCheck className="margin5-left" />
+                                /> : <FaCheck className="margin5-left" />)
                             }
 
                         </em>
