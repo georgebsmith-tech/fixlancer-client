@@ -1,5 +1,5 @@
 import React from 'react'
-import { getDateAndTime } from '../../helperFunctions/getDate'
+import { getDateAndTime2 } from '../../helperFunctions/getDate'
 import { commafy } from '../../helperFunctions/commafy'
 
 import { OrderChatsContext } from './OrderChat'
@@ -120,7 +120,7 @@ const Chat = ({ chat }) => {
                 <div
                     className={`${fromUser ? "flex-end" : "flex-start"} flex-end margin5-top`}>
                     <small
-                        className="font-small">{getDateAndTime(chat.createdAt)}
+                        className="font-small">{getDateAndTime2(chat.createdAt)}
                     </small>
                 </div>
             </div>
@@ -158,7 +158,7 @@ const Chat = ({ chat }) => {
                         </div>
                         <div
                             class="font-small italic margin5-top">
-                            {getDateAndTime(chat.createdAt)}
+                            {getDateAndTime2(chat.createdAt)}
                         </div>
                     </div>
                 </div>
@@ -262,7 +262,7 @@ const Chat = ({ chat }) => {
                     </div>
                     <div class="flex-end margin5-top">
                         <small
-                            className="font-small">{getDateAndTime(chat.createdAt)}
+                            className="font-small">{getDateAndTime2(chat.createdAt)}
                         </small>
                     </div>
                 </div>
@@ -302,7 +302,7 @@ const Chat = ({ chat }) => {
                     <div
                         class="flex-end margin5-top">
                         <small
-                            class="font-small">{getDateAndTime(chat.createdAt)}
+                            class="font-small">{getDateAndTime2(chat.createdAt)}
                         </small>
                     </div>
 
@@ -338,7 +338,7 @@ const Chat = ({ chat }) => {
                             {chat.message}
                         </div>
                         <em className={`margin5-top font-small italic ${fromUser ? "flex-end" : "flex-start"}`}>
-                            {getDateAndTime(chat.createdAt)}
+                            {getDateAndTime2(chat.createdAt)}
                         </em>
                     </div>
                 </div>

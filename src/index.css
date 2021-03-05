@@ -2073,7 +2073,7 @@ a.header-top-btn {
 }
 
 input:focus {
-  outline-color: #36b9cc;
+  outline-color: #36b9cc !important;
   outline-width: 10px;
 }
 
@@ -2083,6 +2083,37 @@ input:focus {
 
 .margin5-left {
   margin-left: 5px;
+}
+
+.on-hover:hover {
+  background: #b8b8b8;
+  color: white;
+}
+
+.footer-section-holder {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.footer-main {
+  padding: 20px 20px 0px 20px;
+  background-color: #04081d;
+}
+
+.footer-section-holder li a {
+  color: #918e8e;
+}
+
+.footer-section-holder li a:hover {
+  color: white;
+}
+
+.copy {
+  background-color: #010413;
+}
+.copy strong {
+  color: #918e8e;
 }
 
 .honourable-mention {
@@ -3368,6 +3399,7 @@ a.control-btn {
   border-radius: 15px 20px 0 15px;
   display: flex;
   justify-content: flex-end;
+  max-width: 72%;
 }
 
 .message-received {
@@ -3556,6 +3588,14 @@ a.control-btn {
 }
 
 @media only screen and (min-width: 991px) {
+  .footer-main {
+    padding: 20px 120px;
+  }
+
+  .footer-section-holder {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .desk {
     display: grid !important;
   }

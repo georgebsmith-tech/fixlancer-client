@@ -2231,7 +2231,7 @@ a.header-top-btn {
         display:none;
     }
 input:focus {
-  outline-color: #36b9cc;
+  outline-color: #36b9cc!important;
   outline-width: 10px;
 }
 
@@ -2242,3 +2242,41 @@ input:focus {
 .margin5-left{
   margin-left: 5px;
 }
+
+.on-hover:hover{
+  background:rgb(184, 184, 184);
+  color:white;
+}
+
+
+
+  .footer-section-holder{
+    display:grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:15px
+  }
+
+ .footer-main{
+        padding: 20px 20px 0px 20px;
+        background-color: #04081d;
+    }
+
+    .footer-section-holder{
+      li a{
+        color:rgb(145, 142, 142);
+      }
+    }
+    
+    .footer-section-holder{
+      li a:hover{
+        color:rgb(255, 255, 255);
+      }
+    }
+
+    .copy{
+      background-color: #010413;;
+      strong{
+ color:rgb(145, 142, 142);
+      }
+     
+    }

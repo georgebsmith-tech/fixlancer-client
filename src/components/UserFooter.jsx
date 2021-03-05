@@ -3,41 +3,81 @@ import { Link } from 'react-router-dom'
 
 const UserFooter = () => {
     return (
-        <footer className="main-footer relative" style={{ zIndex: 10 }}>
+        <footer className="relative footer-main" style={{ zIndex: 10 }}>
             <section>
-                <nav className="footer-nav">
-                    <ul className="footer-nav-item-container">
-                        <li>
-                            <Link to="#">Buy ChopBarh Vouchers</Link> |
-                        </li>
-                        <li>
-                            <Link to="#">Start Selling</Link> |
-                </li>
-                        <li>
-                            <Link to="/dashboard/post-job-request">Post Job Request</Link> |
-                </li>
-                        <li>
-                            <Link to="/about">About Us</Link> |
-                </li>
-                        <li>
-                            <Link to="/how-it-works">How it works</Link> |
-                </li>
-                        <li>
-                            <Link to="#">FAQs</Link> |
-                </li>
-                        <li>
-                            <Link to="#">Terms</Link> |
-                </li>
-                        <li>
-                            <Link to="#">Affiliate Programs</Link> |
-                </li>
-                        <li>
-                            <Link to="#">Contact Us</Link> |
-                </li>
-                    </ul>
+                <nav
+                    className="footer-section-holder"
+                >
+                    <div>
+                        <h3 style={{ fontSize: 18, marginBottom: 15 }} className="bold">
+                            Company
+                    </h3>
+                        <ul>
+
+
+                            <li>
+                                <Link to="/about"
+                                    className="font13 padd5-top-bottom block">About Us</Link>
+                            </li>
+                            <li>
+                                <Link to="/how-it-works"
+                                    className="font13 padd5-top-bottom block">How it works</Link>
+                            </li>
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">FAQs</Link>
+                            </li>
+
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">Affiliate Programs</Link>
+                            </li>
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">Contact Us</Link>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <div>
+                        <h3
+                            className="bold"
+                            style={{ fontSize: 18, marginBottom: 15 }}>
+                            Legal
+                    </h3>
+                        <ul>
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">Terms and Conditions</Link>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+                    <div>
+                        <h3
+                            className="bold"
+                            style={{ fontSize: 18, marginBottom: 15 }}>
+                            Quick Links
+                    </h3>
+                        <ul>
+
+                            <li>
+                                <Link to="#"
+                                    className="font14 padd5-top-bottom block">Start Selling</Link>
+                            </li>
+                            <li>
+                                <Link to="/dashboard/post-job-request" className="font14 padd5-top-bottom block">Post Job Request</Link>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
                 </nav>
-                <div className="copy-right">
-                    <strong>&copy;2020 Fixlancer Market Place </strong>
+                <div className="center-text padd10 copy">
+                    <strong className="font14">&copy;2021 Fixlancer Market Place </strong>
                 </div>
             </section>
         </footer>

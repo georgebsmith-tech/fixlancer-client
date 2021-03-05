@@ -102,9 +102,6 @@ const Inbox = ({ location }) => {
             var height = window.innerHeight
                 || document.documentElement.clientHeight
                 || document.body.clientHeight;
-            console.log(headerRef)
-            console.log(height)
-            console.log(chatContanerRef)
             // chatHeight = ""
             setChatheigt(height - headerRef.current.clientHeight - chatContanerRef.current.clientHeight - 60)
         }
@@ -114,7 +111,6 @@ const Inbox = ({ location }) => {
             const url = `${domain}/api/chats/${loggedUser}`
             const response = await axios.get(url)
             const data = response.data
-            console.log(data)
             setConversations(data)
             setIsloading(false)
 
@@ -128,7 +124,7 @@ const Inbox = ({ location }) => {
 
                 const response = await axios.get(url)
                 const data = response.data
-                console.log(data.chats)
+
                 setChats(data.chats)
                 setIsloading(false)
                 scrollToBottom()
@@ -211,7 +207,8 @@ const Inbox = ({ location }) => {
                         }
                     </section>
                     : <section>
-                        <ChatStatus recipient={with_} />
+                        <ChatStatus
+                            recipient={with_} />
                         <div
                             style={{ height: chatHeight }}
                             ref={messagesEnd}
@@ -225,6 +222,7 @@ const Inbox = ({ location }) => {
                             style={{ position: "absolute", bottom: 0, width: "100%" }}>
                             <ChatEntryContainer
                                 receiver={with_}
+                                recipient={with_}
                                 updateChat={updateChat}
                             />
                         </div>

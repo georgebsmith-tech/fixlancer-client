@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 
-import OfferExtraBTN from './OfferExtaBTN'
+import OfferExtraBTN from '../../components/helperComponents/OfferExtaBTN'
 import { domain } from '../../helperFunctions/domain'
 import socketIOClient from "socket.io-client";
 import SocketIOFileUpload from 'socketio-file-upload'
@@ -22,23 +22,23 @@ const ChatEntryContainer = ({ show, receiver, updateChat, recipient }) => {
     }
     const handleSend = () => {
 
-        var ajax = new XMLHttpRequest()
-        var formData = new FormData()
-        formData.append("from", loggedUser)
-        formData.append("to", receiver)
-        for (var file of uploadedFiles) {
-            formData.append("files", file)
-        }
-        ajax.open("post", `${domain}/api/orderchats/uploads`)
-        ajax.upload.onprogress = function (e) {
-            console.log(`loaded ${e.loaded / e.total * 100} of 100`)
-            let per = Math.round(e.loaded / e.total * 100)
-            setPreogress(per)
-            ajax.onload = () => {
+        // var ajax = new XMLHttpRequest()
+        // var formData = new FormData()
+        // formData.append("from", loggedUser)
+        // formData.append("to", receiver)
+        // for (var file of uploadedFiles) {
+        //     formData.append("files", file)
+        // }
+        // ajax.open("post", `${domain}/api/orderchats/uploads`)
+        // ajax.upload.onprogress = function (e) {
+        //     console.log(`loaded ${e.loaded / e.total * 100} of 100`)
+        //     let per = Math.round(e.loaded / e.total * 100)
+        //     setPreogress(per)
+        //     ajax.onload = () => {
 
-            }
-            ajax.send(formData)
-        }
+        //     }
+        //     ajax.send(formData)
+        // }
 
         if (!message) {
             console.log("Can't send")
@@ -46,7 +46,7 @@ const ChatEntryContainer = ({ show, receiver, updateChat, recipient }) => {
         }
         const body = { message, sender: localStorage.getItem("username"), receiver }
 
-        socket.emit("chat", body, (resp) => {
+        socket.emit("order-chat", body, (resp) => {
             updateChat(resp)
 
         })

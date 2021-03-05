@@ -17,7 +17,7 @@ const DeliverWorkModal = () => {
     }
 
     const handleSubmit = () => {
-        console.log("shit")
+
         var ajax = new XMLHttpRequest()
         var formData = new FormData()
         formData.append("message", message)
@@ -27,10 +27,7 @@ const DeliverWorkModal = () => {
         for (var file of uploadedFiles) {
             formData.append("files", file)
         }
-        console.log(formData)
-        for (let h of formData.values()) {
-            console.log(h)
-        }
+
         ajax.open("post", `${domain}/api/orderchats/uploads`)
         ajax.upload.onprogress = function (e) {
             console.log(`loaded ${e.loaded / e.total * 100} of 100`)
@@ -40,8 +37,6 @@ const DeliverWorkModal = () => {
 
             }
             ajax.send(formData)
-
-
         }
     }
     return (

@@ -7,7 +7,7 @@ import Dispute from './Dispute'
 import { Loading } from '../../components/helperComponents/Loading'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
-import ChatEntryContainer from '../../components/helperComponents/ChatEntryContainer'
+import ChatEntryContainer from './ChatEntryContainer'
 import ExtraModal from './ExtraModal'
 
 import ConfirmCancellationModal from './ConfirmCancellationModal'
@@ -18,6 +18,8 @@ import Chats from './Chats'
 import ChatStatus from '../../components/chats/ChatStatus'
 import { Link, withRouter } from 'react-router-dom'
 import UserHeaderDesktop from '../../components/UserHeaderDesktop'
+
+
 
 // import socketIOClient from "socket.io-client"
 
