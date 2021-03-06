@@ -2112,6 +2112,14 @@ input:focus {
   color: white;
 }
 
+.footer-section-holder2 li a {
+  color: #918e8e;
+}
+
+.footer-section-holder2 li a:hover {
+  color: white;
+}
+
 .copy {
   background-color: #010413;
 }
