@@ -2090,14 +2090,17 @@ input:focus {
   color: white;
 }
 
-.footer-section-holder {
+.footer-section-holder, .footer-section-holder2 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
 }
 
-.footer-main {
+.page-padding {
   padding: 20px 20px 0px 20px;
+}
+
+.footer-main {
   background-color: #04081d;
 }
 
@@ -3588,12 +3591,16 @@ a.control-btn {
 }
 
 @media only screen and (min-width: 991px) {
-  .footer-main {
+  .page-padding {
     padding: 20px 120px;
   }
 
   .footer-section-holder {
     grid-template-columns: repeat(4, 1fr);
+  }
+
+  .footer-section-holder2 {
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .desk {

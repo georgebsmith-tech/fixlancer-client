@@ -1,52 +1,95 @@
-import React from 'react'
+import React from "react"
 import { Link } from 'react-router-dom'
 
 export const HomeFooter = () => {
     return (
-        <footer className="index-footer">
-            <div className="padd20" style={{ marginTop: "-30px!important" }}>
-                <ul className="center-text  padd20-top index-footer-nav">
-                    <li className="margin20-right">
-                        <Link to="" className=" text-grey font14">
-                            About Us
-                    </Link>
-                    </li>
+        <footer className="relative footer-main" style={{ zIndex: 10 }}>
+            <section className="page-padding">
+                <nav
+                    className="footer-section-holder2"
+                >
+                    <div>
+                        <h3 style={{ fontSize: 18, marginBottom: 15 }} className="bold">
+                            Company
+                    </h3>
+                        <ul>
 
-                    <li className="margin20-right">
-                        <Link to="/how-it-works" className=" text-grey font14">
-                            How it works
-                    </Link>
-                    </li>
-                    <li className="margin20-right">
-                        <Link to="" className=" text-grey font14">
-                            FAQs
-                    </Link>
-                    </li>
 
-                    <li className="margin20-right">
-                        <Link to="" className=" text-grey font14">
-                            Affiliate Programs
-                    </Link>
-                    </li>
-                    <li className="margin20-right">
-                        <Link to="" className=" text-grey font14">
-                            Terms
-                    </Link>
-                    </li>
-                    <li style={{ lineHeight: 4 }}>
-                        <Link to="" className=" text-grey font14">
-                            Contact Us
-                    </Link>
-                    </li>
-                </ul>
+                            <li>
+                                <Link to="/about"
+                                    className="font13 padd5-top-bottom block">About Us</Link>
+                            </li>
+                            <li>
+                                <Link to="/how-it-works"
+                                    className="font13 padd5-top-bottom block">How it works</Link>
+                            </li>
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">FAQs</Link>
+                            </li>
+
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">Affiliate Programs</Link>
+                            </li>
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">Contact Us</Link>
+                            </li>
+                        </ul>
+
+                    </div>
+
+
+                    <div>
+                        <h3
+                            className="bold"
+                            style={{ fontSize: 18, marginBottom: 15 }}>
+                            Connect
+                    </h3>
+                        <ul>
+
+                            <li>
+                                <a href="https://www.facebook.com/fixlancerM"
+                                    target="_blank"
+                                    className="font14 padd5-top-bottom block">Facebook</a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/fixlancer"
+                                    target="_blank" className="font14 padd5-top-bottom block">Instagram</a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/fixlancerM"
+                                    target="_blank" className="font14 padd5-top-bottom block">Twitter</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <div>
+                        <h3
+                            className="bold"
+                            style={{ fontSize: 18, marginBottom: 15 }}>
+                            Legal
+                    </h3>
+                        <ul>
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">Terms and Conditions</Link>
+                            </li>
+
+
+                        </ul>
+
+                    </div>
+
+                </nav>
+
+            </section>
+            <div className="center-text padd10 copy">
+                <strong className="font14">&copy;2021 Fixlancer Market Place </strong>
             </div>
-
-            <div className="center-text font13 text-grey index-copy ">
-                ©2020Fixlancer. Fixlancer is a registered Trademark of Fixlancer Marketplace
-        </div>
-
-
         </footer>
-
     )
 }
+

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const UserFooter = () => {
     return (
         <footer className="relative footer-main" style={{ zIndex: 10 }}>
-            <section>
+            <section className="page-padding">
                 <nav
                     className="footer-section-holder"
                 >
@@ -102,10 +102,11 @@ const UserFooter = () => {
                     </div>
 
                 </nav>
-                <div className="center-text padd10 copy">
-                    <strong className="font14">&copy;2021 Fixlancer Market Place </strong>
-                </div>
+
             </section>
+            <div className="center-text padd10 copy">
+                <strong className="font14">&copy;2021 Fixlancer Market Place </strong>
+            </div>
         </footer>
     )
 }

@@ -2,12 +2,17 @@
 
 
 @media only screen and(min-width:991px){
-    .footer-main{
+ .page-padding{
         padding: 20px 120px;
     }
+
     
   .footer-section-holder{
     grid-template-columns: repeat(4,1fr);
+  }
+  .footer-section-holder2{
+      
+       grid-template-columns: repeat(3,1fr);
   }
     .desk{
         display:grid!important;
