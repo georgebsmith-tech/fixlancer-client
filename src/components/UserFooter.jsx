@@ -39,22 +39,7 @@ const UserFooter = () => {
                         </ul>
 
                     </div>
-                    <div>
-                        <h3
-                            className="bold"
-                            style={{ fontSize: 18, marginBottom: 15 }}>
-                            Legal
-                    </h3>
-                        <ul>
-                            <li>
-                                <Link to="#"
-                                    className="font13 padd5-top-bottom block">Terms and Conditions</Link>
-                            </li>
 
-
-                        </ul>
-
-                    </div>
                     <div>
                         <h3
                             className="bold"
@@ -70,6 +55,47 @@ const UserFooter = () => {
                             <li>
                                 <Link to="/dashboard/post-job-request" className="font14 padd5-top-bottom block">Post Job Request</Link>
                             </li>
+
+                        </ul>
+
+                    </div>
+                    <div>
+                        <h3
+                            className="bold"
+                            style={{ fontSize: 18, marginBottom: 15 }}>
+                            Connect
+                    </h3>
+                        <ul>
+
+                            <li>
+                                <a href="https://www.facebook.com/fixlancerM"
+                                    target="_blank"
+                                    className="font14 padd5-top-bottom block">Facebook</a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/fixlancer"
+                                    target="_blank" className="font14 padd5-top-bottom block">Instagram</a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/fixlancerM"
+                                    target="_blank" className="font14 padd5-top-bottom block">Twitter</a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                    <div>
+                        <h3
+                            className="bold"
+                            style={{ fontSize: 18, marginBottom: 15 }}>
+                            Legal
+                    </h3>
+                        <ul>
+                            <li>
+                                <Link to="#"
+                                    className="font13 padd5-top-bottom block">Terms and Conditions</Link>
+                            </li>
+
 
                         </ul>
 

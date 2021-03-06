@@ -3593,7 +3593,7 @@ a.control-btn {
   }
 
   .footer-section-holder {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   .desk {
