@@ -45,6 +45,7 @@ const OrderChat = ({ location }) => {
     const [extraModalIsOpen, setExtraModalIsOpen] = useState(false)
     const [disputeMessage, setDisputeMessage] = useState("")
     const [timer, setTimer] = useState({})
+    const [requirementIsOpen, setRequirementIsOpen] = useState(false)
 
     //  socket.emit("meet", { name: loggedUser })
 
@@ -69,11 +70,16 @@ const OrderChat = ({ location }) => {
     let requiremnetsContainer = <div className="margin10-bottom border-smooth margin10-top">
 
 
-        <div class="flex-between font16 bold padd10   requirements-toggle pointer">
+        <div className="flex-between font16 bold padd10   requirements-toggle pointer">
             <div>Requirements</div>
-            <i className="fa fa-angle-down"></i>
+            <i
+
+                onClick={() => setRequirementIsOpen(!requirementIsOpen)}
+                className={`fa fa-angle-${requirementIsOpen ? "up" : "down"} block padd5`}></i>
         </div>
-        <div className="bg-white line-height requirements-detailed padd10 font13">
+        <div
+            style={{ display: requirementIsOpen ? "block" : "none" }}
+            className="bg-white line-height padd10 font13">
             <div>
                 {requirements && requirements.content.requirements}
             </div>
@@ -169,7 +175,7 @@ const OrderChat = ({ location }) => {
     //     };
     //   }else{
     //       setTimer({timeIt:false})
-    //       return 
+    //       return
     //   }
 
     //  setTimer(time);
@@ -263,6 +269,8 @@ const OrderChat = ({ location }) => {
                                         />
                                     </div>
                                     <ChatEntryContainer
+                                        orderID={order.order_id}
+                                        receiver={loggedUser === order.seller ? order.buyer : order.seller}
                                         show={
                                             loggedUser === order.seller
                                         }

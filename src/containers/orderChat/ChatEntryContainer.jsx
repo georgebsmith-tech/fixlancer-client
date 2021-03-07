@@ -8,19 +8,21 @@ const ENDPOINT = domain;
 const socket = socketIOClient(ENDPOINT);
 var uploader = new SocketIOFileUpload(socket);
 
-const ChatEntryContainer = ({ show, receiver, updateChat, recipient }) => {
-    console.log(receiver)
+const ChatEntryContainer = ({ show, receiver, updateChat, orderID }) => {
+
     const [progress, setPreogress] = useState(0)
     const [receiver_, _] = useState(receiver)
     const loggedUser = localStorage.getItem("username")
     const [message, setMessage] = useState("")
     const [uploadedFiles, setUploadedFiles] = useState([])
+    const [messageError, setMessageError] = useState(false)
 
 
     const handleTyping = () => {
         console.log("typing")
     }
     const handleSend = () => {
+        setMessageError(false)
 
         // var ajax = new XMLHttpRequest()
         // var formData = new FormData()
@@ -41,10 +43,13 @@ const ChatEntryContainer = ({ show, receiver, updateChat, recipient }) => {
         // }
 
         if (!message) {
-            console.log("Can't send")
+            setMessageError(true)
             return
         }
-        const body = { message, sender: localStorage.getItem("username"), receiver }
+        const body = { message, sender: localStorage.getItem("username"), receiver, orderID }
+        // console.log(body)
+        // return
+
 
         socket.emit("order-chat", body, (resp) => {
             updateChat(resp)
@@ -100,16 +105,18 @@ const ChatEntryContainer = ({ show, receiver, updateChat, recipient }) => {
                     className="fill-width padd8 outline-none border-smooth font14"
                     placeholder="Enter your message..."
                     id="message"></textarea>
-                <small
-                    style={
-                        {
-                            top: 62,
-                            left: 10,
-                            fontSize: "1rem"
-                        }}
-                    className="font12 text-red hide chat-input-error">
-                    <i className="fa fa-exclamation text-red"></i>
+                {
+                    messageError && <small
+                        style={
+                            {
+                                top: 62,
+                                left: 10,
+                                fontSize: "1rem"
+                            }}
+                        className="font12 text-red chat-input-error">
+                        <i className="fa fa-exclamation text-red"></i>
                      Message input field can no be empty</small>
+                }
             </div>
             <div>
                 <div class="flex-between margin20-top">
@@ -120,7 +127,10 @@ const ChatEntryContainer = ({ show, receiver, updateChat, recipient }) => {
                         <input
 
                             type="file"
-                            className="invisible absolute attachment" />
+                            className="invisible absolute attachment"
+
+                        />
+
 
 
 

@@ -13,8 +13,6 @@ export const HomeFooter = () => {
                             Company
                     </h3>
                         <ul>
-
-
                             <li>
                                 <Link to="/about"
                                     className="font13 padd5-top-bottom block">About Us</Link>
