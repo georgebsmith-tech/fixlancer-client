@@ -85,7 +85,7 @@ export const HomeFooter = () => {
 
             </section>
             <div className="center-text padd10 copy">
-                <strong className="font14">&copy;2021 Fixlancer Market Place </strong>
+                <strong className="font14">&copy;2021 Fixcrow Market Place </strong>
             </div>
         </footer>
     )

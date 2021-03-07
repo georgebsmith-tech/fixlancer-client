@@ -4,6 +4,7 @@ import { commafy } from '../../helperFunctions/commafy'
 
 import { OrderChatsContext } from './OrderChat'
 import { Link } from 'react-router-dom'
+import { domain } from '../../helperFunctions/domain'
 
 
 const Chat = ({ chat }) => {
@@ -26,6 +27,7 @@ const Chat = ({ chat }) => {
             width: "72vw"
         }
     }
+    const fromWho = orderChatsContext.order.seller === chat.from ? "seller" : "buyer"
     const orderID = orderChatsContext.order.order_id
     let sender;
     let receiver;
@@ -48,7 +50,7 @@ const Chat = ({ chat }) => {
         })
 
 
-        const response = await fetch("/api/sales/cancellation", {
+        const response = await fetch(`${domain}/api/sales/cancellation`, {
             method: "put",
             body,
             headers: {
@@ -63,7 +65,7 @@ const Chat = ({ chat }) => {
     }
     const acceptCancellation = async () => {
 
-        const response = await fetch("/api/sales/cancellation", {
+        const response = await fetch(`${domain}/api/sales/cancellation`, {
             method: "put",
             body: JSON.stringify({
                 order_id: orderID,
@@ -260,7 +262,7 @@ const Chat = ({ chat }) => {
 
 
                     </div>
-                    <div class="flex-end margin5-top">
+                    <div className="flex-end margin5-top">
                         <small
                             className="font-small">{getDateAndTime2(chat.createdAt)}
                         </small>
@@ -289,14 +291,18 @@ const Chat = ({ chat }) => {
                         </div>
                         <div>
                             <h4 class="bold font13 margin10-bottom">Order cancellation</h4>
-
-                            <span class="font11">
-                                You have requested a mutual cancellation for this order.
+                            {
+                                chat.from === loggedUser ? <span class="font11">
+                                    You have requested a mutual cancellation for this order.
                                     </span>
+                                    :
+                                    <span
+                                        class="font11">The {fromWho} has requested a cancellation for this order.</span>
+                            }
 
 
-                            <span
-                                class="font11">The Seller has requested a cancellation for this order.</span>
+
+
                         </div>
                     </div>
                     <div
@@ -308,7 +314,10 @@ const Chat = ({ chat }) => {
 
                 </div>
                 {
-                    !rejected &&
+                    (!(chat.from === loggedUser) &&
+
+
+                        !rejected) &&
 
                     <div class="grid2">
                         <div class="margin10-bottom">
@@ -328,6 +337,7 @@ const Chat = ({ chat }) => {
 
                     </div>
                 }
+
             </div>
             break;
         default:
