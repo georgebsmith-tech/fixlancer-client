@@ -7,6 +7,7 @@ import { ButtonLoader } from '../../components/helperComponents/ButtonLoader'
 
 const ExtraModal = () => {
     const orderChatsContext = React.useContext(OrderChatsContext)
+    console.log(orderChatsContext)
     const [extraHeading, setExtraHeading] = useState("")
     const [extrasPrice, setExtrasPrice] = useState("")
     const [extrasDays, setExtrasDays] = useState("")

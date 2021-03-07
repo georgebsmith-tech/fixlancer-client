@@ -27,6 +27,7 @@ const DeliverWorkModal = () => {
         for (var file of uploadedFiles) {
             formData.append("files", file)
         }
+        console.log(formData)
 
         ajax.open("post", `${domain}/api/orderchats/uploads`)
         ajax.upload.onprogress = function (e) {
@@ -34,7 +35,6 @@ const DeliverWorkModal = () => {
             let per = Math.round(e.loaded / e.total * 100)
             setPreogress(per)
             ajax.onload = () => {
-
             }
             ajax.send(formData)
         }
