@@ -6,6 +6,8 @@ const DeliverWorkModal = () => {
 
     const orderChatsContext = React.useContext(OrderChatsContext)
     const [uploadedFiles, setUploadedFiles] = useState([])
+    const [messageError, setMessageError] = useState(false)
+    const [filesError, setFilesError] = useState(false)
     const [message, setMessage] = useState("")
     const [progress, setPreogress] = useState(0)
     const handleFilesUploads = (e) => {
@@ -17,8 +19,18 @@ const DeliverWorkModal = () => {
     }
 
     const handleSubmit = () => {
+        setMessageError(false)
+        setFilesError(false)
+        if (!message) {
+            setMessageError(true)
+            return
+        }
+        if (uploadedFiles.length === 0) {
+            setFilesError(true)
 
-        var ajax = new XMLHttpRequest()
+            return
+        }
+        // var ajax = new XMLHttpRequest()
         var formData = new FormData()
         formData.append("message", message)
         formData.append("from", loggedUser)
@@ -27,17 +39,30 @@ const DeliverWorkModal = () => {
         for (var file of uploadedFiles) {
             formData.append("files", file)
         }
-        console.log(formData)
+        // console.log(formData)
+        // for (let x of formData.keys()) {
+        //     console.log(x)
+        // }
+        fetch(`${domain}/api/orderchats/uploads`, {
+            method: "post",
+            body: formData
+        })
+            .then(resp => resp.json())
+            .then(data => {
+                orderChatsContext.setDeliverWorkModalIsOpen(false)
+                console.log(data)
 
-        ajax.open("post", `${domain}/api/orderchats/uploads`)
-        ajax.upload.onprogress = function (e) {
-            console.log(`loaded ${e.loaded / e.total * 100} of 100`)
-            let per = Math.round(e.loaded / e.total * 100)
-            setPreogress(per)
-            ajax.onload = () => {
-            }
-            ajax.send(formData)
-        }
+            })
+
+        // ajax.open("post", `${domain}/api/orderchats/uploads`)
+        // ajax.upload.onprogress = function (e) {
+        //     console.log(`loaded ${e.loaded / e.total * 100} of 100`)
+        //     let per = Math.round(e.loaded / e.total * 100)
+        //     setPreogress(per)
+        //     ajax.onload = () => {
+        //     }
+        //     ajax.send(formData)
+        // }
     }
     return (
         <div class="delivery-modal the-modal">
@@ -72,14 +97,22 @@ const DeliverWorkModal = () => {
                     </div>
                     <div>
                         <fieldset>
-                            <textarea name="" id="delivery-message" cols="30" rows="5"
+                            <textarea
+                                value={message}
+                                onChange={
+                                    (e) => setMessage(e.target.value)
+                                }
+                                name=""
+                                id="delivery-message"
+                                cols="30"
+                                rows="5"
                                 placeholder="Type in your delivery mmessage, explaining the content being delivered..."></textarea>
                         </fieldset>
                     </div>
                     <div
-                        className="delivery-message-error hide">
+                        className={`delivery-message-error ${!messageError && "hide"}`}>
                         <i
-                            className="fa fa-exclamation-circle font14 text-red "></i>
+                            className="fa fa-exclamation-circle font14 text-red margin5-right"></i>
                         <small
                             className="font14 text-red">Message field can not be empty</small>
                     </div>
@@ -94,26 +127,30 @@ const DeliverWorkModal = () => {
                             accept=".doc, .docx,.mp4, .fiv, .psd, .ai,.wav,.mpg,.mov,.wmv,.txt,.png,.gif,.jpg,.jpeg,.ppt,.pdf,.xls,.xlsx" />
 
                     </div>
-                    <div class="delivery-file-upload-error margin10-top hide">
-                        <i class="fa fa-exclamation-circle font14 text-red "></i>
-                        <small class="font14 text-red">A file must be uploaded</small>
+                    <div
+                        className={`delivery-file-upload-error margin10-top ${!filesError && "hide"}`}>
+                        <i
+                            className="fa fa-exclamation-circle font14 text-red margin5-right"></i>
+                        <small
+                            className="font14 text-red">A file must be uploaded</small>
                     </div>
 
 
                     <div>
-                        <ul class="delivery-file-list font14 padd10-top">
+                        <ul
+                            className="delivery-file-list font14 padd10-top">
                             {
                                 uploadedFiles.map((file, index) => <li key={index}>{file.name}</li>)
                             }
 
                         </ul>
                     </div>
-                    <div class="padd10-top hide upload-progress">
-                        <span class="font15">Delivering Order...</span>
+                    <div className="padd10-top hide upload-progress">
+                        <span className="font15">Delivering Order...</span>
                     </div>
-                    <div class="padd10-top hide upload-success">
-                        <i class="fa fa-check text-green font15"></i>
-                        <span class="font15">Order Delivered...</span>
+                    <div className="padd10-top hide upload-success">
+                        <i className="fa fa-check text-green font15"></i>
+                        <span className="font15">Order Delivered...</span>
                     </div>
                     {
                         progress > 0 && <div>
@@ -126,7 +163,7 @@ const DeliverWorkModal = () => {
                     <div>
                         <button
                             onClick={handleSubmit}
-                            class="margin20-top bg-green text-white center-text border-grren font16 padd10-sides padd5-top-bottom border-radius5 margin10-bottom no-outline send-delivery">
+                            className="margin20-top bg-green text-white center-text border-grren font16 padd10-sides padd5-top-bottom border-radius5 margin10-bottom no-outline send-delivery">
                             Deliver Work
                     </button>
                     </div>
