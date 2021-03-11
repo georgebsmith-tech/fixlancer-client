@@ -4,7 +4,7 @@ import PageHeader from '../../components/PageHeader'
 import axios from 'axios'
 import { domain } from '../../helperFunctions/domain'
 import { Loading } from '../../components/helperComponents/Loading'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 const PayForExtra = ({ location, history }) => {
     const [availableBalance, setAvailableBalance] = useState(0)
@@ -26,7 +26,6 @@ const PayForExtra = ({ location, history }) => {
             }
         })
         const data = await response.json()
-        console.log(data)
         history.push(`/dashboard/order-chat?oid=${orderID}`)
 
 
@@ -144,4 +143,4 @@ const PayForExtra = ({ location, history }) => {
     )
 }
 
-export default PayForExtra
+export default withRouter(PayForExtra)

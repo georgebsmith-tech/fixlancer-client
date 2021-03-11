@@ -1,11 +1,15 @@
 import React from 'react'
 import { OrderChatsContext } from './OrderChat'
+import { domain } from '../../helperFunctions/domain'
+import socketIOClient from "socket.io-client";
+import SocketIOFileUpload from 'socketio-file-upload'
+const ENDPOINT = domain;
 
-
+const socket = socketIOClient(ENDPOINT);
 const loggedUser = localStorage.getItem("username")
 
 const DisputeModal = () => {
-   
+
     const orderChatsContext = React.useContext(OrderChatsContext)
     const receiver = orderChatsContext.order.seller === loggedUser ? orderChatsContext.order.buyer : orderChatsContext.order.seller
 
@@ -21,14 +25,15 @@ const DisputeModal = () => {
             type: "dispute"
         }
 
-        // socket.emit("order-chat", content)
+        socket.emit("order-chat", content)
+        orderChatsContext.setDisputeModalIsOpen(false)
         console.log(content)
 
     }
-    // socket.on("order-chat", (data) => {
-    //     console.log(data)
+    socket.on("order-chat", (data) => {
+        console.log(data)
 
-    // })
+    })
 
 
     return (

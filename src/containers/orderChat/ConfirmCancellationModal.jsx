@@ -2,7 +2,7 @@ import React, { useRef } from 'react'
 import { OrderChatsContext } from './OrderChat'
 import { domain } from '../../helperFunctions/domain'
 
-const ConfirmCancellationModal = ({ order, closeModal }) => {
+const ConfirmCancellationModal = ({ order, closeModal, setCancellationRequested }) => {
     const orderChatsContext = React.useContext(OrderChatsContext)
     const cloaseModalRef = useRef()
     console.log(orderChatsContext)
@@ -13,6 +13,7 @@ const ConfirmCancellationModal = ({ order, closeModal }) => {
         requestCancellation()
             .then(data => {
                 orderChatsContext.chats.push(data.savedChat)
+                setCancellationRequested(true)
                 cloaseModalRef.current.click()
 
             })

@@ -31,6 +31,7 @@ const OrderChat = ({ location }) => {
     // const socket = socketIOClient(domain + "/")
 
     const search = location.search.substr(1)
+    const [cancellationRequested, setCancellationRequested] = useState(false)
     const [deliverWorkModalIsOpen, setDeliverWorkModalIsOpen] = useState(false)
     const [requestCancellationModalIsOpen, setRequestCancellationModalIsOpen] = useState(false)
     const [disputeModalIsOpen, setDisputeModalIsOpen] = useState(false)
@@ -201,7 +202,8 @@ const OrderChat = ({ location }) => {
                     disputeMessage,
                     setDisputeMessage,
                     setDeliverWorkModalIsOpen,
-                    timer
+                    timer,
+
                 }} >
                 <UserHeader />
                 <UserHeaderDesktop />
@@ -213,7 +215,7 @@ const OrderChat = ({ location }) => {
                             id="main">
                             <div
                                 className="flex-start">
-                                {!(order.cancellation.cancellation === "pending") &&
+                                {(!(order.cancellation.cancellation === "pending") || cancellationRequested) &&
                                     requestCancelation}
                                 {deliverWord}
                             </div>
@@ -294,10 +296,12 @@ const OrderChat = ({ location }) => {
                     requestCancellationModalIsOpen && <ConfirmCancellationModal
                         order={order}
                         closeModal={handleCloseRequestModal}
+                        setCancellationRequested={setCancellationRequested}
                     />
                 }
                 {
-                    disputeModalIsOpen && <DisputeModal />
+                    disputeModalIsOpen && <DisputeModal
+                    />
                 }
                 {
                     deliverWorkModalIsOpen && <DeliverWorkModal />
