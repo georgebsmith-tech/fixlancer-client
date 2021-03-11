@@ -102,7 +102,9 @@ const Chat = ({ chat }) => {
 
 
     return (
-        <li className="margin10-bottom">
+        <li
+            style={{ marginRight: chatsContent === "flex-end" ? 10 : 0 }}
+            className="margin10-bottom">
             {content}
         </li>
 
